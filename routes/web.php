@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Authcontroller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 
+
 Route::get('register', [Authcontroller::class, 'register'])->name('register');
 
 Route::post('register', [Authcontroller::class, 'register_action'])->name('register.action');
@@ -27,3 +28,7 @@ Route::get('login', [Authcontroller::class, 'login'])->name('login');
 Route::post('login', [Authcontroller::class, 'login_action'])->name('login.action');
 
 Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
+
+Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
+
+
