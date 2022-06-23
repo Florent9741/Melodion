@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authcontroller;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,3 +28,11 @@ Route::get('login', [Authcontroller::class, 'login'])->name('login');
 Route::post('login', [Authcontroller::class, 'login_action'])->name('login.action');
 
 Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
+
+Route::get('/showdelete/{id}', [UserController::class,'showdel']);
+
+Route::delete('/user/{id}', [UserController::class,'delete']);
+Route::get('/user',[UserController::class,'getall']);
+
+Route::get ('/user/restore',[UserController::class,'showrestore']);
+Route::get('/user/restore/{id}',[UserController::class,'restore'])-> name ('restore');
