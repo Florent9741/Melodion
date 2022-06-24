@@ -34,7 +34,8 @@ return [
             'search_endpoint'=> env('SEARCH_ENDPOINT'),
         ]
     ],
-
-
-
+    'youtube'=> [
+        'api_key'=> env('API_KEY'),
+        'search_endpoint'=> env('SEARCH_ENDPOINT'),
+    ]
 ];
