@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authcontroller;
+use App\Http\Controllers\MelodionController;
+use App\Http\Controllers\YouTubeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,7 +39,7 @@ Route::get('/', [YoutubeController::class,'index'])->name('index');
 
 Route::get('/results', [YoutubeController::class,'results'])->name('results');
 
-Route::get('/watch/{id}', [YoutubeController::class,'watch'])->name('watch');
+Route::get('/watch/{id}', [YouTubeController::class,'watch'])->name('watch');
 
 Route::post('library', [MelodionController::class, 'addtolibrary'])
 ->name('library');
