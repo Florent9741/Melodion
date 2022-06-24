@@ -40,9 +40,29 @@
                                     </form>
                                   </div>
                                 </div>
+                                <div class="flex ">
+                                  @guest
+                                  <a href="/login"
+                                     class="block text-md px-4 py-2 rounded text-white ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Sign
+                                      in</a>
+                      
+                                  <a href="/register"
+                                     class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Sign up</a>
+                                     @endguest 
+                                     @auth
+     
+                                     <a href="#"
+                                     class="block text-md px-4 py-2 rounded text-white ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Biblio
+                                      </a>
+                      
+                                  <a href="#"
+                                     class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Dashboard</a>
+                                     <a href="{{route('signout')}}"
+                                     class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Sign out</a>
+                                     @endauth                                    
+                                    </div>
                               </nav>
 
-                        </div>
             </div>
     </div>
 </div>
@@ -57,3 +77,6 @@
 </body>
 
 </html>
+
+
+
