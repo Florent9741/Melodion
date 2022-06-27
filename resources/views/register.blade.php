@@ -20,7 +20,8 @@
   }
   ```
 -->
-
+<a href="/"
+class="block text-md px-4 py-2 rounded text-white ml-2 font-bold hover:text-white mt-4 bg-blue-500 lg:mt-0">Retour</a>
 <!-- <div class="fb-login-button" >Login with Facebook</div> -->
 <div class="min-h-screen flex items-center justify-center bg-blue-100 py-12 px-4 sm:px-6 lg:px-8">
  

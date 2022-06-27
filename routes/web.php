@@ -35,7 +35,7 @@ Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
 Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
 
 
-Route::get('/', [YoutubeController::class,'index'])->name('index'); 
+// Route::get('/', [YouTubeController::class,'index'])->name('index'); 
 
 Route::get('/results', [YoutubeController::class,'results'])->name('results');
 
