@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bibliotheques;
+use App\Models\Suggestion;
 use Illuminate\Support\Facades\Http;
 use App\Models\User;
 use App\Models\Videos;
@@ -85,4 +86,8 @@ class MelodionController extends Controller
             return redirect()->route('home');
         }*/
     }
+
+
+   
+
 }
