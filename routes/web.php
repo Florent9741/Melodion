@@ -15,8 +15,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/welcome', function () {
+    return view('welcome')->name('welcome');
 });
 
 Route::get('register', [Authcontroller::class, 'register'])->name('register');
@@ -32,7 +32,7 @@ Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
 Route::get('/showdelete/{id}', [UserController::class,'showdel']);
 
 Route::delete('/user/{id}', [UserController::class,'delete']);
-Route::get('/user',[UserController::class,'getall']);
+Route::get('/user',[UserController::class,'getall'])->name('user');
 
-Route::get ('/user/restore',[UserController::class,'showrestore']);
-Route::get('/user/restore/{id}',[UserController::class,'restore'])-> name ('restore');
+Route::get('/restore',[UserController::class,'showrestore']);
+Route::get('/restore/{id}',[UserController::class,'restore'])->name('user.restore');

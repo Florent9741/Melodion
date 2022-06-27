@@ -45,20 +45,18 @@ public function showdel($id)
 
     public function showrestore()
     {
-       $member= User::onlyTrashed()->get();
+       $members= User::onlyTrashed()->get();
 
-return view ('user_restore',[
-    'membre' => $member]);
+return view ('user_restore', compact('members') );
 
     }
 
-    public function restore(Request $request, $id)
+    public function restore( $id)
 
     {
-        $members = User::onlyTrashed()->where('id','=',$request->$id)->get();
- // dd($membres);
-            return view('restore',[
-                'members'=>$members ]);
+         User::withTrashed()->find($id)->restore();
+      
+            return redirect()->route('user');
         }
     }
 
