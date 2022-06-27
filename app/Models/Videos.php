@@ -4,8 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Videos extends Model
 {
     use HasFactory;
+    public function user():BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
+
+    }
 }
