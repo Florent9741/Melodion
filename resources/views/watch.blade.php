@@ -22,15 +22,13 @@
                     <div class="card-body">
                         <h5>{{$singleVideo->items[0]->snippet->title}}</h5>
                         <p class="text-secondary">Published at {{date('d M Y', strtotime($singleVideo->items[0]->snippet->publishedAt))}}</p>
-                        div           <p>{{$singleVideo->items[0]->snippet->description}}</p>
+                        <p>{{$singleVideo->items[0]->snippet->description}}</p>
                     </div>
                 </div>
             </div>
             <div class="col-4">
                         @foreach ($videoLists->items as $key=>$item)
-                            
-                        
-                        <div class="col-12">
+                       <div class="col-12">
                             <a href="{{route('watch', $item->id->videoId)}}" class="href">                           
                                 <div class="card mb-4">
                             <img src="{{$item->snippet->thumbnails->medium->url}}" alt="">

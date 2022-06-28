@@ -43,3 +43,5 @@ Route::get('/watch/{id}', [YouTubeController::class,'watch'])->name('watch');
 
 Route::post('library', [MelodionController::class, 'addtolibrary'])
 ->name('library');
+
+Route::get('/biblio/{id}',[MelodionController::class, 'show'])->name('biblio'); 

@@ -26,8 +26,8 @@ class MelodionController extends Controller
         $biblio->videoId = $request->videoId;
         $biblio->public = false;
         $biblio->save();
-
-        return redirect('/')->with('status', 'vidéo ajoutée avec succès !');
+       
+        return redirect()-> route('biblio',$request->user_id)->with('status', 'vidéo ajoutée avec succès !');
     }
 
     protected function _singleVideoadd($id)
@@ -87,7 +87,25 @@ class MelodionController extends Controller
         }*/
     }
 
+    public function show($id)
+    {
+        $biblios=Bibliotheques::where('user_id','=',$id)->latest()->get();
+       foreach ($biblios as $biblio) {
+        
+        $film[]=$biblio->videoId;
+       }
+    
+        $videos = Videos::with('users')->whereIn('videoId', $film)->get();
+        
+     //->where('videoId', '=', $film)
+     //->where('id', '=', $id)->get();
+       // dd($videos);
 
+        return view('biblio', [
+            'videos' => $videos,
+            'biblio' => $biblios
+        ]);
+    }
    
 
 }

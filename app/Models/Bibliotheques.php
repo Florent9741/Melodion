@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Bibliotheques extends Model
 {
     use HasFactory;
+
+
 }

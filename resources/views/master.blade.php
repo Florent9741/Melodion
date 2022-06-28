@@ -51,7 +51,7 @@
                                      @endguest 
                                      @auth
      
-                                     <a href="#"
+                                     <a href="{{route('biblio', Auth::user()->id)}}"
                                      class="block text-md px-4 py-2 rounded text-white ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Biblio
                                       </a>
                       
