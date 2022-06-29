@@ -18,9 +18,9 @@
       </div>
   @endif
     <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">    
-    @if (isset($biblio)){       
-    <iframe src="https://www.youtube.com/embed/{{$biblio[0]->videoId}}" width="854" height="600" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-}
+    @if (isset($biblio))       
+    <iframe class="rounded " src="https://www.youtube.com/embed/{{$biblio[0]->videoId}}" width="854" height="600" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 @endif
     <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
         <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"> Rédiger un mémo
@@ -100,12 +100,5 @@
 </div>
 
 </section>
-<script>
-    const ytplayer = document.querySelector('#ytplayer');
-    ytplayer.addEventListener('timeupdate', function(event) {
-        console.log(ytplayer.currentTime);
-    })
-    
-    </script>
-<script src="Melodion\resources\views\test.js"></script>
+
 @endsection
