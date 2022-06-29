@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authcontroller;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\MelodionController;
 use App\Http\Controllers\YouTubeController;
 
@@ -16,6 +17,13 @@ use App\Http\Controllers\YouTubeController;
 |
 */
 
+Route::get('/welcome', function () {
+    return view('welcome')->name('welcome');
+});
+
+Route::get('/video', function(){
+    return view('video_etat');
+});
 //Route::get('/', function () {
 //    return view('welcome');
 //});
@@ -35,7 +43,12 @@ Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
 Route::get('/showdelete/{id}', [UserController::class,'showdel']);
 
 Route::delete('/user/{id}', [UserController::class,'delete']);
-Route::get('/user',[UserController::class,'getall']);
+Route::get('/user',[UserController::class,'getall'])->name('user');
+
+Route::get('/restore',[UserController::class,'showrestore']);
+Route::get('/restore/{id}',[UserController::class,'restore'])->name('user.restore');
+Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
+
 
 Route::get('/', [YouTubeController::class,'index'])->name('index'); 
 
