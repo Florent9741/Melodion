@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authcontroller;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\MelodionController;
+use App\Http\Controllers\YouTubeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 
 
@@ -36,5 +37,13 @@ Route::get('/showdelete/{id}', [UserController::class,'showdel']);
 Route::delete('/user/{id}', [UserController::class,'delete']);
 Route::get('/user',[UserController::class,'getall']);
 
-Route::get ('/user/restore',[UserController::class,'showrestore']);
-Route::get('/user/restore/{id}',[UserController::class,'restore'])-> name ('restore');
+Route::get('/', [YouTubeController::class,'index'])->name('index'); 
+
+Route::get('/results', [YoutubeController::class,'results'])->name('results');
+
+Route::get('/watch/{id}', [YouTubeController::class,'watch'])->name('watch');
+
+Route::post('library', [MelodionController::class, 'addtolibrary'])
+->name('library');
+
+Route::get('/biblio/{id}',[MelodionController::class, 'show'])->name('biblio'); 

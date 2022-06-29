@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->unsignedBigInteger('videoId');
-            $table->foreign('videoId')->references('id')->on('videos')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('videoId');
+            $table->foreign('videoId')->references('videoId')->on('videos')->onUpdate('cascade')->onDelete('cascade');
             $table->time('start');
             $table->time('end');
             $table->timestamps();
