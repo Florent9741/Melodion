@@ -43,6 +43,9 @@ public function showdel($id)
         return redirect('/user');
     }
 
+     
+    
+
     public function showrestore()
     {
        $members= User::onlyTrashed()->get();

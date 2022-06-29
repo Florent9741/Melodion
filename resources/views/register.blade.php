@@ -3,7 +3,7 @@
     <head>
       <title>Melodion Register</title>
       <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" >
-        <body class="bg-slate-200">
+        <body>
             <!--
   This example requires Tailwind CSS v2.0+ 
   

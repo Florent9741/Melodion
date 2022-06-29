@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
+
+use App\PublishedState;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Bibliotheque extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'etat_id' => PublishedState::class,
+    ];
 }

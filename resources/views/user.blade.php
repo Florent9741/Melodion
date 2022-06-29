@@ -33,10 +33,10 @@
             <div class="inline-block  w-full px-4 place-self-auto ">
               <table  class="w-full justify-around my-24 py-6">
                
-                      <thead class="border-b">
+                      <thead class="border-b ">
              
   
-                  <tr >
+                  <tr>
                    <th > 
                       ID</th>
                     <th>
@@ -46,7 +46,7 @@
                       <th>
                         admin
                       </th> 
-                    <th>
+                    <th >
                       Action</th>
                   </tr>
                 </thead>
@@ -80,8 +80,8 @@
       
                     
       
-                    <td class=" font-medium whitespace-no-wrap ml-1 pl-10 py-4 ">
-                     <div class="text-sm leading-5  "> <a href="/showdelete/{{$membre -> id}}" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" class=" h-6 text-red-600 hover:text-red-800 justify-center items-center "
+                    <td class=" font-medium whitespace-no-wrap flex justify-center pt-5">
+                     <div class="text-sm leading-5  "> <a href="/showdelete/{{$membre -> id}}"  target="_blank"><svg xmlns="http://www.w3.org/2000/svg" class=" h-6 text-red-600 hover:text-red-800  "
                           fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

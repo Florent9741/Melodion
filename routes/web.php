@@ -19,6 +19,10 @@ Route::get('/welcome', function () {
     return view('welcome')->name('welcome');
 });
 
+Route::get('/video', function(){
+    return view('video_etat');
+});
+
 Route::get('register', [Authcontroller::class, 'register'])->name('register');
 
 Route::post('register', [Authcontroller::class, 'register_action'])->name('register.action');
