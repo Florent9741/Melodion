@@ -94,9 +94,9 @@ class MelodionController extends Controller
         
         $film[]=$biblio->videoId;
        }
-    
+    if (isset ($film)) {
         $videos = Videos::with('users')->whereIn('videoId', $film)->get();
-        
+    
      //->where('videoId', '=', $film)
      //->where('id', '=', $id)->get();
        // dd($videos);
@@ -105,7 +105,8 @@ class MelodionController extends Controller
             'videos' => $videos,
             'biblio' => $biblios
         ]);
+    }else{
+        return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
     }
-   
-
 }
+    }
