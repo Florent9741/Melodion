@@ -11,7 +11,7 @@
     <title>Mélodion</title>
     <style>
         .top-bar {
-            background-color: #343a40;
+            background-color: black;
             
         }
     </style>
