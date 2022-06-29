@@ -55,7 +55,7 @@ class Authcontroller extends Controller
 
             $request->session()->regenerate();
             session(['user' => $membre]);
-            return redirect()->intended(route('profile',$membre->id));
+            return redirect()->intended(route('index'));
             }
        return redirect()->route('login')->with('Echec','Wrong username or password!');
     }

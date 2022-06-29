@@ -7,7 +7,7 @@ use App\PublishedState;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bibliotheque extends Model
+class Suggestion extends Model
 {
     use HasFactory;
 
