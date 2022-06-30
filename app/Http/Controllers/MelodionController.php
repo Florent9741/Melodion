@@ -7,6 +7,7 @@ use App\Models\Suggestion;
 use Illuminate\Support\Facades\Http;
 use App\Models\User;
 use App\Models\Videos;
+use Doctrine\DBAL\Schema\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -119,7 +120,7 @@ public function destroy(Request $request ,$videoId )
      //
        Bibliotheques::where(['user_id'=> $_GET['userId'] ,'videoId'=> $videoId])
         ->delete();
-        
+        Videos::where('videoId', '=', $videoId)->delete();
         
             return redirect()->route('biblio', $_GET['userId'])->with('status', 'vidéo supprimée avec succès !');
         }
