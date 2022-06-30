@@ -38,12 +38,22 @@ public function showdel($id)
 
     public function delete(Request $request)
     {
-        $membre = User::find($request->input('id'));
-        $membre->delete();
-        return redirect('/user');
+        $input = $request->input();
+        if (isset($input)){
+        if (isset($request->submit)) {
+            $membre = User::find($request->input('id'));
+            $membre->delete();
+            return redirect()->route('user')->with('status', "L'utilisateur a bien été supprimé!");
+        } else {
+            return redirect()->route('user')->with('status', 'opération annulée');
+        }
     }
-
-     
+    else{
+        return redirect()->route('user');     
+    }
+       
+}
+  
     
 
     public function showrestore()

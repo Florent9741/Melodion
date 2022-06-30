@@ -134,6 +134,7 @@ class MelodionController extends Controller
     public function show($id)
     {
         $biblios=Bibliotheques::where('user_id','=',$id)->latest()->get();
+        //
        foreach ($biblios as $biblio) {
         
         $film[]=$biblio->videoId;
@@ -153,4 +154,19 @@ class MelodionController extends Controller
         return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
     }
 }
-    }
+
+public function destroy(Request $request ,$videoId )
+{
+   // dd($_GET['userId']);
+   
+    if (isset($videoId) and !is_numeric($videoId)) {
+     //
+       Bibliotheques::where(['user_id'=> $_GET['userId'] ,'videoId'=> $videoId])
+        ->delete();
+        
+        
+            return redirect()->route('biblio', $_GET['userId'])->with('status', 'vidéo supprimée avec succès !');
+        }
+}
+
+}
