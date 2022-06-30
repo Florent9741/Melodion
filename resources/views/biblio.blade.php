@@ -22,36 +22,15 @@
     <iframe class="rounded " src="https://www.youtube.com/embed/{{$biblio[0]->videoId}}" width="854" height="600" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 @endif
-    <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"> Rédiger un mémo
-        </h1>
-        <div class="relative mb-4">
-            <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
-            <form action="" method="post">
-
-                <input type="hidden" name="videoId" value="">
-                
-                <input type="hidden" name="user_id" value="">   
-                                
-                <textarea id="message" name="message" cols="50" rows="15" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
-      
-               
-            </form>
-          </div>
-          
-          <div class="flex justify-center">
-          <button class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"> Enregistrer </button>
-          
-        </div>
-      </div>
+   
     </div>
 {{-- ton end section est là normalement --}}
 <div class="container mx-auto flex">
-    @if (isset($biblio)){       
+    @if (isset($biblio))      
 @foreach ($videos as $item)
      
 
-    <a href="{{route('watch', $item->videoId)}}" class="w-64 h-auto">                           
+    <a href="{{route('watch',$item->videoId)}}" class="w-64 h-auto">                           
         <div class="card mb-4">
     <img src="{{$item->url}}" alt="yt-image" class="w-64 h-auto">
     <div class="card-body">
@@ -62,9 +41,14 @@
         Published at {{date('d M Y', strtotime($item->publishedAt))}}
     </div>
         </div>
-    </a> 
+    </a>
+    <form action="{{route('biblio.destroy', $item->videoId.'?userId='.Auth::user()->id)}}" method="POST">
+        @csrf
+        @method('DELETE')
+      <input type="submit" value="Supprimer">
+      </form>   
     @endforeach
-}@endif
+@endif
 </div>
 
 <div class="flex flex-col p-5">

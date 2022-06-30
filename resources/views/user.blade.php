@@ -21,6 +21,11 @@
    
  
         <div class="mb-4">
+          @if (session('status'))
+          <div class="text-3xl text-left font-bold text-green-600 mt-20 mb-10">
+              {{ session('status') }}
+          </div>
+           @endif
         
           <div class="flex justify-end mr-9">
 
