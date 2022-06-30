@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authcontroller;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\MelodionController;
 use App\Http\Controllers\YouTubeController;
 
@@ -16,9 +17,22 @@ use App\Http\Controllers\YouTubeController;
 |
 */
 
+<<<<<<< HEAD
 Route::get('/', function () { return view('welcome');});
 
 Route::post('/url', [Youtubecontroller::class, 'url']);
+=======
+Route::get('/welcome', function () {
+    return view('welcome')->name('welcome');
+});
+>>>>>>> e6e49f237129fe47cad00bbec9e764b465c448a1
+
+Route::get('/video', function(){
+    return view('video_etat');
+});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 
 
@@ -32,10 +46,17 @@ Route::post('login', [Authcontroller::class, 'login_action'])->name('login.actio
 
 Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
 
+Route::get('/showdelete/{id}', [UserController::class,'showdel']);
+
+Route::delete('/user/{id}', [UserController::class,'delete']);
+Route::get('/user',[UserController::class,'getall'])->name('user');
+
+Route::get('/restore',[UserController::class,'showrestore']);
+Route::get('/restore/{id}',[UserController::class,'restore'])->name('user.restore');
 Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
 
 
-// Route::get('/', [YouTubeController::class,'index'])->name('index'); 
+Route::get('/', [YouTubeController::class,'index'])->name('index'); 
 
 Route::get('/results', [YoutubeController::class,'results'])->name('results');
 
@@ -43,3 +64,5 @@ Route::get('/watch/{id}', [YouTubeController::class,'watch'])->name('watch');
 
 Route::post('library', [MelodionController::class, 'addtolibrary'])
 ->name('library');
+
+Route::get('/biblio/{id}',[MelodionController::class, 'show'])->name('biblio'); 

@@ -19,7 +19,7 @@ class YouTubeController extends Controller
         if (session('search_query')){
         $videoLists= $this->_videoLists(session('search_query'));
     }else {
-        $videoLists= $this->_videoLists('cours de musique');
+        $videoLists= $this->_videoLists('morceaux de musique?rock?guitare');
     }
     
         return view('index', compact('videoLists'));
@@ -53,7 +53,7 @@ class YouTubeController extends Controller
 
         $country ='US';
         $apiKey=config('services.youtube.api_key');
-        $maxResults= 10;
+        $maxResults= 15;
         $youTubeEndPoint=config('services.youtube.search_endpoint');
         $type='video';
         /*$type='video,playlist,channel';*/
@@ -82,6 +82,9 @@ class YouTubeController extends Controller
     $api_key=config('services.youtube.api_key');
     $part='snippet';
     $url="https://www.googleapis.com/youtube/v3/videos?part=$part&id=$id&key=$api_key";
+
+
+
     $response= Http::get($url);
     $results=json_decode($response);
     File::put(storage_path().'/app/public/single.json', $response->body());

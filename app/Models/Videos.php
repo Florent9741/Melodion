@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Videos extends Model
 {
     use HasFactory;
-    public function user():BelongsToMany
+    public function users()
     {
-        return $this->belongsToMany(User::class);
-
+        return $this->belongsToMany(User::class, 'bibliotheques', 'user_id', 'videoId')
+            ->withPivot('public', 'statut')
+            ->withTimestamps();
     }
 }
