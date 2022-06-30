@@ -17,15 +17,11 @@ use App\Http\Controllers\YouTubeController;
 |
 */
 
-<<<<<<< HEAD
-Route::get('/', function () { return view('welcome');});
 
 Route::post('/url', [Youtubecontroller::class, 'url']);
-=======
 Route::get('/welcome', function () {
     return view('welcome')->name('welcome');
 });
->>>>>>> e6e49f237129fe47cad00bbec9e764b465c448a1
 
 Route::get('/video', function(){
     return view('video_etat');
