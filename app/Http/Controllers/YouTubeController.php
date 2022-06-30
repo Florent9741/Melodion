@@ -91,5 +91,54 @@ class YouTubeController extends Controller
     return $results;
    } 
 
+
+   protected function autolink($string){
+    // force http: on www.
+    $string = str_ireplace( "www.", "http://www.", $string );
+    // eliminate duplicates after force
+    $string = str_ireplace( "http://http://www.", "http://www.", $string );
+    $string = str_ireplace( "https://http://www.", "https://www.", $string );
+
+    // The Regular Expression filter
+    $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+    // Check if there is a url in the text
+
+$m = preg_match_all($reg_exUrl, $string, $match); 
+
+if ($m) { 
+$links=$match[0]; 
+for ($j=0;$j<$m;$j++) { 
+
+    if(substr($links[$j], 0, 18) == 'http://www.youtube'){
+
+    $string=str_replace($links[$j],'<a href="'.$links[$j].'" rel="nofollow" target="_blank">'.$links[$j].'</a>',$string).'<br /><iframe title="YouTube video player" class="youtube-player" type="text/html" width="320" height="185" src="http://www.youtube.com/embed/'.substr($links[$j], -11).'" frameborder="0" allowFullScreen></iframe><br />';
+
+
+    }else{
+
+    $string=str_replace($links[$j],'<a href="'.$links[$j].'" rel="nofollow" target="_blank">'.$links[$j].'</a>',$string);
+
+        } 
+
+    } 
+} 
+
+return ($string);
+ }
+
+
+   
+   public function url(Request $request)
+
+   {
+
+       $string= $this->autolink($request->url);
+       dd($string);
+
+     return redirect()->route('/');
+   }
+  
+
 }
 
+ 
