@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bibliotheques;
+use App\Models\Memos;
 use App\Models\Suggestion;
 use Illuminate\Support\Facades\Http;
 use App\Models\User;
@@ -28,6 +29,49 @@ class MelodionController extends Controller
         $biblio->save();
        
         return redirect()-> route('biblio',$request->user_id)->with('status', 'vidéo ajoutée avec succès !');
+    }
+    public function creatememo(Request $request)
+    {
+        
+        $memo = Memos::all();
+        $memo = Memos::create([
+            
+            'contenu' => $request->contenu,
+            'user_id' => $request->user_id,
+
+
+        ]);
+
+
+
+        $memo->save();
+
+
+        return redirect()->route('index')->with('success', 'Post ajouté');
+    }
+    
+
+    public function updatememo(Request $request)
+    {
+        $memo = Memos::all();
+           
+        $memo->update([
+           
+            
+            'contenu' => $request->contenu,
+            
+         
+            
+        ]);
+            
+        
+         
+        $memo->save();
+       
+
+        return redirect()->route('biblio')->with('success', 'Post ajouté');
+    
+
     }
 
     protected function _singleVideoadd($id)
