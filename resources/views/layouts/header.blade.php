@@ -23,10 +23,10 @@
             <div class="flex ">
                 
                 <a href="/login"
-                   class="block text-md px-4 py-2 rounded text-white ml-2 font-bold hover:text-white mt-4 bg-blue-500 lg:mt-0">Connexion</a>
+                   class="block text-md px-4 py-2 rounded text-black ml-2 hover:text-white  font-bold hover:bg-orange-500 mt-4 bg-white lg:mt-0">Connexion</a>
     
                 <a href="/register"
-                   class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white mt-4 bg-blue-500 lg:mt-0">Inscription</a>
+                   class=" block text-md px-4  ml-2 py-2 rounded text-black hover:text-white font-bold hover:bg-orange-500 mt-4 bg-white lg:mt-0">Inscription</a>
                    
                 
                    
