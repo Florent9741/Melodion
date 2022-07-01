@@ -40,8 +40,12 @@
           </div>
           
           <div class="flex justify-center">
-          <button class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"> Enregistrer </button>
-          
+          <button class="inline-flex bg-red-500 justify-center w-24 py-2 px-4 mt-10 ml-10 border border-red-500 text-md text-white font-semibold rounded-lg">enregistrer</button>
+          <form action="{{Route('terminer', Auth::user()->id)}}" method="post">
+          <input type="hidden" name="id" value="{{$videoId->}}">  
+          <button type="submit" class=" flex-row-reverse bg-black justify-center w-24 flex py-2 px-4 mt-10 ml-10 border border-black text-md font-semibold rounded-lg text-teal-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-50" aria-required="true" name="save" id="save">
+                terminer </button>
+        </div>
         </div>
       </div>
     </div>

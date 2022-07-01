@@ -12,6 +12,6 @@ class Suggestion extends Model
     use HasFactory;
 
     protected $casts = [
-        'etat_id' => PublishedState::class,
+        'statut' => PublishedState::class,
     ];
 }

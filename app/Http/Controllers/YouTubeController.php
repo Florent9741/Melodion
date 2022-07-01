@@ -21,7 +21,7 @@ class YouTubeController extends Controller
     }else {
         $videoLists= $this->_videoLists('morceaux de musique?rock?guitare');
     }
-    
+  
         return view('index', compact('videoLists'));
 
 
@@ -53,7 +53,7 @@ class YouTubeController extends Controller
 
         $country ='US';
         $apiKey=config('services.youtube.api_key');
-        $maxResults= 15;
+        $maxResults= 4;
         $youTubeEndPoint=config('services.youtube.search_endpoint');
         $type='video';
         /*$type='video,playlist,channel';*/

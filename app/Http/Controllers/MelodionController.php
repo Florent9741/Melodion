@@ -24,6 +24,7 @@ class MelodionController extends Controller
         $biblio = new Bibliotheques();
         $biblio->user_id = $request->user_id;
         $biblio->videoId = $request->videoId;
+       
         $biblio->public = false;
         $biblio->save();
        
@@ -109,4 +110,14 @@ class MelodionController extends Controller
         return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
     }
 }
+
+
+
+public function terminer(Request $request, $videoId){
+
+    Bibliotheques::where(['user_id'=> $_GET['userId'] ,'videoId'=> $videoId])->get();
+
+
+    
     }
+}

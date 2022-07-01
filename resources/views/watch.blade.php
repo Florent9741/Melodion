@@ -14,10 +14,12 @@
                 
                    <input type="submit" class="sr-only" value="valider">
                 <button class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter à la bibliothèque</button>
-                </form>
+                </form> 
+               
                 <div class="card mb-4" style="width: 100%">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe src="https://www.youtube.com/embed/{{$singleVideo->items[0]->id}}" width="854" height="600" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 <div class="embed-responsive embed-responsive-16by9"> 
+                        
+                        <iframe src="https://www.youtube.com/embed/{{$singleVideo->items[0]->id}}"width="100%" height="600" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="card-body">
                         <h5>{{$singleVideo->items[0]->snippet->title}}</h5>
@@ -26,8 +28,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                        @foreach ($videoLists->items as $key=>$item)
+
+         
+                    <!--   <div class="col-4 pl-3">
+                       @foreach ($videoLists->items as $key=>$item)
                        <div class="col-12">
                             <a href="{{route('watch', $item->id->videoId)}}" class="href">                           
                                 <div class="card mb-4">

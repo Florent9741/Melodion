@@ -24,30 +24,32 @@
 
     <div class="container">
             <div class="row">
+
+
+              <div class="flex flex-col mb-10">
                         <div class="col">
-                            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                               
-                                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                      <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="{{route('index')}}">Mélodion</a>
-                                      </li>
-                                      
-                                    </ul>
+                           
+                          <h1 class="title text-start justify-start text-white font-bold text-2xl mt-6"> Melodion</h1>    
+                                
+                                 <h1 class="text-center text-black font-2xl font-extrabold">Mélodion</h1>
+                                    
+                                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    @auth
                                     <form class="d-flex" method="GET" action="{{route('results')}}">
                                       <input class="form-control me-2" type="search" name="search_query" placeholder="Search" aria-label="Search">
                                       <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
+                                  @endauth
                                   </div>
                                 </div>
-                                <div class="flex ">
+                                <div class=" flex flex-row-reverse ml-20">
                                   @guest
                                   <a href="/login"
-                                     class="block text-md px-4 py-2 rounded text-white ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Sign
-                                      in</a>
+                                     class="block text-md px-4 py-2 rounded bg-white text-black ml-2 font-bold hover:text-black  hover:bg-red-600 lg:mt-0">Inscription
+                                    </a>
                       
                                   <a href="/register"
-                                     class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Sign up</a>
+                                     class=" block text-md px-4  ml-2 py-2 rounded bg-white text-black font-bold hover:text-red-600  hover:bg-red-600 lg:mt-0">Connexion</a>
                                      @endguest 
                                      @auth
      
@@ -61,7 +63,8 @@
                                      class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Sign out</a>
                                      @endauth                                    
                                     </div>
-                              </nav>
+                          </div>  
+                          </nav>
 
             </div>
     </div>
