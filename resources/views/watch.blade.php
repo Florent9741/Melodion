@@ -5,7 +5,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-8">
-                <form action="{{ route('library') }}" method="post">
+                <form action="{{ route('watch') }}" method="post">
                     @csrf
                     <input type="hidden" name="videoId" value="{{$singleVideo->items[0]->id}}">
                     @if (null!==(Auth::user()))
