@@ -19,7 +19,7 @@ class YouTubeController extends Controller
         if (session('search_query')){
         $videoLists= $this->_videoLists(session('search_query'));
     }else {
-        $videoLists= $this->_videoLists('morceaux de musique?rock?guitare');
+        $videoLists= $this->_videoLists('hehe boi ');
     }
     
         return view('index', compact('videoLists'));
