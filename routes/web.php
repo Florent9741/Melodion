@@ -21,7 +21,7 @@ use App\Http\Controllers\YouTubeController;
 Route::post('/url', [Youtubecontroller::class, 'url']);
 Route::get('/welcome', function () {
     return view('welcome')->name('welcome');
-});
+})->middleware('auth');
 
 Route::get('/video', function(){
     return view('video_etat');
@@ -52,7 +52,7 @@ Route::get('/restore/{id}',[UserController::class,'restore'])->name('user.restor
 Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
 
 
-Route::get('/', [YouTubeController::class,'index'])->name('index'); 
+Route::get('/', [YouTubeController::class,'index'])->name('index')->middleware('guest'); 
 
 Route::get('/results', [YoutubeController::class,'results'])->name('results');
 
@@ -61,5 +61,7 @@ Route::get('/watch/{id}', [YouTubeController::class,'watch'])->name('watch');
 Route::post('library', [MelodionController::class, 'addtolibrary'])
 ->name('library');
 
-Route::get('/biblio/{id}',[MelodionController::class, 'show'])->name('biblio'); 
-Route::delete('/biblio/{id}',[MelodionController::class, 'destroy'])->name('biblio.destroy');
+Route::get('/biblio/{id}',[MelodionController::class, 'show'])->name('biblio')->middleware('auth'); 
+Route::delete('/biblio/{id}',[MelodionController::class, 'destroy'])->name('biblio.destroy')->middleware('auth');
+
+Route::post('/index',[MelodionController::class, 'creatememo'])->name('memos');

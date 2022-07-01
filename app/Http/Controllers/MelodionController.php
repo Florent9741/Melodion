@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bibliotheques;
+use App\Models\Memos;
 use App\Models\Suggestion;
 use Illuminate\Support\Facades\Http;
 use App\Models\User;
@@ -125,5 +126,27 @@ public function destroy(Request $request ,$videoId )
             return redirect()->route('biblio', $_GET['userId'])->with('status', 'vidéo supprimée avec succès !');
         }
 }
+
+public function creatememo($id)
+    {
+        $memo=Memos::where('user_id','=',$id)->get();
+        foreach ($memo as $memo) {
+        
+            $film[]=$memo->videoId;
+           }
+        $memo = Memos::create([
+
+            'contenu' => $memo->contenu,
+            'user_id' => $memo->user_id,
+
+        ]);
+
+
+
+        $memo->save();
+
+
+        return view('index');
+    }
 
 }
