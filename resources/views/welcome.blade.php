@@ -19,16 +19,7 @@
                 <h2 class=" py-8 font-bold text-2xl text-gray-500">Votre application de relevé de note en ligne</h2>
                
             </div>
-            <div class="flex justify-center">
-              <button @click="openNotify = true, open1 = true, open2 = true" class="px-3 py-2 flex justify-center items-center bg-gradient-to-tl from-orange-500   text-white focus:outline-none font-semibold  hover:transition-colors hover:bg-gradient-to-tr transform transition hover:scale-40 ease-out duration-300 hover:shadow-md">
-                <div class="mr-2">
-                  <svg class="w-5 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
-                  </svg>
-                </div>
-                C'est parti !
-              </button>
-            </div>
+          
 
             <!-- image search box -->
             <div class="box pt-6">
