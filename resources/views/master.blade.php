@@ -55,7 +55,7 @@
                                      class="block text-md px-4 py-2 rounded text-white ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Biblio
                                       </a>
                       
-                                  <a href="#"
+                                  <a href="{{route('user')}}"
                                      class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Dashboard</a>
                                      <a href="{{route('signout')}}"
                                      class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Sign out</a>

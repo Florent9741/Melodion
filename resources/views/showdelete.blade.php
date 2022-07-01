@@ -16,7 +16,7 @@
                  
                  <!-- Title -->
                  <div class="h-screen justify-center items-center ">
-               <h3 class="text-2xl justify-center text-black font-semibold mt-6 mb-2 text-center">Etes vous sur de vouloir supprimer le livre ?</h3>  
+               <h3 class="text-2xl justify-center text-black font-semibold mt-6 mb-2 text-center">Etes vous sur de vouloir supprimer l'utilisateur ?</h3>  
                    <div class="flex justify-center text-center  mb-4 space-x-8">
               <input type="submit" name="annuler" value="NON" class="bg-blue-300 w-12 mt-20 mb-20 px-2 py-2 border text-sm font-semibold rounded-md text-black text-center">
               <input type="submit" name="submit" value="OUI" class="bg-red-400 w-12 mt-20 mb-20 px-2 py-2 border text-sm font-semibold rounded-md text-black text-center">
