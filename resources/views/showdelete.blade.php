@@ -18,9 +18,8 @@
                  <div class="h-screen justify-center items-center ">
                <h3 class="text-2xl justify-center text-black font-semibold mt-6 mb-2 text-center">Etes vous sur de vouloir supprimer le livre ?</h3>  
                    <div class="flex justify-center text-center  mb-4 space-x-8">
-          <button type="submit"  class=" ml-20 bg-blue-300 justify-center w-12 flex py-2 px-4 mt-10  border border-blue-300 text-sm font-semibold rounded-md text-black">NON</button>
-           
-                   <button type="submit"  name="oui" class="mr-24 bg-red-400 justify-center w-12 flex py-2 px-4 mt-10 ml-10 border text-sm font-semibold rounded-md text-black">OUI</button>
+              <input type="submit" name="annuler" value="NON" class="bg-blue-300 w-12 mt-20 mb-20 px-2 py-2 border text-sm font-semibold rounded-md text-black text-center">
+              <input type="submit" name="submit" value="OUI" class="bg-red-400 w-12 mt-20 mb-20 px-2 py-2 border text-sm font-semibold rounded-md text-black text-center">
                 <input type="hidden" name="id" value="{{$membre->id}}">  
               </div>
                </form>

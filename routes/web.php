@@ -17,6 +17,8 @@ use App\Http\Controllers\YouTubeController;
 |
 */
 
+
+Route::post('/url', [Youtubecontroller::class, 'url']);
 Route::get('/welcome', function () {
     return view('welcome')->name('welcome');
 });
@@ -60,3 +62,4 @@ Route::post('library', [MelodionController::class, 'addtolibrary'])
 ->name('library');
 
 Route::get('/biblio/{id}',[MelodionController::class, 'show'])->name('biblio'); 
+Route::delete('/biblio/{id}',[MelodionController::class, 'destroy'])->name('biblio.destroy');
