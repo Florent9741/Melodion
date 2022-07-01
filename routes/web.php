@@ -17,7 +17,7 @@ use App\Http\Controllers\YouTubeController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('accueil');
 });
 
 
