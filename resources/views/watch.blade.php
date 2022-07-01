@@ -16,6 +16,7 @@
                         class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter
                         à la bibliothèque</button>
                 </form>
+
                 <div class="card mb-6  ">
                     <div class=" embed-responsive embed-responsive-16by9">
                         {{-- <iframe src="https://www.youtube.com/embed/{{$singleVideo->items[0]->id}}" width="889" height="500" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
@@ -322,6 +323,16 @@
                                 {{ date('d M Y', strtotime($singleVideo->items[0]->snippet->publishedAt)) }}</p>
                             <p>{{ $singleVideo->items[0]->snippet->description }}</p>
                         </div>
+
+                <div class="card mb-6" style="width: 90%">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe src="https://www.youtube.com/embed/{{$singleVideo->items[0]->id}}" width="600" height="500" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-body">
+                        <h5>{{$singleVideo->items[0]->snippet->title}}</h5>
+                        <p class="text-secondary">Published at {{date('d M Y', strtotime($singleVideo->items[0]->snippet->publishedAt))}}</p>
+                        <p>{{$singleVideo->items[0]->snippet->description}}</p>
+
                     </div>
                 </div>
             </div>

@@ -677,6 +677,9 @@ video {
 .ml-4 {
   margin-left: 1rem;
 }
+.mb-auto {
+  margin-bottom: auto;
+}
 .block {
   display: block;
 }

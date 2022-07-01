@@ -42,7 +42,7 @@
     </div>
         </div>
     </a>
-    <form action="{{route('biblio.destroy', $item->videoId.'?userId='.Auth::user()->id)}}" method="POST">
+    <form action="{{route('biblio.destroy', $item->videoId.'?userId='.Auth::user()->id)}}" method="POST" class="py-2 px-4 mb-auto border border-transparent text-sm font-semibold rounded-md text-white bg-black ">
         @csrf
         @method('DELETE')
       <input type="submit" value="Supprimer">
