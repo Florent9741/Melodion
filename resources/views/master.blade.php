@@ -16,6 +16,7 @@
         }
     </style>
     @yield('css')
+    <script src="https://kit.fontawesome.com/1b839e1566.js" crossorigin="anonymous"></script>
   </head>
   <body>
 
