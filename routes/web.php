@@ -63,3 +63,5 @@ Route::post('library', [MelodionController::class, 'addtolibrary'])
 
 Route::get('/biblio/{id}',[MelodionController::class, 'show'])->name('biblio'); 
 Route::delete('/biblio/{id}',[MelodionController::class, 'destroy'])->name('biblio.destroy');
+
+Route::post('/watch' ,[MelodionController::class, 'terminer'])->name('terminer'); 

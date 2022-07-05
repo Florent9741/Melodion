@@ -12,43 +12,48 @@
 </div>
 @endif
 
-@if (session('status'))
+@if (session('status' ))
       <div class="text-3xl text-left font-bold text-green-600 mt-20 mb-10">
           {{ session('status') }}
       </div>
   @endif
-    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">    
-    @if (isset($biblio))       
-    <iframe class="rounded " src="https://www.youtube.com/embed/{{$biblio[0]->videoId}}" width="854" height="600" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-@endif
-   
-    </div>
+    
 {{-- ton end section est là normalement --}}
 <div class="container mx-auto flex">
-    @if (isset($biblio))      
-@foreach ($videos as $item)
+
+    
+@foreach ($videos as $video)
      
 
-    <a href="{{route('watch',$item->videoId)}}" class="w-64 h-auto">                           
-        <div class="card mb-4">
-    <img src="{{$item->url}}" alt="yt-image" class="w-64 h-auto">
-    <div class="card-body">
-        <h5>{{$item->title}}</h5>
-        <p>{{\Illuminate\Support\Str::limit($item->description,$limit=50,$end=' ...')}}</p>
+
+
+    <a href="{{route('watch',$video->videoId)}}" class="w-64 h-auto">                           
+        <div class="card my-10">
+            @if ($video->pivot->statut) 
+    <i class="fa-solid fa-circle-check text-teal-300 absolute z-10"></i>
+            
+            @else 
+                <i class="fa-solid fa-circle-check text-red-600 absolute z-10"></i>
+            
+            @endif
+    <img src="{{$video->url}}" alt="yt-image" class="w-64 h-auto ">
+   
+   <div class="card-body">
+        <h5>{{$video->title}}</h5>
+        <p>{{\Illuminate\Support\Str::limit($video->description,$limit=50,$end=' ...')}}</p>
     </div>
-    <div class="card-footer text-muted">
-        Published at {{date('d M Y', strtotime($item->publishedAt))}}
+    <div class="card-footer text-muted  ">
+        Published at {{date('d M Y', strtotime($video->publishedAt))}}
     </div>
         </div>
     </a>
-    <form action="{{route('biblio.destroy', $item->videoId.'?userId='.Auth::user()->id)}}" method="POST" class="py-2 px-4 mb-auto border border-transparent text-sm font-semibold rounded-md text-white bg-black ">
+    <form action="{{route('biblio.destroy', $video->videoId.'?userId='.Auth::user()->id)}}" method="POST" class=" flex flex-col py-2 px-4 mb-auto border border-transparent text-sm font-semibold rounded-md text-white bg-black ">
         @csrf
         @method('DELETE')
       <input type="submit" value="Supprimer">
       </form>   
     @endforeach
-@endif
+
 </div>
 
 <div class="flex flex-col p-5">

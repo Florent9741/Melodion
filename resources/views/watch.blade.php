@@ -7,6 +7,8 @@
                 <form action="{{ route('library') }}" method="post">
                     @csrf
                     <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
+              
+              
                     @if (null !== Auth::user())
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                     @endif
@@ -330,13 +332,13 @@
             </div>
             <div class="w-2/5">
                 <div
-                    class="lg:flex-grow md:w-full lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                    class="  lg:flex-grow md:w-full lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
                     <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"> Rédiger un mémo
                     </h1>
                     <div class="relative mb-4">
                         <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
                         <form action="" method="post">
-
+@csrf
                             <input type="hidden" name="videoId" value="">
 
                             <input type="hidden" name="user_id" value="">
@@ -348,13 +350,20 @@
                         </form>
                     </div>
 
-                    <div class="flex justify-center">
-                        <button
-                            class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                            Enregistrer </button>
-
-                    </div>
-                </div>
+                       
+                 </div>
+                    <div class="flex  justify-around ">
+                        <button class="flex flex-row-reverse ml-24 text-white bg-red-500 hover:bg-indigo-600 border-0 py-2 px-6 focus:outline-none  rounded text-lg">enregistrer</button>
+                        <form action="/watch" method="post" enctype="multipart/form-data" >
+                            @csrf
+                            <input type="hidden" name="statut" value="1">     
+                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}"> 
+                    <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
+                        <button type="submit" class="flex flex-row-reverse text-white bg-black border-0  py-2 px-6 focus:outline-none  rounded text-lg" aria-required="true" name="submit" id="save">
+                              terminer </button>
+                        </form> 
+                         </div>
+                   </div>
             </div>
     </div>
 @endsection
