@@ -715,12 +715,15 @@ video {
 .mt-3 {
   margin-top: 0.75rem;
 }
+<<<<<<< HEAD
 .ml-20 {
   margin-left: 5rem;
 }
 .mr-24 {
   margin-right: 6rem;
 }
+=======
+>>>>>>> 2f7c08c4d84bd31e33b258f0af315a982bdee3a4
 .block {
   display: block;
 }
@@ -1130,10 +1133,13 @@ video {
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
 }
+<<<<<<< HEAD
 .py-24 {
   padding-top: 6rem;
   padding-bottom: 6rem;
 }
+=======
+>>>>>>> 2f7c08c4d84bd31e33b258f0af315a982bdee3a4
 .pb-1 {
   padding-bottom: 0.25rem;
 }
@@ -1176,9 +1182,12 @@ video {
 .pb-11 {
   padding-bottom: 2.75rem;
 }
+<<<<<<< HEAD
 .pl-3 {
   padding-left: 0.75rem;
 }
+=======
+>>>>>>> 2f7c08c4d84bd31e33b258f0af315a982bdee3a4
 .text-left {
   text-align: left;
 }
@@ -1188,9 +1197,12 @@ video {
 .text-right {
   text-align: right;
 }
+<<<<<<< HEAD
 .text-start {
   text-align: start;
 }
+=======
+>>>>>>> 2f7c08c4d84bd31e33b258f0af315a982bdee3a4
 .font-serif {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
@@ -1492,10 +1504,13 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
+<<<<<<< HEAD
 .hover\:bg-red-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
+=======
+>>>>>>> 2f7c08c4d84bd31e33b258f0af315a982bdee3a4
 .hover\:bg-gradient-to-tr:hover {
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
 }
@@ -1523,6 +1538,7 @@ video {
   --tw-text-opacity: 1;
   color: rgb(3 105 161 / var(--tw-text-opacity));
 }
+<<<<<<< HEAD
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -1531,6 +1547,8 @@ video {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
 }
+=======
+>>>>>>> 2f7c08c4d84bd31e33b258f0af315a982bdee3a4
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -1717,16 +1735,15 @@ video {
     width: 33.333333%;
   }
 
+<<<<<<< HEAD
   .md\:w-1\/2 {
     width: 50%;
   }
 
+=======
+>>>>>>> 2f7c08c4d84bd31e33b258f0af315a982bdee3a4
   .md\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .md\:flex-row {
-    flex-direction: row;
   }
 
   .md\:items-start {

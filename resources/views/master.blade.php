@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
+    <script src="https://kit.fontawesome.com/91732273da.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>Mélodion</title>
@@ -16,6 +17,7 @@
         }
     </style>
     @yield('css')
+    <script src="https://kit.fontawesome.com/1b839e1566.js" crossorigin="anonymous"></script>
   </head>
   <body>
 
@@ -28,13 +30,15 @@
 
               <div class="flex flex-col mb-10">
                         <div class="col">
-                           
-                          <h1 class="title text-start justify-start text-white font-bold text-2xl mt-6"> Melodion</h1>    
-                                
-                                 <h1 class="text-center text-black font-2xl font-extrabold">Mélodion</h1>
-                                    
-                                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    @auth
+                            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                               
+                                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                      <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="{{route('index')}}">Melodion</a>
+                                      </li>
+                                      
+                                    </ul>
                                     <form class="d-flex" method="GET" action="{{route('results')}}">
                                       <input class="form-control me-2" type="search" name="search_query" placeholder="Search" aria-label="Search">
                                       <button class="btn btn-outline-success" type="submit">Search</button>
@@ -57,7 +61,7 @@
                                      class="block text-md px-4 py-2 rounded text-white ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Biblio
                                       </a>
                       
-                                  <a href="#"
+                                  <a href="{{route('user')}}"
                                      class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Dashboard</a>
                                      <a href="{{route('signout')}}"
                                      class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Sign out</a>

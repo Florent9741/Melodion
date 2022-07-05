@@ -7,27 +7,50 @@
       .then(response => response.json())
       .then(response => { images = response.hits })"
       class="bg-white">
-
 <div class="main">
     <div class="px-4 sm:px-8 lg:px-16 xl:px-20 mx-auto">
 
         <!-- hero -->
         <div class="hero">
             <!-- hero headline -->
-            <div class="hero-headline flex flex-col items-center justify-center pt-24 text-center">
-                <h1 class=" font-bold text-3xl text-gray-900">MELODION</h1>
+          
+            <div class="hero-headline flex flex-col items-start justify-center pt-12 text-center ">
+                <h1 class=" font-bold text-6xl text-gray-900">MELODION</h1>
+                
+                <h2 class="font-bold text-2xl text-gray-900">Votre application de relevé de note en ligne</h2>
                
+            </div>
+            <div class="flex justify-end  items-center m-6">
+              <button @click="openNotify = true, open1 = true, open2 = true" class="px-4 py-2  w-1/5 bg-gradient-to-tl from-orange-500  rounded text-white focus:outline-none font-semibold shadow hover:transition-colors hover:bg-gradient-to-tr transform transition hover:scale-110 ease-out duration-300 hover:shadow-md ">
+                <div class="mr-2">
+                  <svg class="w-5 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                C'est parti !
+              </button>
             </div>
 
             <!-- image search box -->
             <div class="box pt-6">
                 <div class="box-wrapper">
 
-                    <div class=" bg-white rounded flex items-center mx-auto mt-7 w-3/5 p-4 shadow-sm border border-black ">
+                    <div class=" bg-white rounded flex items-center mx-auto mt-7 w-full p-2 shadow-sm border border-black ">
                       <button @click="getImages()" class="outline-none focus:outline-none"><svg class=" w-5 text-black-600 h-5 cursor-pointer" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
-                      <input type="search" name="" id="" @keydown.enter="getImages()" placeholder="Entrez l’URL de votre video youtube ici.. " x-model="q" class="w-full pl-4 text-sm outline-none focus:outline-none bg-transparent">
-                   
+                      <form action="/url" method="post" enctype="multipart/form-data" class="w-full">
+                        @csrf
+                      <input type="search" name="url" id="" @keydown.enter="getImages()" placeholder="Entrez l’URL de votre video youtube ici.. " x-model="q" class="w-full pl-4 text-sm outline-none focus:outline-none bg-transparent">
+                      <input type="submit" class="sr-only" value="valider">
+
+                    </form>
+                      
                     </div>
+                    @if ( @isset($string))
+                          
+                      
+                    <div> <iframe src="{{$string}}" frameborder="0"></iframe> </div>
+                 
+                    @endif
                   
                 </div>
             </div>
@@ -86,3 +109,4 @@
     </div>
     
 </div>
+@include('layouts.footer')
