@@ -15,22 +15,29 @@ class YouTubeController extends Controller
 {
     public function index()
     {
-        
+
         if (session('search_query')){
-        $videoLists= $this->_videoLists(session('search_query'));
-    }else {
-        $videoLists= $this->_videoLists('morceaux de musique?rock?guitare');
-    }
-    
-        return view('index', compact('videoLists'));
+            $videoLists= $this->_videoLists(session('search_query'));
+        }else {
+            $videoLists= $this->_videoLists('morceaux de musique?rock?guitare');
+        }
+                //  $likes = DB::table('likes')
+                //  ->select(DB::raw('count(*) as count, videoId'))
+                //  ->groupBy('videoId')
+                //  ->get();
+                $videos=DB::table('videos')
+                // ->orderBy('countlike', 'desc')
+                ->get();
+            //return view('index', compact('videoLists'), compact('likes'));
+            return view('index', compact('videos'));
 
 
     }
-   
+
     public function results(Request $request)
 
     {
-       
+
         session(['search_query'=>$request->search_query]);
         $videoLists= $this->_videoLists($request->search_query);
         return view('results', compact('videoLists'));
@@ -70,13 +77,13 @@ class YouTubeController extends Controller
             "url" =>$item->snippet->thumbnails->medium->url,
             "publishedAt" =>date('Y-m-d H:i:s',strtotime($item->snippet->publishedAt)),
             "publishTime" =>date('Y-m-d H:i:s',strtotime($item->snippet->publishTime)),
-            
+
         ]);
     } */
         File::put(storage_path().'/app/public/results.json', $response->body());
         return $results;
 
-    }   
+    }
    protected function _singleVideo($id)
    {
     $api_key=config('services.youtube.api_key');
@@ -89,7 +96,7 @@ class YouTubeController extends Controller
     $results=json_decode($response);
     File::put(storage_path().'/app/public/single.json', $response->body());
     return $results;
-   } 
+   }
 
 
    protected function autolink($string){
@@ -103,11 +110,11 @@ class YouTubeController extends Controller
     $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
     // Check if there is a url in the text
 
-$m = preg_match_all($reg_exUrl, $string, $match); 
+$m = preg_match_all($reg_exUrl, $string, $match);
 
-if ($m) { 
-$links=$match[0]; 
-for ($j=0;$j<$m;$j++) { 
+if ($m) {
+$links=$match[0];
+for ($j=0;$j<$m;$j++) {
 
     if(substr($links[$j], 0, 18) == 'http://www.youtube'){
 
@@ -118,16 +125,16 @@ for ($j=0;$j<$m;$j++) {
 
     $string=str_replace($links[$j],'<a href="'.$links[$j].'" rel="nofollow" target="_blank">'.$links[$j].'</a>',$string);
 
-        } 
+        }
 
-    } 
-} 
+    }
+}
 
 return ($string);
  }
 
 
-   
+
    public function url(Request $request)
 
    {
@@ -137,8 +144,7 @@ return ($string);
 
      return redirect()->route('/');
    }
-  
+
 
 }
 
- 
