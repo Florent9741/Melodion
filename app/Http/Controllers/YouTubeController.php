@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Memos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -37,14 +37,19 @@ class YouTubeController extends Controller
     }
     public function watch($id)
     {
+        $memos = Memos::all(); // TODO :recuperé le memo de la video
         $singleVideo= $this->_singleVideo($id);
         if (session('search_query')){
             $videoLists= $this->_videoLists(session('search_query'));
         }else {
             $videoLists= $this->_videoLists('cours de musique');
         }
-        return view('watch', compact('singleVideo','videoLists'));
+        
+        return view('watch', compact('singleVideo','videoLists','memos','id'));
     }
+
+  
+    
 
     protected function _videoLists($keywords)
     {

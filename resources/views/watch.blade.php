@@ -7,7 +7,11 @@
             <div class="w-3/5">
                 <form action="{{ route('library') }}" method="post">
                     @csrf
-                    <input type="hidden" name="videoId" value="{{$singleVideo->items[0]->id}}">
+                    @if (isset($singleVideo))
+                        
+                    
+                    <input type="hidden" name="videoId" value="{{$id}}">
+                    @endif
                     @if (null!==(Auth::user()))
                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}"> 
                     @endif
@@ -17,13 +21,9 @@
                 </form>
                 <div class="card mb-6" style="width: 100%">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe src="https://www.youtube.com/embed/{{$singleVideo->items[0]->id}}" width="889" height="500" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/" width="889" height="500" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="card-body">
-                        <h5>{{$singleVideo->items[0]->snippet->title}}</h5>
-                        <p class="text-secondary">Published at {{date('d M Y', strtotime($singleVideo->items[0]->snippet->publishedAt))}}</p>
-                        <p>{{$singleVideo->items[0]->snippet->description}}</p>
-                    </div>
+                   
                 </div>
             </div>
             <div class="w-2/5">
@@ -32,28 +32,63 @@
                     </h1>
                     <div class="relative mb-4">
                         <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
-                        <form action="" method="post">
-            
-                            <input type="hidden" name="videoId" value="">
-                            
-                            <input type="hidden" name="user_id" value="">   
-                                            
-                            <textarea id="message" name="message" cols="50" rows="15" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-64 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
-                  
-                           
+                        <form action="/store/" method="post">
+                            @csrf
+    
+                            <input type="hidden" name="videoId" value="{{$id}}">
+    
+                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+    
+                            <textarea id="message" name="contenu" cols="50" rows="15"
+                                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+    
+                            <div class="flex justify-center">
+                                <button
+                                type="submit"
+                                    class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                    
+                                    Enregistrer
+                                 </button>
+    
+                            </div>
+    
                         </form>
-                      </div>
-                      
-                      <div class="flex justify-center">
-                      <button class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"> Enregistrer </button>
-                      
                     </div>
                   </div>
                 </div>
               
             </div>
+            <div class="flex flex-col p-5">
+                <div class="border-b pb-1 flex justify-between items-center mb-2">
+                    <span class=" text-base font-semibold uppercase text-gray-700">Les mémos des autres utilisateurs</span>
+                    <img class="w-4 cursor-pointer"
+                        src="https://p.kindpng.com/picc/s/152-1529312_filter-ios-filter-icon-png-transparent-png.png" />
+                </div>
+               
+                  @foreach ($memos as $memo)
+                      
+                   
+  
+                <div class="flex border-b py-3 cursor-pointer hover:shadow-md px-2 ">
+                   
+                    <img class='w-10 h-10 object-cover rounded-lg' alt='User avatar'
+                        src='https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200'>
+                    <div class="flex flex-col px-2 w-full">
+    
+                        <span class="text-sm text-red-500 capitalize font-semibold pt-1">
+                            {{$memo->contenu}}
+                        </span>
+                        <span class="text-xs text-gray-500 uppercase font-medium ">
+                            
+                        </span>
+                    </div>
+                </div>
+                @endforeach
+           
+
+               
+            </div>
         </div>
     </div>
-        
-
+   
 @endsection

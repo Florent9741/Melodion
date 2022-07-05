@@ -62,4 +62,6 @@ Route::post('library', [MelodionController::class, 'addtolibrary'])
 ->name('library');
 
 Route::get('/biblio/{id}',[MelodionController::class, 'show'])->name('biblio'); 
-Route::delete('/biblio/{id}',[MelodionController::class, 'destroy'])->name('biblio.destroy');
+
+Route::post('/store',[MelodionController::class, 'creatememo']); 
+
