@@ -29,7 +29,7 @@ class MelodionController extends Controller
         $biblio->public = false;
         $biblio->statut = $request->VideoState;
         $biblio->save();
-       
+        
         return redirect()-> route('biblio',$request->user_id)->with('status', 'vidéo ajoutée avec succès !');
     }
 
@@ -125,7 +125,7 @@ if (isset($request)){
      
   
 
-    return redirect()->route ('biblio', $request->user_id)->with ('status', 'vidéo terminé');
+    return redirect()->route ('biblio', $request->user_id)->with ('status', 'vidéo terminée');
 }
     
     }

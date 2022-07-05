@@ -18,19 +18,18 @@
                     </div>
                 </div>
             </a> 
-            @foreach ($likes as $like)
-               @if ($like->videoId == $video->videoId)
-                
+           
             <form class="block text-right" action="{{route('likes')}}" method="POST">
                 @csrf
             
                 <input type="hidden" name="videoId" value="{{$video->videoId}}">
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                <div class="inline-block m-0 p-0 text-right ease-in-out hover:text-green-700 duration-300"><button type="submit" name="like" value="1"><i class="fa-solid fa-thumbs-up"></i>{{$like->count}}</button></div>
-                @endif
-              </form>
+                
+                <div class="inline-block m-0 p-0 text-right ease-in-out hover:text-green-700 duration-300"><button type="submit" name="like" value="1"><i class="fa-solid fa-thumbs-up"></i>{{ $video->countlike}}</button></div>
+                
+            </form>
          
-        @endforeach
+      
     </div> 
         @endforeach
      
