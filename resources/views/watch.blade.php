@@ -408,8 +408,9 @@
                         <form action="" method="post">
 @csrf
                             <input type="hidden" name="videoId" value="">
+                            @if (!null==(Auth::user()))
                             <input type="hidden" name="user_id" value="">
-
+                            @endif
                             <textarea id="message" name="message" cols="50" rows="15"
                                 class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-64 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
 
@@ -424,7 +425,9 @@
                         <form action="/watch" method="post" enctype="multipart/form-data" >
                             @csrf
                             <input type="hidden" name="statut" value="1">
+                            @if (!null==(Auth::user()))
                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                    @endif
                     <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
                         <button type="submit" class="flex flex-row-reverse text-white bg-black border-0  py-2 px-6 focus:outline-none  rounded text-lg" aria-required="true" name="submit" id="save">
                               terminer </button>

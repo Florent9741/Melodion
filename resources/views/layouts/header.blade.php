@@ -32,10 +32,12 @@
                                 <a href="{{ route('biblio', Auth::user()->id) }}"
                                     class="block text-md px-4 py-2 rounded text-white  font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Biblio
                                 </a>
-
+                                @if (Auth::user()->admin == 1)
                                 <a href="{{ route('user') }}"
                                     class=" block text-md px-4   py-2 rounded text-white font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Dashboard</a>
-                                <a href="{{ route('signout') }}"
+                               @endif
+                                    <a href="{{ route('signout') }}"
+
                                     class=" block text-md px-4   py-2 rounded text-white font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Deconnexion</a>
                             @endauth
                         </div>

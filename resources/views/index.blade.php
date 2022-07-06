@@ -34,10 +34,10 @@
                        Published at {{date('d M Y',strtotime($video->publishedAt)) }}
                        <form class="block text-right" action="{{route('likes')}}" method="POST">
                            @csrf
-
+                           @if (!null==(Auth::user()))
                            <input type="hidden" name="videoId" value="{{$video->videoId}}">
                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-
+                            @endif
                            <div class="inline-block m-0 p-0 text-right ease-in-out hover:text-green-500 duration-300"><button type="submit" name="like" value="1"><i class="fa-solid fa-thumbs-up"></i>{{ $video->countlike}}</button></div>
 
                        </form>
