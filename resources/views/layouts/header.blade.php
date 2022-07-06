@@ -3,7 +3,7 @@
 </script>
 
 
-    <nav class="flex flex-row justify-between items-center flex-wrap bg-red-500 py-2  lg:px-12 shadow ">
+    <nav class="flex flex-row justify-between items-center flex-wrap bg-black py-2  lg:px-12 shadow ">
 
 
                         {{-- titre Melodion cliquable à gauche, permet le retour vers page d'acceuil --}}
@@ -30,13 +30,13 @@
                                 {{-- Affiche les boutons "deconnexion" et de "profil" si l'utilisateur est connecté --}}
                             @auth
                                 <a href="{{ route('biblio', Auth::user()->id) }}"
-                                    class="block text-md px-4 py-2 rounded text-white ml-2 font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Biblio
+                                    class="block text-md px-4 py-2 rounded text-white  font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Biblio
                                 </a>
 
                                 <a href="{{ route('user') }}"
-                                    class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Dashboard</a>
+                                    class=" block text-md px-4   py-2 rounded text-white font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Dashboard</a>
                                 <a href="{{ route('signout') }}"
-                                    class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Deconnexion</a>
+                                    class=" block text-md px-4   py-2 rounded text-white font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Deconnexion</a>
                             @endauth
                         </div>
               </div>

@@ -1,11 +1,11 @@
-@extends('master')
+@extends('layouts.app')
 
-@section('content')
+@section('main')
 
     <div class="container mt-4">
         <div class="row">
             <div class="col">
-                @foreach ($videoLists->items as $key=>$item)                 
+                @foreach ($videoLists->items as $key=>$item)
                 <div class="row mb-3">
                     <a href="{{route('watch', $item->id->videoId)}}" class="href" style="display:contents">
                         <div class="col-4">
@@ -19,7 +19,7 @@
                     </a>
                 </div>
                @endforeach
-                   
+
                 </div>
             </div>
 
