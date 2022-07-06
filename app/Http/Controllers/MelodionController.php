@@ -127,17 +127,15 @@ public function destroy(Request $request ,$videoId )
         }
 }
 
-public function creatememo($id)
+public function creatememo(Request $request)
     {
-        $memo=Memos::where('user_id','=',$id)->get();
-        foreach ($memo as $memo) {
-        
-            $film[]=$memo->videoId;
-           }
+
+        $memo = Memos::all();
         $memo = Memos::create([
 
-            'contenu' => $memo->contenu,
-            'user_id' => $memo->user_id,
+            'contenu' => $request->contenu,
+            'user_id' => $request->user_id,
+
 
         ]);
 

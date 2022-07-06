@@ -45,23 +45,23 @@ Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
 Route::get('/showdelete/{id}', [UserController::class,'showdel']);
 
 Route::delete('/user/{id}', [UserController::class,'delete']);
-Route::get('/user',[UserController::class,'getall'])->name('user');
+Route::get('/user',[UserController::class,'getall'])->name('user')->middleware('Admin');
 
 Route::get('/restore',[UserController::class,'showrestore']);
 Route::get('/restore/{id}',[UserController::class,'restore'])->name('user.restore');
 Route::get('signout', [Authcontroller::class, 'logout'])->name('signout');
 
 
-Route::get('/', [YouTubeController::class,'index'])->name('index')->middleware('guest'); 
+Route::get('/', [YouTubeController::class,'index'])->name('index'); 
 
 Route::get('/results', [YoutubeController::class,'results'])->name('results');
 
 Route::get('/watch/{id}', [YouTubeController::class,'watch'])->name('watch');
 
 Route::post('library', [MelodionController::class, 'addtolibrary'])
-->name('library');
+->name('library')->middleware('auth');
 
 Route::get('/biblio/{id}',[MelodionController::class, 'show'])->name('biblio')->middleware('auth'); 
 Route::delete('/biblio/{id}',[MelodionController::class, 'destroy'])->name('biblio.destroy')->middleware('auth');
 
-Route::post('/index',[MelodionController::class, 'creatememo'])->name('memos');
+Route::post('/index',[MelodionController::class, 'creatememo'])->name('memos')->middleware('auth');
