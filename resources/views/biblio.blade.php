@@ -12,45 +12,60 @@
 </div>
 @endif
 
-@if (session('status'))
+@if (session('status' ))
       <div class="text-3xl text-left font-bold text-green-600 mt-20 mb-10">
           {{ session('status') }}
       </div>
   @endif
-    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-    @if (isset($biblio))
+  <div class="container mt-4">
+    <div class="row">
 
-@endif
-
-    </div>
 {{-- ton end section est là normalement --}}
-<div class="container mx-auto flex">
-    @if (isset($biblio))
-@foreach ($videos as $item)
 
+    @foreach ($videos as $video)
+    <div class="col-4">
+    <div class="card mb-4">
+    <a href="{{route('watch',$video->videoId)}}">
 
-    <a href="{{route('watch',$item->videoId)}}" class="w-64 h-auto">
-        <div class="card mb-4">
-    <img src="{{$item->url}}" alt="yt-image" class="w-64 h-auto">
-    <div class="card-body">
-        <h5>{{$item->title}}</h5>
-        <p>{{\Illuminate\Support\Str::limit($item->description,$limit=50,$end=' ...')}}</p>
+            @if ($video->pivot->statut)
+    <i class="fa-solid fa-circle-check text-teal-300 absolute z-10"></i>
+
+            @else
+                <i class="fa-solid fa-circle-check text-red-600 absolute z-10"></i>
+
+            @endif
+    <img src="{{$video->url}}" alt="yt-image" class="w-64 h-auto">
+
+   <div class="card-body">
+        <h5>{{$video->title}}</h5>
+        <p>{{\Illuminate\Support\Str::limit($video->description,$limit=50,$end=' ...')}}</p>
     </div>
     <div class="card-footer text-muted">
-        Published at {{date('d M Y', strtotime($item->publishedAt))}}
+        Published at {{date('d M Y', strtotime($video->publishedAt))}}
+        <form class="block text-right" action="{{route('likes')}}" method="POST">
+            @csrf
+
+            <input type="hidden" name="videoId" value="{{$video->videoId}}">
+            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+
+            <div class="inline-block m-0 p-0 text-right ease-in-out hover:text-green-500 duration-300"><button type="submit" name="like" class="pointer-events-none" value="1"><i class="fa-solid fa-thumbs-up"></i>{{ $video->countlike}}</button></div>
+
+        </form>
     </div>
-        </div>
-    </a>
-    <form action="{{route('biblio.destroy', $item->videoId.'?userId='.Auth::user()->id)}}" method="POST" class="py-2 px-4 mb-auto border border-transparent text-sm font-semibold rounded-md text-white bg-black ">
+</a>
+
+    <form action="{{route('biblio.destroy', $video->videoId.'?userId='.Auth::user()->id)}}" method="POST" class="py-2 px-4 mb-auto border border-transparent text-sm font-semibold rounded-md text-white bg-black ">
         @csrf
         @method('DELETE')
       <input type="submit" value="Supprimer">
       </form>
-    @endforeach
-@endif
+
 </div>
-{{--
-<div class="flex flex-col p-5">
+</div>
+@endforeach
+</div>
+</div>
+<div class="p-5">
     <div class="border-b pb-1 flex justify-between items-center mb-2">
         <span class=" text-base font-semibold uppercase text-gray-700">Les mémos des autres utilisateurs</span>
         <img class="w-4 cursor-pointer" src="https://p.kindpng.com/picc/s/152-1529312_filter-ios-filter-icon-png-transparent-png.png" />
@@ -80,8 +95,6 @@
             </span>
         </div>
     </div>
-</div> --}}
-
-</section>
+</div>
 
 @endsection

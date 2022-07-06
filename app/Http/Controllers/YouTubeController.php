@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Bibliotheques;
+use App\Models\Likes;
+use App\Models\Videos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\File;
@@ -16,22 +19,20 @@ class YouTubeController extends Controller
     public function index()
     {
 
-        if (session('search_query')){
-            $videoLists= $this->_videoLists(session('search_query'));
-        }else {
-            $videoLists= $this->_videoLists('morceaux de musique?rock?guitare');
-        }
-                //  $likes = DB::table('likes')
-                //  ->select(DB::raw('count(*) as count, videoId'))
-                //  ->groupBy('videoId')
-                //  ->get();
-                $videos=DB::table('videos')
-                // ->orderBy('countlike', 'desc')
-                ->get();
-            //return view('index', compact('videoLists'), compact('likes'));
-            return view('index', compact('videos'));
-
-
+       /* if (session('search_query')){
+        $videoLists= $this->_videoLists(session('search_query'));
+    }else {
+        $videoLists= $this->_videoLists('morceaux de musique?rock?guitare');
+    }*/
+            /* $likes = DB::table('likes')
+             ->select(DB::raw('count(*) as count, videoId'))
+             ->groupBy('videoId')
+             ->get();*/
+            $videos=DB::table('videos')
+            ->orderBy('countlike', 'desc')
+            ->get();
+        //return view('index', compact('videoLists'), compact('likes'));
+        return view('index', compact('videos'));
     }
 
     public function results(Request $request)
@@ -146,5 +147,56 @@ return ($string);
    }
 
 
+   public function likes(Request $request)
+   {
+     //dd($request);
+   if (isset($request->like)){
+
+    $check=DB::select('SELECT * FROM bibliotheques WHERE videoId=? AND user_id=?',[$request->videoId,$request->user_id]);
+
+
+    if (count($check)== 1) {
+
+        $check_like=DB::select('SELECT id FROM likes WHERE videoId=? AND user_id=?',[$request->videoId,$request->user_id]);
+
+        if (count($check_like) == 1) {
+            //$del=DB::delete('DELETE FROM likes WHERE videoId=? AND user_id=?',[$request->videoId,$request->user_id]);
+           // $update=DB::update('UPDATE videos SET countlike=countlike-1 WHERE videoId=?' ,[$request->videoId]);
+         }
+         elseif (count($check_like) == 0) {
+            $insert=DB::insert('INSERT INTO likes (videoId,user_id, vote, created_at) VALUES (?,?,?,?)',[$request->videoId,$request->user_id,$request->like, date('Y-m-d H:i:s')]);
+            $update=DB::update('UPDATE videos SET countlike=countlike+1 WHERE videoId=?' ,[$request->videoId]);
+        }
+        else {
+            dd('error');
+        }
+
+        return redirect()->route('index');
+    } elseif (count($check) == 0) {
+
+        $check_like=DB::select('SELECT id FROM likes WHERE videoId=? AND user_id=?',[$request->videoId,$request->user_id]);
+
+        if (count($check_like) == 1) {
+            //$del=DB::delete('DELETE FROM likes WHERE videoId=? AND user_id=?',[$request->videoId,$request->user_id]);
+           // $update=DB::update('UPDATE videos SET countlike=countlike-1 WHERE videoId=?' ,[$request->videoId]);
+         }
+         elseif (count($check_like) == 0) {
+            $insert=DB::insert('INSERT INTO likes (videoId,user_id, vote, created_at) VALUES (?,?,?,?)',[$request->videoId,$request->user_id,$request->like, date('Y-m-d H:i:s')]);
+            $update=DB::update('UPDATE videos SET countlike=countlike+1 WHERE videoId=?' ,[$request->videoId]);
+        }
+        else {
+            dd('error');
+        }
+
+        return redirect()->route('index');
+    }
+    else {
+        dd('error');
+
+    }
+
+
 }
 
+   }
+}
