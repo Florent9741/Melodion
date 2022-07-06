@@ -51,7 +51,8 @@ class YouTubeController extends Controller
         }else {
             $videoLists= $this->_videoLists('cours de musique');
         }
-        return view('watch', compact('singleVideo','videoLists'));
+        return view('watch', compact('singleVideo','videoLists','id'));
+
     }
 
     protected function _videoLists($keywords)

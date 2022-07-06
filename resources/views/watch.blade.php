@@ -2,7 +2,7 @@
 
 @section('main')
     <div class="container mt-4 sm:flex-col md:flex-row">
-@section('content')
+
     <div class="container mt-4">
         <div class="flex flex-row">
             <div class="w-3/5 flex flex-col">
@@ -172,7 +172,7 @@
                     player = new YT.Player('player', {
                         height: '360',
                         width: '640',
-                        videoId: 'nHeuZ8EIbSU',
+                        videoId: '{{$id}}',
 
 
                         events: {
