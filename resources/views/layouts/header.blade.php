@@ -13,34 +13,7 @@
 
 
 
-                        Les boutons à droite
-                        <div class="flex flex-row items-center m-0">
-
-                            {{-- Affiche les boutons "connexion" et "inscription" si l'utilisateur n'est pas connecté --}}
-                            @guest
-                                <a href="/login"
-                                    class="block text-md px-4 py-2 rounded text-white ml-2 font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">
-                                    Connexion</a>
-
-
-                                <a href="/register"
-                                    class=" block text-md px-4  ml-2 py-2 rounded text-white font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Inscription</a>
-                            @endguest
-
-                                {{-- Affiche les boutons "deconnexion" et de "profil" si l'utilisateur est connecté --}}
-                            @auth
-                                <a href="{{ route('biblio', Auth::user()->id) }}"
-                                    class="block text-md px-4 py-2 rounded text-white  font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Biblio
-                                </a>
-                                @if (Auth::user()->admin == 1)
-                                <a href="{{ route('user') }}"
-                                    class=" block text-md px-4   py-2 rounded text-white font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Dashboard</a>
-                               @endif
-                                    <a href="{{ route('signout') }}"
-
-                                    class=" block text-md px-4   py-2 rounded text-white font-bold hover:text-white  hover:bg-blue-700 lg:mt-0">Deconnexion</a>
-                            @endauth
-                        </div>
+                      
 
                         <div class="flex justify-end fa-2xl mr-5">
                             <i class="fa-solid fa-circle-user text-red-500 "></i>
