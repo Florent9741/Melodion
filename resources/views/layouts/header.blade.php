@@ -15,7 +15,7 @@
 
 
 
-                        <div class="flex justify-end fa-2xl mr-5">
+                        <div class="flex justify-end gap-1 fa-2xl mr-5">
                             <i class="fa-solid fa-circle-user text-red-500 "></i>
                             <button id="dropdownDefault" data-dropdown-toggle="dropdown" class=" bg-white focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center " type="button"><i class="fa-solid fa-ellipsis-vertical fa-xl hover:text-red-500"></i><button>
                             <!-- Dropdown menu -->
