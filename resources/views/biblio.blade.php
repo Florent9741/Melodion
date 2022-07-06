@@ -18,12 +18,14 @@
       </div>
   @endif
   <div class="container mt-4">
-    <div class="row">    
+    <div class="row">
+  
 {{-- ton end section est là normalement --}}
-<div class="col-4">
+
     @foreach ($videos as $video) 
+    <div class="col-4">
     <div class="card mb-4">
-    <a href="{{route('watch',$video->videoId)}}" class="w-64 h-auto">                           
+    <a href="{{route('watch',$video->videoId)}}">                           
         
             @if ($video->pivot->statut) 
     <i class="fa-solid fa-circle-check text-teal-300 absolute z-10"></i>
@@ -40,30 +42,30 @@
     </div>
     <div class="card-footer text-muted">
         Published at {{date('d M Y', strtotime($video->publishedAt))}}
+        <form class="block text-right" action="{{route('likes')}}" method="POST">
+            @csrf
+        
+            <input type="hidden" name="videoId" value="{{$video->videoId}}">
+            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+            
+            <div class="inline-block m-0 p-0 text-right ease-in-out hover:text-green-500 duration-300"><button type="submit" name="like" class="pointer-events-none" value="1"><i class="fa-solid fa-thumbs-up"></i>{{ $video->countlike}}</button></div>
+            
+        </form>
     </div>
 </a>   
 
-    <form class="block text-right" action="{{route('likes')}}" method="POST">
-        @csrf
-    
-        <input type="hidden" name="videoId" value="{{$video->videoId}}">
-        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-        
-        <div class="inline-block m-0 p-0 text-right ease-in-out hover:text-green-500 duration-300"><button type="submit" name="like" value="1"><i class="fa-solid fa-thumbs-up"></i>{{ $video->countlike}}</button></div>
-        
-    </form>
-    <form action="{{route('biblio.destroy', $video->videoId.'?userId='.Auth::user()->id)}}" method="POST" class=" flex flex-col py-2 px-4 mb-auto border border-transparent text-sm font-semibold rounded-md text-white bg-black ">
+    <form action="{{route('biblio.destroy', $video->videoId.'?userId='.Auth::user()->id)}}" method="POST" class="py-2 px-4 mb-auto border border-transparent text-sm font-semibold rounded-md text-white bg-black ">
         @csrf
         @method('DELETE')
       <input type="submit" value="Supprimer">
       </form>   
-    @endforeach
+    
 </div>
 </div>
-
-
-
-<div class="flex flex-col p-5">
+@endforeach
+</div>
+</div>
+<div class="p-5">
     <div class="border-b pb-1 flex justify-between items-center mb-2">
         <span class=" text-base font-semibold uppercase text-gray-700">Les mémos des autres utilisateurs</span>
         <img class="w-4 cursor-pointer" src="https://p.kindpng.com/picc/s/152-1529312_filter-ios-filter-icon-png-transparent-png.png" />
@@ -94,5 +96,5 @@
         </div>
     </div>
 </div>
-
+  
 @endsection
