@@ -65,3 +65,8 @@ Route::get('/biblio/{id}',[MelodionController::class, 'show'])->name('biblio')->
 Route::delete('/biblio/{id}',[MelodionController::class, 'destroy'])->name('biblio.destroy')->middleware('auth');
 
 Route::post('/index',[MelodionController::class, 'creatememo'])->name('memos')->middleware('auth');
+
+
+
+Route::post('/watch' ,[MelodionController::class, 'terminer'])->name('terminer'); 
+Route::post('/',[YouTubeController::class,'likes'])->name('likes');
