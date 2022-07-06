@@ -66,3 +66,7 @@ Route::delete('/biblio/{id}',[MelodionController::class, 'destroy'])->name('bibl
 
 Route::post('/watch' ,[MelodionController::class, 'terminer'])->name('terminer'); 
 Route::post('/',[YouTubeController::class,'likes'])->name('likes');
+
+Route::get('/test', function(){
+    return view('test');
+});

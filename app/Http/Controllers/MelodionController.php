@@ -25,10 +25,9 @@ class MelodionController extends Controller
 
         $biblio = new Bibliotheques();
         $biblio->user_id = $request->user_id;
-        $biblio->videoId = $request->videoId;
-       
+        $biblio->videoId = $request->videoId;  
         $biblio->public = false;
-        $biblio->statut = $request->VideoState;
+        
         $biblio->save();
        
         return redirect()-> route('biblio',$request->user_id)->with('status', 'vidéo ajoutée avec succès !');

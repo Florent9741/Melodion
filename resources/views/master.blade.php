@@ -18,6 +18,8 @@
     </style>
     @yield('css')
     <script src="https://kit.fontawesome.com/1b839e1566.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" />
+
   </head>
   <body>
 
@@ -43,7 +45,7 @@
                                       <input class="form-control me-2" type="search" name="search_query" placeholder="Search" aria-label="Search">
                                       <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
-                                  @endauth
+                                
                                   </div>
                                 </div>
                                 <div class=" flex flex-row-reverse ml-20">
