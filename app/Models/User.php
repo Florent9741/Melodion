@@ -51,4 +51,17 @@ class User extends Authenticatable
             ->withPivot('public', 'statut')
             ->withTimestamps();
     }
+
+    public function isAdmin($id){
+
+        $userAdmin =$this->where('admin', '=' ,1)->find($id);
+
+       if(isset($userAdmin)){
+         return true;
+       }
+       else{
+         return false;
+       }
+
+         }
 }
