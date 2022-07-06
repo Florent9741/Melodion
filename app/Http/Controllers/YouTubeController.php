@@ -19,20 +19,20 @@ class YouTubeController extends Controller
     public function index()
     {
         
-        if (session('search_query')){
+       /* if (session('search_query')){
         $videoLists= $this->_videoLists(session('search_query'));
     }else {
         $videoLists= $this->_videoLists('morceaux de musique?rock?guitare');
-    }
-             $likes = DB::table('likes')
+    }*/
+            /* $likes = DB::table('likes')
              ->select(DB::raw('count(*) as count, videoId'))
              ->groupBy('videoId')
-             ->get();
+             ->get();*/
             $videos=DB::table('videos')
             ->orderBy('countlike', 'desc')
             ->get();
         //return view('index', compact('videoLists'), compact('likes'));
-        return view('index', compact('likes'), compact('videos'));
+        return view('index', compact('videos'));
     }
    
     public function results(Request $request)
