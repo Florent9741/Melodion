@@ -13,7 +13,7 @@
 
 
 
-                      
+
 
                         <div class="flex justify-end fa-2xl mr-5">
                             <i class="fa-solid fa-circle-user text-red-500 "></i>
@@ -24,11 +24,11 @@
                                     @guest
 
                                     <li>
-                                        <a href="{{route('index')}}" class="block px-4 py-2  hover:text-red-500">Connexion</a>
+                                        <a href="{{route('login')}}" class="block px-4 py-2  hover:text-red-500">Connexion</a>
                                     </li>
 
                                     <li>
-                                        <a href="{{route('index')}}" class="block px-4 py-2  hover:text-red-500">Inscription</a>
+                                        <a href="{{route('register')}}" class="block px-4 py-2  hover:text-red-500">Inscription</a>
                                     </li>
                                     @endguest
                                   <li>
