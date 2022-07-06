@@ -94,10 +94,12 @@ class MelodionController extends Controller
     {
         $user=User::with('videos')->find($id);
         $videos = $user->videos;
+       
         if($videos)
         {
                 return view('biblio', [
                     'videos' => $videos
+                    
                 ]);
         } else
             return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
