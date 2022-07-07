@@ -31,27 +31,6 @@ Route::get('/video', function () {
 //});
 
 
-
-    Route::post('library', [MelodionController::class, 'addtolibrary'])->name('library');
-    Route::get('/biblio/{id}', [MelodionController::class, 'show'])->name('biblio');
-    Route::delete('/biblio/{id}', [MelodionController::class, 'destroy'])->name('biblio.destroy');
-    Route::post('/index', [MelodionController::class, 'creatememo'])->name('memos');
-    Route::post('/watch', [MelodionController::class, 'terminer'])->name('terminer');
-    Route::post('/', [YouTubeController::class, 'likes'])->name('likes');
-    Route::get('/showdelete/{id}', [UserController::class, 'showdel']);
-    Route::delete('/user/{id}', [UserController::class, 'delete']);
-    Route::get('/restore', [UserController::class, 'showrestore']);
-    Route::get('/restore/{id}', [UserController::class, 'restore'])->name('user.restore');
-
-
-
-
-
-    Route::get('/user', [UserController::class, 'getall'])->name('user')->middleware('Admin');
-    
-
-
-
 Route::middleware(['auth'])->group(function () {
 
     Route::post('library', [MelodionController::class, 'addtolibrary'])->name('library');
