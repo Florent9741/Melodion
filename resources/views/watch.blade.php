@@ -76,6 +76,12 @@
                         <span class="text-xs text-gray-500 uppercase font-medium ">
                             {{$memo->contenu}}
                         </span>
+                        <td class="px-4 py-3">@include('update')
+                            <td>	
+
+                                <td class="px-4 py-3">@include('memodelete')
+                                    <td>	
+
                     </div>
                 </div>
                 @endforeach
