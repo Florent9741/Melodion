@@ -49,9 +49,11 @@
                                     <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
                                     <form action="/update/{{$id}}" method="post">
                                         @csrf
-                                        <textarea id="message" name="contenu" cols="50" rows="15"
+                                        <input type="hidden" name="id_memos" value="{{$memo->id}}">
+                                        <textarea id="message" name="contenu" value= "{{$memo->contenu}}" cols="50" rows="15"
+                                            
                                             class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
-
+                                            <input type= "hidden" name="user_id" value= "{{Auth::user()->id}}">
                                         <div class="flex justify-center">
                                             <button type="submit"
                                                 class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">

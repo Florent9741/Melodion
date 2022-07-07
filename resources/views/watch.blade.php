@@ -78,7 +78,7 @@
                         </span>
                         <td class="px-4 py-3">@include('update')
                             <td>	
-
+                                
                                 <td class="px-4 py-3">@include('memodelete')
                                     <td>	
 

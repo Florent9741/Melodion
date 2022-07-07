@@ -51,26 +51,31 @@ class MelodionController extends Controller
 
     public function updatememo(Request $request, $id)
     {
-        $memos = Memos::find($id);
-        $memos->contenu = $request->contenu;
-     
+        
+        $memos = Memos::where(['videoId'=>$id, 'user_id'=> $request->user_id])
+        ->find($request->id_memos);
 
 
+        
+       $memos->id =$request->id_memos;
+        $memos->update([
+            'user_id'  => $request->user_id,
+            'videoId' => $id,
+            'contenu' => $request->contenu,
+            
+        ]);
 
-
-        $memos->save();
-
-
-        return redirect()->route('watch');
+    return redirect()->route('watch',$id)->with('modifié','Film modifié');
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
     
-        $memos = memos::find($id);
+        $memos = Memos::where(['user_id'=> $request->user_id]);
         
+       $memos=Memos::find($request->id_memos);
         $memos->delete();
-        return redirect()->route('watch', $memos->videoId);
+        return redirect()->route('watch',$memos->videoId);
     }
 
     protected function _singleVideoadd($id)
