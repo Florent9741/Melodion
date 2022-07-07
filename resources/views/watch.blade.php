@@ -1,40 +1,34 @@
 @extends('layouts.app')
 
 @section('main')
+
     {{-- La partie du haut player et memo --}}
     <div class="flex flex-col md:flex-row ">
 
 
-        <div id="monplayer" class=" w-full md:w-3/5 flex flex-col gap-4">
+        <div id="monplayer" class=" w-full md:w-3/5 md:mt-4 md:ml-4 flex flex-col gap-4">
             <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 
+            {{-- Le player la barre et le currentime --}}
             <div class="flex flex-col ">
 
-                        <div id="player" class="w-auto h-full md:w-full md:h-80">
+                        <div id="player" class="w-auto h-full md:w-full md:h-80 md:rounded">
                         </div>
 
 
                             <!-- affiche le current time -->
-                            <div class="flex flex-row">
+                                <div class="flex flex-row">
                                     <div id="currentTime" class="flex flex-row">
                                             <p> <span id="currentTimeSpan"></span>
                                         {{-- affiche le total time en minute et seconde --}}
                                         : <span id="totalTimeSpan"></span></p>
                                     </div>
 
+                                </div>
+
                                 <!-- curseur de progression -->
-
-
-
-
-                            </div>
-
                             <input type="range" id="seek-bar" value="0" max="100" step="1">
             </div>
-
-
-
-
 
 
             {{-- Les boutons --}}
@@ -61,7 +55,6 @@
                                 class="fa-solid fa-stop "></i>
 
             </div>
-
 
 
             {{-- La vitesse --}}
@@ -200,47 +193,12 @@
                 });
 
 
-
-                // // boutton pour mettre la video en plein ecran
-                // document.getElementById('fullscreen').addEventListener('click', function() {
-                //     player.setFullscreen();
-                // });
-
-                // // pour ralentir la video à 0.25 fois
-                // document.getElementById('slow25').addEventListener('click', function() {
-                //     player.setPlaybackRate(0.25);
-                // });
-
-                // // boutton pour ralentir la video
-                // document.getElementById('slow').addEventListener('click', function() {
-                //     player.setPlaybackRate(0.5);
-                // });
-
-                // // bouton pour ralentir la video de 0.75 fois
-                // document.getElementById('slow-75').addEventListener('click', function() {
-                //     player.setPlaybackRate(0.75);
-                // });
-
-                // // bouton vitesse normal
-                // document.getElementById('normal').addEventListener('click', function() {
-                //     player.setPlaybackRate(1);
-                // });
-
-
                 // {{-- barre range vitesse lecture --}}
                 document.getElementsByClassName('range')[0].addEventListener('change', function() {
                     player.setPlaybackRate(this.value / 100);
                 });
 
-                // // boutton pour mettre la video en mute
-                // document.getElementById('mute').addEventListener('click', function() {
-                //     player.mute();
-                // });
 
-                // // boutton pour mettre la video en unmute
-                // document.getElementById('unmute').addEventListener('click', function() {
-                //     player.unMute();
-                // });
 
                 // input toggle checkbox mute/unmute
                 document.getElementById('mute-checkbox').addEventListener('change', function() {
@@ -314,7 +272,7 @@
                     var minutes = Math.floor(totalTime / 60);
                     var seconds = Math.floor(totalTime % 60);
                     document.getElementById('totalTimeSpan').innerHTML = minutes + ":" + seconds;
-                }, 1000);
+                }, 10);
 
 
                 // quand B est different de -1 ET B > A
@@ -386,11 +344,8 @@
 
 
 
-
-
-
         {{-- Le formulaire de memo --}}
-        <div class=" flex-col md:w-2/5">
+        <div class=" flex-col w-full md:w-2/5 sm:my-5">
 
             {{-- <form action="{{ route('library') }}" method="post" class="flex justify-end">
                                                             @csrf
@@ -402,26 +357,28 @@
                                                             @endif --}}
 
             {{-- bouton pour ajouter la video à la bibliothèque --}}
-            <form action="{{ route('library') }}" method="post" class="justify-center">
-                @csrf
-                <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
-                @if (null !== Auth::user())
-                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                @endif
+            <form action="{{ route('library') }}" method="post" class="flex justify-center">
+                            @csrf
+                            <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
+                            @if (null !== Auth::user())
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            @endif
 
-                <input type="submit" class="sr-only" value="valider">
-                <button
-                    class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-end font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter
-                    à la bibliothèque
-                </button>
+                            <input type="submit" class="sr-only" value="valider">
+
+                            <button class="mt-4 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-end font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                                <i class="fa-solid fa-bookmark fa-red-500"></i>   Ajouter à la bibliothèque
+                            </button>
 
             </form>
-            <div
-                class="  lg:flex-grow md:w-full lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"> Rédiger un
-                    mémo
+
+            <div class="  lg:flex-grow md:w-full  lg:pl-24  flex flex-col md:items-start md:text-left items-center text-center">
+
+                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
+                    Rédiger un mémo
                 </h1>
-                <div class="relative mb-4">
+
+                <div class="relative mb-4 px-2 md:px-0 lg:px-0 ">
 
                     <form action="" method="post">
                         @csrf
@@ -430,7 +387,7 @@
                             <input type="hidden" name="user_id" value="">
                         @endif
                         <textarea id="message" name="message" cols="50" rows="15"
-                            class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-64 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                            class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-64 text-base outline-none text-gray-700 py-1  resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
 
 
                     </form>
@@ -473,7 +430,7 @@
 
     {{-- LES MEMOS PUBLICS --}}
 
-    <div class="flex flex-col px-2 w-full">
+    <div class="flex flex-col px-2 w-full mt-5">
         <div class="border-b pb-1 flex justify-between items-center mb-2">
             <span class=" text-base font-semibold uppercase text-gray-700">Les mémos des autres
                 utilisateurs</span>
