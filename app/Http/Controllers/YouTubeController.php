@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bibliotheques;
 use App\Models\Likes;
+use App\Models\Memos;
 use App\Models\Videos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,13 +46,14 @@ class YouTubeController extends Controller
     }
     public function watch($id)
     {
+        $memos = Memos::all();
         $singleVideo= $this->_singleVideo($id);
         if (session('search_query')){
             $videoLists= $this->_videoLists(session('search_query'));
         }else {
             $videoLists= $this->_videoLists('cours de musique');
         }
-        return view('watch', compact('singleVideo','videoLists','id'));
+        return view('watch', compact('singleVideo','videoLists','memos','id'));
     }
 
     protected function _videoLists($keywords)

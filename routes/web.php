@@ -43,6 +43,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/user/{id}', [UserController::class, 'delete']);
     Route::get('/restore', [UserController::class, 'showrestore']);
     Route::get('/restore/{id}', [UserController::class, 'restore'])->name('user.restore');
+    Route::post('/store/{id}',[MelodionController::class, 'creatememo']); 
+    Route::post('/update/{id}', [MelodionController::class, 'updatememo']);
+    Route::delete('/delete/{id}', [MelodionController::class, 'delete'])->whereNumber('id')->name('delete');
+
+
 });
 
 

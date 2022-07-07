@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Videos;
 use Doctrine\DBAL\Schema\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Throwable;
@@ -47,6 +48,52 @@ class MelodionController extends Controller
 
 
         return redirect()->route('biblio', $request->user_id)->with('status', 'vidéo ajoutée avec succès !');
+    }
+
+    public function creatememo(Request $request, $id)
+    {
+        $validate = $request->validate([
+            'contenu' => 'required',
+
+        ]);
+
+        $memos = new Memos();
+        $memos->user_id = Auth::id();
+        $memos->videoId = "$id";
+        $memos->contenu = $request['contenu'];
+ 
+        $memos->save();
+
+        return redirect()->route('watch', $memos->videoId);
+    }
+
+    public function updatememo(Request $request, $id)
+    {
+        
+        $memos = Memos::where(['videoId'=>$id, 'user_id'=> $request->user_id])
+        ->find($request->id_memos);
+
+
+        
+       $memos->id =$request->id_memos;
+        $memos->update([
+            'user_id'  => $request->user_id,
+            'videoId' => $id,
+            'contenu' => $request->contenu,
+            
+        ]);
+
+    return redirect()->route('watch',$id)->with('modifié','Film modifié');
+    }
+
+    public function delete(Request $request)
+    {
+    
+        $memos = Memos::where(['user_id'=> $request->user_id]);
+        
+       $memos=Memos::find($request->id_memos);
+        $memos->delete();
+        return redirect()->route('watch',$memos->videoId);
     }
 
     protected function _singleVideoadd($id)
