@@ -21,10 +21,11 @@
   ```
 -->
   <div>
-          <button id="retour" type="submit" class=" bg-blue-300 justify-center w-24 flex py-2 px-4 mt-10 ml-10 border border-blue-500 text-sm font-semibold rounded-md text-black  hover:bg-lightblue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-50" aria-required="true">
+    <a href="/" >    
+    <button id="retour" type="submit" class=" bg-blue-300 justify-center w-24 flex py-2 px-4 mt-10 ml-10 border border-blue-500 text-sm font-semibold rounded-md text-black  hover:bg-lightblue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-50" aria-required="true">
            
             Retour
-          </button>
+          </button> </a>
         </div>
 
 <!-- <div class="fb-login-button" >Login with Facebook</div> -->

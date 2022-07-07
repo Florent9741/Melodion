@@ -9,11 +9,11 @@ class Memos extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['contenu','video_id'];
+    protected $fillable = ['contenu','videoId','user_id' ];
 
     public function videos()
     {
-        return $this->belongsTo(Videos::class, );
+        return $this->belongsTo(Videos::class, 'videoId' );
     }
 
 }

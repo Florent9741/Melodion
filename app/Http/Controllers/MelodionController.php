@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use App\Models\User;
 use App\Models\Videos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -17,99 +18,84 @@ class MelodionController extends Controller
 
     public function addtolibrary(Request $request)
     {
-    //dd($request->user_id);
+        //dd($request->user_id);
 
 
-        $singleVideo= $this->_singleVideoadd($request->videoId);
+        $singleVideo = $this->_singleVideoadd($request->videoId);
 
         $biblio = new Bibliotheques();
         $biblio->user_id = $request->user_id;
         $biblio->videoId = $request->videoId;
         $biblio->public = false;
         $biblio->save();
-       
-        return redirect()-> route('biblio',$request->user_id)->with('status', 'vidéo ajoutée avec succès !');
+
+        return redirect()->route('biblio', $request->user_id)->with('status', 'vidéo ajoutée avec succès !');
     }
-    
-    public function creatememo(Request $request)
+
+    public function creatememo(Request $request, $id)
     {
         $validate = $request->validate([
-            
-            'videoId' => 'required|max:150', 
-            'user_id' => 'required|max:1048',
-            'contenu' => 'required|',
-            
-        ]);
-        
-       
-       
-       
-        $memos = Memos::with('videos')->where('video_id','=','videoId')->get();
-        $memos = new Memos();
+            'contenu' => 'required',
 
-             
-       
-            
-           $memos->contenu = $request ['contenu'];
-           $memos->user_id = $request ['user_id'];
-           $memos->video_id = $request ['videoId'];
-    
-        
-      
-   
+        ]);
+
+        $memos = new Memos();
+        $memos->user_id = Auth::id();
+        $memos->videoId = "$id";
+        $memos->contenu = $request['contenu'];
+ 
         $memos->save();
-        return redirect()->route('store');
-         
+
+        return redirect()->route('watch', $memos->videoId);
     }
 
-    public function updatememo(Request $request)
+    public function updatememo(Request $request, $id)
     {
-        $memo = Memos::all();
-           
+        $memo = Memos::find($id);
+
         $memo->update([
-           
-            
+
+
             'contenu' => $request->contenu,
-            
-         
-            
+
+
+
         ]);
-            
-        
-         
+
+
+
         $memo->save();
-       
 
-        return redirect()->route('biblio')->with('success', 'Post ajouté');
-    
 
+        return redirect()->route('watch', $memos->videoId)->with('success', 'Post ajouté');
     }
 
     protected function _singleVideoadd($id)
     {
-     $api_key=config('services.youtube.api_key');
-     $part='snippet';
-     $url="https://www.googleapis.com/youtube/v3/videos?part=$part&id=$id&key=$api_key";
-     $response= Http::get($url);
-     $results=json_decode($response);
-     foreach ($results->items as $item)
-     //dd($item);
-     {
-        DB::table('videos')->insert([
-       "videoId" =>$item->id,
-       "title" =>$item->snippet->title,
-       "description" =>$item->snippet->description,
-       "url" =>$item->snippet->thumbnails->medium->url,
-       "publishedAt" =>date('Y-m-d H:i:s',strtotime($item->snippet->publishedAt)),  
-       "created_at"=>now(),
-       "updated_at"=>now()     
-   ]);}
-     File::put(storage_path().'/app/public/single.json', $response->body());
-     return $results;
-    } 
+        $api_key = config('services.youtube.api_key');
+        $part = 'snippet';
+        $url = "https://www.googleapis.com/youtube/v3/videos?part=$part&id=$id&key=$api_key";
+        $response = Http::get($url);
+        $results = json_decode($response);
+        foreach ($results->items as $item)
+        //dd($item);
+        {
+            DB::table('videos')->insert([
+                "videoId" => $item->id,
+                "title" => $item->snippet->title,
+                "description" => $item->snippet->description,
+                "url" => $item->snippet->thumbnails->medium->url,
+                "publishedAt" => date('Y-m-d H:i:s', strtotime($item->snippet->publishedAt)),
+                "created_at" => now(),
+                "updated_at" => now()
+            ]);
+        }
+        File::put(storage_path() . '/app/public/single.json', $response->body());
+        return $results;
+    }
 
 
-     public function edit($id)
+    public function edit($id)
     {
         $video = Videos::find($id);
         //  $auteurs = Auteurs::all();
@@ -127,8 +113,8 @@ class MelodionController extends Controller
     public function update(Request $request, $id)
     {
 
-        
-      /*  $video = User::with('videos')->where('videoId', '=', $id)->get();
+
+        /*  $video = User::with('videos')->where('videoId', '=', $id)->get();
         if (isset($video)) {
             // dd($request);
             $member->prenom = $request->prenom;
@@ -144,40 +130,39 @@ class MelodionController extends Controller
 
     public function show($id)
     {
-        $biblios=Bibliotheques::where('user_id','=',$id)->latest()->get();
+        $biblios = Bibliotheques::where('user_id', '=', $id)->latest()->get();
         //
-       foreach ($biblios as $biblio) {
-        
-        $film[]=$biblio->videoId;
-       }
-    if (isset ($film)) {
-        $videos = Videos::with('users')->whereIn('videoId', $film)->get();
-    
-     //->where('videoId', '=', $film)
-     //->where('id', '=', $id)->get();
-       // dd($videos);
+        foreach ($biblios as $biblio) {
 
-        return view('biblio', [
-            'videos' => $videos,
-            'biblio' => $biblios
-        ]);
-    }else{
-        return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
+            $film[] = $biblio->videoId;
+        }
+        if (isset($film)) {
+            $videos = Videos::with('users')->whereIn('videoId', $film)->get();
+
+            //->where('videoId', '=', $film)
+            //->where('id', '=', $id)->get();
+            // dd($videos);
+
+            return view('biblio', [
+                'videos' => $videos,
+                'biblio' => $biblios
+            ]);
+        } else {
+            return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
+        }
     }
-}
 
-public function destroy(Request $request ,$videoId )
-{
-   // dd($_GET['userId']);
-   
-    if (isset($videoId) and !is_numeric($videoId)) {
-     //
-       Bibliotheques::where(['user_id'=> $_GET['userId'] ,'videoId'=> $videoId])
-        ->delete();
-        
-        
+    public function destroy(Request $request, $videoId)
+    {
+        // dd($_GET['userId']);
+
+        if (isset($videoId) and !is_numeric($videoId)) {
+            //
+            Bibliotheques::where(['user_id' => $_GET['userId'], 'videoId' => $videoId])
+                ->delete();
+
+
             return redirect()->route('biblio', $_GET['userId'])->with('status', 'vidéo supprimée avec succès !');
         }
-}
-
+    }
 }

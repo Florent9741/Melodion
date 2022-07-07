@@ -63,5 +63,5 @@ Route::post('library', [MelodionController::class, 'addtolibrary'])
 
 Route::get('/biblio/{id}',[MelodionController::class, 'show'])->name('biblio'); 
 
-Route::post('/store',[MelodionController::class, 'creatememo']); 
+Route::post('/store/{id}',[MelodionController::class, 'creatememo']); 
 

@@ -24,6 +24,7 @@
                         <iframe src="https://www.youtube.com/embed/" width="889" height="500" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                    
+                   
                 </div>
             </div>
             <div class="w-2/5">
@@ -32,13 +33,8 @@
                     </h1>
                     <div class="relative mb-4">
                         <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
-                        <form action="/store/" method="post">
+                        <form action="/store/{{$id}}" method="post">
                             @csrf
-    
-                            <input type="hidden" name="videoId" value="{{$id}}">
-    
-                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-    
                             <textarea id="message" name="contenu" cols="50" rows="15"
                                 class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
     
@@ -64,11 +60,10 @@
                     <img class="w-4 cursor-pointer"
                         src="https://p.kindpng.com/picc/s/152-1529312_filter-ios-filter-icon-png-transparent-png.png" />
                 </div>
-               
-                  @foreach ($memos as $memo)
+                @foreach ($memos->where('videoId', '=', $id)  as $memo)
+                 
                       
-                   
-  
+                 
                 <div class="flex border-b py-3 cursor-pointer hover:shadow-md px-2 ">
                    
                     <img class='w-10 h-10 object-cover rounded-lg' alt='User avatar'
@@ -76,14 +71,16 @@
                     <div class="flex flex-col px-2 w-full">
     
                         <span class="text-sm text-red-500 capitalize font-semibold pt-1">
-                            {{$memo->contenu}}
+                            florent 
                         </span>
                         <span class="text-xs text-gray-500 uppercase font-medium ">
-                            
+                            {{$memo->contenu}}
                         </span>
                     </div>
                 </div>
                 @endforeach
+                
+               
            
 
                
