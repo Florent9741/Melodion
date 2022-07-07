@@ -31,7 +31,6 @@ Route::get('/video', function () {
 //});
 
 
-Route::middleware(['auth'])->group(function () {
 
     Route::post('library', [MelodionController::class, 'addtolibrary'])->name('library');
     Route::get('/biblio/{id}', [MelodionController::class, 'show'])->name('biblio');
@@ -43,14 +42,14 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/user/{id}', [UserController::class, 'delete']);
     Route::get('/restore', [UserController::class, 'showrestore']);
     Route::get('/restore/{id}', [UserController::class, 'restore'])->name('user.restore');
-});
 
 
-Route::middleware(['Admin'])->group(function () {
+
+
 
     Route::get('/user', [UserController::class, 'getall'])->name('user')->middleware('Admin');
     
-});
+
 
 
 Route::middleware(['auth'])->group(function () {
