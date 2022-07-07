@@ -44,11 +44,11 @@
                             </li>
 
                             <li>
-                                <a href="{{ route('user') }}" class="block px-4 py-2 hover:text-red-500">Dashboard</a>
+                                <a href="{{ route('user') }}" class="block px-4 py-2 hover:text-red-500">Tableau de board</a>
                             </li>
 
                             <li>
-                                <a href="{{ route('signout') }}" class="block px-4 py-2 hover:text-red-500">Sign Out</a>
+                                <a href="{{ route('signout') }}" class="block px-4 py-2 hover:text-red-500">Deconnexion</a>
                             </li>
                         @endauth
                     </ul>
