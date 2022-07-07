@@ -31,7 +31,7 @@
     <i class="fa-solid fa-circle-check text-teal-300 absolute z-10"></i>
 
             @else
-                <i class="fa-solid fa-circle-check text-red-600 absolute z-10"></i>
+                <i class="fa-solid fa-circle-check text-yellow-600 absolute z-10"></i>
 
             @endif
     <img src="{{$video->url}}" alt="yt-image" class="w-64 h-auto">
