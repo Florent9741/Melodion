@@ -38,7 +38,7 @@
                            <input type="hidden" name="videoId" value="{{$video->videoId}}">
                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                             @endif
-                           <div class="inline-block p-0 m-0 text-right duration-300 ease-in-out hover:text-green-500"><button type="submit" name="like" value="1"><i class="fa-solid fa-thumbs-up"></i>{{ $video->countlike}}</button></div>
+                           <div class="inline-block p-0 m-0 text-right duration-300 ease-in-out hover:text-green-500"><button type="submit" name="like" value="1"><i class="fa-solid fa-thumbs-up">  </i> {{  $video->countlike}}</button></div>
 
                        </form>
                     </div>

@@ -59,12 +59,14 @@ class MelodionController extends Controller
 
     public function creatememo(Request $request, $id)
     {
-        $validate = $request->validate([
+        try { 
+            
+            $validate = $request->validate([
             'contenu' => 'required',
 
         ]);
 
-        try {
+       
 
         $memos = new Memos();
         $memos->user_id = Auth::id();
@@ -75,10 +77,8 @@ class MelodionController extends Controller
 
     } catch (Throwable $e) {
         report($e);
-        return redirect()->route('watch', $memos->videoId)->with('status', 'Veuillez ajouter la video dans la biblioteque pour pouvoir insérer un memo.');
-    
-
-        return false;
+        return redirect()->route('watch', $memos->videoId)->with('status', $e,'Veuillez ajouter la video dans la biblioteque pour pouvoir insérer un memo.');
+   
     }
         return redirect()->route('watch', $memos->videoId);
     }
@@ -88,17 +88,13 @@ class MelodionController extends Controller
         
         $memos = Memos::where(['videoId'=>$id, 'user_id'=> $request->user_id])
         ->find($request->id_memos);
-
-
-        
-       $memos->id =$request->id_memos;
-        $memos->update([
-            'user_id'  => $request->user_id,
-            'videoId' => $id,
-            'contenu' => $request->contenu,
-            
-        ]);
-
+        if (isset($memos)) {
+        $memos->id = $request->id_memos;
+        $memos->user_id  = $request->user_id;
+        $memos->videoId = $id;
+        $memos->contenu = $request->contenu;
+        $memos->save();    
+    }
     return redirect()->route('watch',$id)->with('modifié','Film modifié');
     }
 
