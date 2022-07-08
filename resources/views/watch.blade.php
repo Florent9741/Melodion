@@ -6,7 +6,7 @@
     <div class="flex flex-col md:flex-row ">
 
 
-        <div id="monplayer" class="flex flex-col w-full gap-4  md:w-3/5 md:mt-4 md:ml-4">
+        <div id="monplayer" class="flex flex-col w-full gap-4 md:w-3/5 md:mt-4 md:ml-4">
             <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 
             {{-- Le player la barre et le currentime --}}
@@ -281,7 +281,7 @@
 
 
         {{-- Le formulaire de memo --}}
-        <div class="flex-col w-full  md:w-2/5 sm:my-5">
+        <div class="flex-col w-full md:w-2/5 sm:my-5">
 
             {{-- <form action="{{ route('library') }}" method="post" class="flex justify-end">
                                                             @csrf
@@ -306,7 +306,7 @@
 
             </form>
 
-            <div class="flex flex-col items-center text-center  lg:flex-grow md:w-full lg:pl-24 md:items-start md:text-left">
+            <div class="flex flex-col items-center text-center lg:flex-grow md:w-full lg:pl-24 md:items-start md:text-left">
 
                 <h1 class="mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl">
                     Rédiger un mémo
@@ -314,27 +314,24 @@
 
                 <div class="relative px-2 mb-4 md:px-0 lg:px-0 ">
 
-                    <form action="" method="post">
+                    <form action="/store/{{$id}}" method="post">
                         @csrf
-                        <input type="hidden" name="videoId" value="">
-                        @if (!null == Auth::user())
-                            <input type="hidden" name="user_id" value="">
-                        @endif
-                        <textarea id="message" name="message" cols="50" rows="15"
-                            class="w-full h-64 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
+                        <textarea id="message" name="contenu" cols="50" rows="15"
+                            class="w-full h-32 px-3 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
 
+                      <div class="flex flex-row gap-x-3 ">
+
+                    <button
+                        class="flex flex-row-reverse px-6 py-2 text-lg text-white bg-red-500 border-0 rounded hover:bg-indigo-600 focus:outline-none">
+                        Enregistrer
+                    </button>  
 
                     </form>
                 </div>
 
 
 
-                <div class="flex flex-row gap-x-3 ">
-
-                    <button
-                        class="flex flex-row-reverse px-6 py-2 text-lg text-white bg-red-500 border-0 rounded hover:bg-indigo-600 focus:outline-none">
-                        Enregistrer
-                    </button>
+               
 
 
                     <form action="/watch" method="post" enctype="multipart/form-data">

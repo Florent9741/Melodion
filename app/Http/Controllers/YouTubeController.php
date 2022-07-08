@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use App\Models\Memos;
 
 
 
@@ -45,13 +46,14 @@ class YouTubeController extends Controller
     }
     public function watch($id)
     {
+        $memos = Memos::all(); // TODO :recuperé le memo de la video
         $singleVideo= $this->_singleVideo($id);
         if (session('search_query')){
             $videoLists= $this->_videoLists(session('search_query'));
         }else {
             $videoLists= $this->_videoLists('cours de musique');
         }
-        return view('watch', compact('singleVideo','videoLists','id'));
+        return view('watch', compact('singleVideo','videoLists','id','memos'));
     }
 
     protected function _videoLists($keywords)
