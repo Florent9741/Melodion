@@ -21,7 +21,7 @@
             <div class="row">
 
                 {{-- ton end section est là normalement --}}
-               
+
                 @if (isset($medias))
                    @foreach ($medias as $media)
                         <div class="col-4">
@@ -34,8 +34,8 @@
                                             <i class="absolute z-10 text-yellow-600 fa-solid fa-circle-check"></i>
                                         @endif
 
-                                       
-                                    
+
+
 
 
 
@@ -51,7 +51,7 @@
                                         @else
                                             <p> <br></p>
                                         @endif
-                                 
+
                                     </div>
                                 </a>
                                     <div class="card-footer text-muted">
@@ -71,7 +71,7 @@
 
                                         </form>
                                     </div>
-                                
+
 
                                 <form
                                     action="{{ route('biblio.destroy', $media->pivot->videoId . '?userId=' . Auth::user()->id) }}"
@@ -86,7 +86,7 @@
                         </div>
                    @endforeach
                 @endif
-            </div> 
+            </div>
         </div>
 
 

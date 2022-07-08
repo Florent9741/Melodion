@@ -316,7 +316,7 @@
 
 
         {{-- Le formulaire de memo --}}
-        <div class="flex-col w-full  md:w-2/5 sm:my-5">
+        <div class=" flex-col w-full md:w-2/5 sm:my-5 md:ml-4 lg::ml-0">
 
             <div class="flex flex-row justify-evenly items-center">
             {{-- bouton pour ajouter la video à la bibliothèque --}}
@@ -359,7 +359,8 @@
         
 
 
-            <div class="flex flex-col items-center text-center  lg:flex-grow md:w-full lg:pl-24 md:items-start md:text-left">
+            <div
+                class="  lg:flex-grow md:w-full   md:justify-center flex flex-col  md:text-left items-center text-center">
 
                 <h1 class="mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl">
                     Rédiger un mémo
@@ -369,17 +370,17 @@
 
                     <form action="/store/{{$id}}" method="post">
                         @csrf
-                       
+
                         <textarea id="message" name="contenu" cols="50" rows="15"
                             class="w-full h-64 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
                             <div class="flex justify-center">
                                 <button
                                 type="submit"
                                     class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                                    
+
                                     Enregistrer
                                  </button>
-    
+
                             </div>
 
                     </form>
@@ -389,7 +390,7 @@
 
                 <div class="flex flex-row gap-x-3 ">
 
-                  
+
 
 
                     <form action="/watch" method="post" enctype="multipart/form-data">
@@ -430,7 +431,7 @@
         </div>
         @foreach ($memos->where('videoId', '=', $id)  as $memo)
         {{-- Memo user1 --}}
-        
+
         <div class="flex px-2 py-3 border-b cursor-pointer hover:shadow-md ">
 
             <img class='object-cover w-10 h-10 rounded-lg' alt='User avatar'
@@ -465,5 +466,5 @@
         </div>
         @endforeach
 
-        
+
     @endsection
