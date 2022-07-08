@@ -8,6 +8,12 @@
 rel="stylesheet">
 <script src="https://kit.fontawesome.com/5373dfbc9f.js" crossorigin="anonymous"></script>
 
+
+@if (session('status'))
+<div class="mt-20 mb-10 text-3xl font-bold text-left text-green-600">
+    {{ session('status') }}
+</div>
+@endif
     {{-- La partie du haut player et memo --}}
     <div class="flex flex-col md:flex-row ">
 

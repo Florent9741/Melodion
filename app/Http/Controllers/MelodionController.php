@@ -34,6 +34,9 @@ class MelodionController extends Controller
 
             return false;
         }    
+
+        try {
+
             $biblio = new Bibliotheques();
             $biblio->user_id = $request->user_id;
             $biblio->videoId = $request->videoId;
@@ -41,14 +44,18 @@ class MelodionController extends Controller
            
             $biblio->save();
         
+        } catch (Throwable $e) {
+            report($e);
+            return redirect()->route('biblio', $request->user_id)->with('status', 'la video existe déja dans la bibliothèque');
 
-
-
+            return false;
+        }
 
 
 
         return redirect()->route('biblio', $request->user_id)->with('status', 'vidéo ajoutée avec succès !');
     }
+
 
     public function creatememo(Request $request, $id)
     {
@@ -57,6 +64,8 @@ class MelodionController extends Controller
 
         ]);
 
+        try {
+
         $memos = new Memos();
         $memos->user_id = Auth::id();
         $memos->videoId = "$id";
@@ -64,6 +73,13 @@ class MelodionController extends Controller
  
         $memos->save();
 
+    } catch (Throwable $e) {
+        report($e);
+        return redirect()->route('watch', $memos->videoId)->with('status', 'Veuillez ajouter la video dans la biblioteque pour pouvoir insérer un memo.');
+    
+
+        return false;
+    }
         return redirect()->route('watch', $memos->videoId);
     }
 
