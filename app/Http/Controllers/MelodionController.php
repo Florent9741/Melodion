@@ -39,6 +39,10 @@ class MelodionController extends Controller
      $response= Http::get($url);
      $results=json_decode($response);
      foreach ($results->items as $item)
+     $check=DB::select('SELECT * FROM videos WHERE videoId=?',[$item->id]);
+     if (count($check)== 1) {
+        //rien
+      } else
      //dd($item);
      {
         DB::table('videos')->insert([
@@ -84,11 +88,27 @@ class MelodionController extends Controller
             $member->save();
             return redirect()->route('profile', $member->id)->with('status', 'votre profil a bien été modifié !');
         } else {
-            return redirect()->route('home');
-        }*/
-    }
+            return redirect()->route('home');*/
+        }
+/*public function show($id)
+    {
+    $user=User::with('videos')->find($id);
+    $videos = $user->videos;
+  //dd($videos);
+   
+    if($videos)
+    {
+            return view('biblio', [
+                'videos' => $videos
+                
+            ]);
+    } else
+        return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
+}
+*/
 
-    public function show($id)
+
+ public function show($id)
     {
         $biblios=Bibliotheques::where('user_id','=',$id)->latest()->get();
         //
@@ -97,15 +117,23 @@ class MelodionController extends Controller
         $film[]=$biblio->videoId;
        }
     if (isset ($film)) {
-        $videos = Videos::with('users')->whereIn('videoId', $film)->get();
-    
+       
+      //$videos = Videos::with('users')->whereIn('videoId', $film)->distinct()->get();
+        $videos= DB::table('videos')
+        ->whereIn('videoId', $film)
+        ->distinct()
+        ->get();
+      
+        $user=User::with('videos')->find($id);
+        $medias = $user->videos;
+        //$videos = Videos::with('users')->get();
      //->where('videoId', '=', $film)
      //->where('id', '=', $id)->get();
-       // dd($videos);
+      // dd($videos);
 
         return view('biblio', [
             'videos' => $videos,
-            'biblio' => $biblios
+            'medias' => $medias
         ]);
     }else{
         return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');

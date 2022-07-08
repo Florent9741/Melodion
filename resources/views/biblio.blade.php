@@ -26,10 +26,9 @@
     </div>
 {{-- ton end section est là normalement --}}
 <div class="container mx-auto flex">
-    @if (isset($biblio))      
+         
 @foreach ($videos as $item)
-     
-
+   
     <a href="{{route('watch',$item->videoId)}}" class="w-64 h-auto">                           
         <div class="card mb-4">
     <img src="{{$item->url}}" alt="yt-image" class="w-64 h-auto">
@@ -50,7 +49,7 @@
       <input type="submit" value="Supprimer">
       </form>   
     @endforeach
-@endif
+
 </div>
 
 <div class="flex flex-col p-5">
