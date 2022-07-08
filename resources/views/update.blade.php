@@ -4,6 +4,7 @@
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
         <div x-data="{ modelOpen: false }">
+            
             <button @click="modelOpen =!modelOpen"
             <i class="p-3 fa-solid fa-pen-to-square hover:text-blue-700"></i>
             </button>
