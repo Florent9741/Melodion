@@ -71,19 +71,27 @@
                         </div>
 
                         {{-- Le son --}}
-                        <div class="lg:order-2 w-full lg:w-1/3 px-1  flex flex-row">
+                        <div class="lg:order-2 w-full lg:w-1/3 px-1 pt-1 flex flex-row">
 
                             {{-- input toggle checkbox mute/unmute --}}
 
-                            <i class="fa-solid fa-volume-xmark"></i>
-                            <input type="checkbox" id="mute-checkbox">
+                            {{-- <i class="fa-solid fa-volume-xmark"></i>
+                            <input type="checkbox" id="mute-checkbox"> --}}
 
+                            {{-- boutton mute/unmute --}}
+                            <button id="mute"
+                                class="flex flex-row place-self-center text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                                <i class="fa-solid fa-volume-mute hidden"></i>
+                                <i class="fa-solid fa-volume-up"></i>
+                            </button>
 
                             {{-- progress bar pour le volume --}}
                             <input id="volumebar" type="range" min="0" max="100" value="50"
-                                class="range range-xs range-accent " step="1" />
+                            class="range range-xs range-accent place-self-center" step="1" />
 
-                        </div>
+                            </div>
+
+
 
                         {{-- lecture en boucle --}}
 
@@ -202,11 +210,30 @@
 
 
                 // input toggle checkbox mute/unmute
-                document.getElementById('mute-checkbox').addEventListener('change', function() {
-                    if (this.checked) {
-                        player.mute();
-                    } else {
+                // document.getElementById('mute-checkbox').addEventListener('change', function() {
+                //     if (this.checked) {
+                //         player.mute();
+                //     } else {
+                //         player.unMute();
+                //     }
+                // });
+
+                // boutton mute/unmute
+                document.getElementById('mute').addEventListener('click', function() {
+                    if (player.isMuted()) {
                         player.unMute();
+
+                    } else {
+                        player.mute();
+                    }
+                });
+
+                //  si volume mute montrer icon mute sinon icon volume up
+                document.getElementById('mute').addEventListener('click', function() {
+                    if (!player.isMuted()) {
+                        document.getElementById('mute').innerHTML = '<i class="fa-solid fa-volume-mute"></i>';
+                    } else {
+                        document.getElementById('mute').innerHTML = '<i class="fa-solid fa-volume-up"></i>';
                     }
                 });
 
