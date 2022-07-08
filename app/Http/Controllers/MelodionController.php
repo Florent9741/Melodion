@@ -88,17 +88,13 @@ class MelodionController extends Controller
         
         $memos = Memos::where(['videoId'=>$id, 'user_id'=> $request->user_id])
         ->find($request->id_memos);
-
-
-        
-       $memos->id =$request->id_memos;
-        $memos->update([
-            'user_id'  => $request->user_id,
-            'videoId' => $id,
-            'contenu' => $request->contenu,
-            
-        ]);
-
+        if (isset($memos)) {
+        $memos->id = $request->id_memos;
+        $memos->user_id  = $request->user_id;
+        $memos->videoId = $id;
+        $memos->contenu = $request->contenu;
+        $memos->save();    
+    }
     return redirect()->route('watch',$id)->with('modifié','Film modifié');
     }
 
