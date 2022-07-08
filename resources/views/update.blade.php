@@ -1,6 +1,6 @@
 <div class="flex flex-col">
 
-    <div class="mt-16 flex justify-center">
+    <div class="mt-3 flex justify-center">
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
         <div x-data="{ modelOpen: false }">
@@ -62,10 +62,10 @@
                                             </button>
 
                                         </div>
-
-                                    </form>
+                                    </div>
                                 </div>
-                         
+                                    </form>
+                               
                         
 
                    
@@ -76,5 +76,5 @@
             </div>
         </div>
     </div>
-</div>
+
 </div>

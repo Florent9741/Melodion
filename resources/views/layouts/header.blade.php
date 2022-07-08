@@ -37,14 +37,14 @@
                             <a href="{{ route('index') }}" class="block px-4 py-2  hover:text-red-500">Accueil</a>
                         </li>
                         @auth
-
+                       
                             <li>
-                                <a href="{{ route('biblio', Auth::user()->id) }}"
-                                    class="block px-4 py-2 hover:text-red-500">Bibliothèque</a>
-                            </li>
-
+                                @if (!null==Auth::user())
+                                <a href="/biblio/{{Auth::user()->id}}" class="block px-4 py-2 hover:text-red-500">Bibliothèque</a>                           
+                            @endif
+                           </li>
                             <li>
-                                <a href="{{ route('user') }}" class="block px-4 py-2 hover:text-red-500">Tableau de board</a>
+                                <a href="{{ route('user') }}" class="block px-4 py-2 hover:text-red-500">Tableau de bord</a>
                             </li>
 
                             <li>

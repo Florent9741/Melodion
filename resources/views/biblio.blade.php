@@ -40,7 +40,7 @@
 
 
 
-                                    <img src="{{ $media->url }}" alt="yt-image" class="w-64 h-auto">
+                                    <img src="{{ $media->url }}" alt="yt-image" class="img-fluid w-96 h-auto">
 
                                     <div class="card-body">
                                         <h5> {{ \Illuminate\Support\Str::limit($media->title, $limit = 10, $end = ' ...') }}

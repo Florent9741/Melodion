@@ -454,12 +454,10 @@
                 @if (null !== Auth::user())
                     @if (Auth::user()->id == $memo->user_id)
                        
-                <td class="px-4 py-3">@include('update')
-                
-                    <td>	
-                       
-                        <td class="px-4 py-3">@include('memodelete')
-                            <td>
+                <div class="px-4 flex flex-row items-center space-x-96">
+                    @include('update')
+                    @include('memodelete')
+                </div>
                                 @endif  
                                 @endif 
             </div>
