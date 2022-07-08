@@ -3,7 +3,7 @@
 @section('main')
     <section class="text-gray-600 body-font">
         @if ($errors->any())
-            <div class="text-red-600 text-2xl text-left font-semibold">
+            <div class="text-2xl font-semibold text-left text-red-600">
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -13,7 +13,7 @@
         @endif
 
         @if (session('status'))
-            <div class="text-3xl text-left font-bold text-green-600 mt-20 mb-10">
+            <div class="mt-20 mb-10 text-3xl font-bold text-left text-green-600">
                 {{ session('status') }}
             </div>
         @endif
@@ -22,53 +22,70 @@
 
                 {{-- ton end section est là normalement --}}
 
-                @foreach ($videos as $item)
+                @if (isset($medias))
+                   @foreach ($medias as $media)
+                        <div class="col-4">
+                            <div class="mb-4 card">
+                                <a href="{{ route('watch', $media->pivot->videoId) }}">
+                                     {{-- //{{dd($media)}} --}}
+                                        @if ($media->pivot->statut )
+                                            <i class="absolute z-10 text-teal-300 fa-solid fa-circle-check"></i>
+                                        @else
+                                            <i class="absolute z-10 text-yellow-600 fa-solid fa-circle-check"></i>
+                                        @endif
 
-                    <div class="col-4">
-                        <div class="card mb-4">
-                            <a href="{{ route('watch', $item->videoId) }}">
-                                {{$item->videoId}}
-                                @if ($item->pivot->statut)
-                                    <i class="fa-solid fa-circle-check text-teal-300 absolute z-10"></i>
-                                @else
-                                    <i class="fa-solid fa-circle-check text-yellow-600 absolute z-10"></i>
-                                @endif
-                                <img src="{{ $item->url }}" alt="yt-image" class="w-64 h-auto">
 
-                                <div class="card-body">
-                                    <h5>{{ $item->title }}</h5>
-                                    <p>{{ \Illuminate\Support\Str::limit($item->description, $limit = 50, $end = ' ...') }}</p>
-                                </div>
-                                <div class="card-footer text-muted">
-                                    Published at {{ date('d M Y', strtotime($item->publishedAt)) }}
-                                    <form class="block text-right" action="{{ route('likes') }}" method="POST">
-                                        @csrf
 
-                                        <input type="hidden" name="videoId" value="{{ $item->videoId }}">
-                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 
-                                        <div
-                                            class="inline-block m-0 p-0 text-right ease-in-out hover:text-green-500 duration-300">
-                                            <button type="submit" name="like" class="pointer-events-none"
-                                                value="1"><i
-                                                    class="fa-solid fa-thumbs-up"></i>{{ $item->countlike }}</button>
-                                        </div>
 
-                                    </form>
-                                </div>
-                            </a>
 
-                            <form action="{{ route('biblio.destroy', $item->videoId . '?userId=' . Auth::user()->id) }}"
-                                method="POST"
-                                class="py-2 px-4 mb-auto border border-transparent text-sm font-semibold rounded-md text-white bg-black ">
-                                @csrf
-                                @method('DELETE')
-                                <input type="submit" value="Supprimer">
-                            </form>
 
+                                    <img src="{{ $media->url }}" alt="yt-image" class="w-64 h-auto">
+
+                                    <div class="card-body">
+                                        <h5> {{ \Illuminate\Support\Str::limit($media->title, $limit = 10, $end = ' ...') }}
+                                        </h5>
+                                        @if (!empty($media->description))
+                                            <p>{{ \Illuminate\Support\Str::limit($media->description, $limit = 20, $end = ' ...') }}
+                                            </p>
+                                        @else
+                                            <p> <br></p>
+                                        @endif
+
+                                    </div>
+                                </a>
+                                    <div class="card-footer text-muted">
+                                        Published at {{ date('d M Y', strtotime($media->pivot->publishedAt)) }}
+                                        <form class="block text-right" action="{{ route('likes') }}" method="POST">
+                                            @csrf
+
+                                            <input type="hidden" name="videoId" value="{{ $media->pivot->videoId }}">
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
+                                            <div
+                                                class="inline-block p-0 m-0 text-right duration-300 ease-in-out hover:text-green-500">
+                                                <button type="submit" name="like" class="pointer-events-none"
+                                                    value="1"><i
+                                                        class="fa-solid fa-thumbs-up">  </i> {{  $media->countlike }}</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+
+                                <form
+                                    action="{{ route('biblio.destroy', $media->pivot->videoId . '?userId=' . Auth::user()->id) }}"
+                                    method="POST"
+                                    class="px-4 py-2 mb-auto text-sm font-semibold text-white bg-black border border-transparent rounded-md ">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="Supprimer">
+                                </form>
+
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                   @endforeach
+                @endif
             </div>
         </div>
 

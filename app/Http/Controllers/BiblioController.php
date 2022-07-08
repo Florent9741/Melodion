@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PublishedState;
+use App\Models\Bibliotheque;
 
 use App\Enums\VideoState;
 use App\Models\Bibliotheques;

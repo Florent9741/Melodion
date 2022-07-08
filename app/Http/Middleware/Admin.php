@@ -21,8 +21,8 @@ class Admin
     public function handle(Request $request, Closure $next)
     {
         $user= Auth::user();
-
-
+       
+        
 
         if (!Auth::check()) {
             abort(403, 'connectez vous à votre compte admin');
@@ -34,15 +34,14 @@ class Admin
         if ($user->isAdmin($user->id)) {
             return $next($request);
 
-
-        }
-
+            
+        } 
+        
         else {
 
-            return redirect()->route('index')->with('status', " Connexion admin non admis ");
+            return redirect()->route('index')->with('status', " connection admin non admis ");
         }
-
-
+        
+        
     }
 }
-

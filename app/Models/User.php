@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class User extends Authenticatable
 {
@@ -52,16 +54,17 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
+
     public function isAdmin($id){
 
-        $userAdmin =$this->where('admin', '=' ,1)->find($id);
-
-       if(isset($userAdmin)){
-         return true;
-       }
-       else{
-         return false;
-       }
-
-         }
+   $userAdmin =$this->where('admin', '=' ,1)->find($id);
+   
+  if(isset($userAdmin)){
+    return true;
+  }
+  else{
+    return false;
+  }
+   
+    }
 }

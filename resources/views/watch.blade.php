@@ -1,11 +1,19 @@
 @extends('layouts.app')
 
 @section('main')
+
+
+
+@if (session('status'))
+<div class="mt-20 mb-10 text-3xl font-bold text-left text-green-600">
+    {{ session('status') }}
+</div>
+@endif
     {{-- La partie du haut player et memo --}}
     <div class="flex flex-col md:flex-row ">
 
 
-        <div id="monplayer" class=" w-full md:w-3/5 md:mt-4 md:ml-4 flex flex-col gap-4">
+        <div id="monplayer" class="flex flex-col w-full gap-4  md:w-3/5 md:mt-4 md:ml-4">
             <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 
             {{-- Le player la barre et le currentime --}}
@@ -133,82 +141,57 @@
             <script>
                 // 2. This code loads the IFrame Player API code asynchronously.
                 var tag = document.createElement('script');
-
                 tag.src = "https://www.youtube.com/iframe_api";
                 var firstScriptTag = document.getElementsByTagName('script')[0];
                 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
                 // 3. This function creates an <iframe> (and YouTube player)
                 //    after the API code downloads.
                 var player;
-
                 function onYouTubeIframeAPIReady() {
                     player = new YT.Player('player', {
                         height: '360',
                         width: '640',
-                        videoId: '{{ $singleVideo->items[0]->id }}',
-
-
+                        videoId: '{{ $id }}',
                         events: {
                             'onReady': onPlayerReady,
                             'onStateChange': onPlayerStateChange
                         }
                     });
                 }
-
                 // 4. The API will call this function when the video player is ready.
                 function onPlayerReady(event) {
                     event.target.playVideo();
-
                 }
-
                 // 5. The API calls this function when the player's state changes.
                 //    The function indicates that when playing a video (state=1),
                 //    the player should play for six seconds and then stop.
                 var done = false;
-
                 function onPlayerStateChange(event) {
-
                 }
-
-
                 function stopVideo() {
                     player.stopVideo();
                 }
-
                 // bouton qui switch sur pause ou sur play
                 document.getElementById('play-pause1').addEventListener('click', function() {
                     if (player.getPlayerState() == 1) {
                         player.pauseVideo();
-
                     } else {
                         player.playVideo();
                     }
-
                 });
-
-
-
-
                 // boutton pour arreter la video
                 document.getElementById('stop').addEventListener('click', function() {
                     player.stopVideo();
                 });
-
                 // boutton pour rejouer la video
                 document.getElementById('replay').addEventListener('click', function() {
                     player.seekTo(0);
                     player.playVideo();
                 });
-
-
                 // {{-- barre range vitesse lecture --}}
                 document.getElementsByClassName('range')[0].addEventListener('change', function() {
                     player.setPlaybackRate(this.value / 100);
                 });
-
-
-
                 // input toggle checkbox mute/unmute
                 // document.getElementById('mute-checkbox').addEventListener('change', function() {
                 //     if (this.checked) {
@@ -236,14 +219,10 @@
                         document.getElementById('mute').innerHTML = '<i class="fa-solid fa-volume-up"></i>';
                     }
                 });
-
                 // progress bar volumebar
                 document.getElementById('volumebar').addEventListener('change', function() {
                     player.setVolume(this.value);
                 });
-
-
-
                 // curseur de progression qui progresse automatiquement
                 var interval = setInterval(function() {
                     var currentTime = player.getCurrentTime();
@@ -251,41 +230,25 @@
                     var percentage = (currentTime / duration) * 100;
                     document.getElementById('seek-bar').value = percentage;
                 }, 1000);
-
                 // curseur de progression de la video
                 document.getElementById('seek-bar').addEventListener('change', function() {
                     var percentage = this.value;
                     var duration = player.getDuration();
                     player.seekTo(duration * (percentage / 100));
                 });
-
-
-
                 // boutton A pour loop
                 const A = document.getElementById('A');
-
                 const B = document.getElementById('B');
-
-
-
                 const playPausePoints = {
-
                     A: -1,
                     B: -1,
-
                 };
-
-
-
-
                 // affiche le current time
                 setInterval(function() {
                     var currentTime = player.getCurrentTime();
                     document.getElementById('currentTimeSpan').innerHTML = currentTime;
-
                     abloop(currentTime, boucle);
                 }, 1000);
-
                 // affiche le current time en minute et seconde
                 setInterval(function() {
                     var currentTime = player.getCurrentTime();
@@ -293,7 +256,6 @@
                     var seconds = Math.floor(currentTime % 60);
                     document.getElementById('currentTimeSpan').innerHTML = minutes + ":" + seconds;
                 }, 1000);
-
                 // affiche le total time en minute et seconde
                 setInterval(function() {
                     var totalTime = player.getDuration();
@@ -301,16 +263,9 @@
                     var seconds = Math.floor(totalTime % 60);
                     document.getElementById('totalTimeSpan').innerHTML = minutes + ":" + seconds;
                 }, 10);
-
-
                 // quand B est different de -1 ET B > A
-
-
-
-
                 A.addEventListener('click', function() {
                     playPausePoints.A = player.getCurrentTime();
-
                     // affiche la valeur de A
                     document.getElementById('A-time-span').innerHTML = playPausePoints.A;
                     // A en minute et seconde
@@ -318,7 +273,6 @@
                     var seconds = Math.floor(playPausePoints.A % 60);
                     document.getElementById('A-time-span').innerHTML = minutes + ":" + seconds;
                 });
-
                 B.addEventListener('click', function() {
                     playPausePoints.B = player.getCurrentTime();
                     // affiche la valeur de B en minute et seconde
@@ -329,26 +283,17 @@
                     var seconds = Math.floor(playPausePoints.B % 60);
                     // affiche B en minute et seconde
                     document.getElementById('B-time-span').innerHTML = minutes + ":" + seconds;
-
                 });
-
                 function abloop(currentTime, boucle = true) {
-
-
                     // si B est different de -1 ET B > A
                     if (boucle && playPausePoints.B != -1 && playPausePoints.B > playPausePoints.A && currentTime >= playPausePoints
                         .B) {
                         // joue la video de A à B
                         // quand j'atteinds le point B
-
                         player.seekTo(playPausePoints.A);
                         player.playVideo();
-
                     }
                 }
-
-
-
                 //   // boutton pour lancer la boucle
                 //     document.getElementById('loop-on').addEventListener('click', function() {
                 //         boucle = true;
@@ -357,7 +302,6 @@
                 //     document.getElementById('loop-off').addEventListener('click', function() {
                 //         boucle = false;
                 //     });
-
                 //  checkbox toggle pour la lecture en boucle
                 document.getElementById('loop-checkbox').addEventListener('change', function() {
                     if (this.checked) {
@@ -378,8 +322,6 @@
             {{-- <form action="{{ route('library') }}" method="post" class="flex justify-end">
                                                             @csrf
                                                             <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
-
-
                                                             @if (null !== Auth::user())
                                                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                                             @endif --}}
@@ -404,21 +346,26 @@
             <div
                 class="  lg:flex-grow md:w-full   md:justify-center flex flex-col  md:text-left items-center text-center">
 
-                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
+                <h1 class="mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl">
                     Rédiger un mémo
                 </h1>
 
-                <div class="relative mb-4 px-2 md:px-0 lg:px-0 ">
+                <div class="relative px-2 mb-4 md:px-0 lg:px-0 ">
 
-                    <form action="" method="post">
+                    <form action="/store/{{$id}}" method="post">
                         @csrf
-                        <input type="hidden" name="videoId" value="">
-                        @if (!null == Auth::user())
-                            <input type="hidden" name="user_id" value="">
-                        @endif
-                        <textarea id="message" name="message" cols="50" rows="15"
-                            class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-64 text-base outline-none text-gray-700 py-1  resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
 
+                        <textarea id="message" name="contenu" cols="50" rows="15"
+                            class="w-full h-64 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
+                            <div class="flex justify-center">
+                                <button
+                                type="submit"
+                                    class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+
+                                    Enregistrer
+                                 </button>
+
+                            </div>
 
                     </form>
                 </div>
@@ -427,10 +374,7 @@
 
                 <div class="flex flex-row gap-x-3 ">
 
-                    <button
-                        class="flex flex-row-reverse  text-white bg-red-500 hover:bg-indigo-600 border-0 py-2 px-6 focus:outline-none  rounded text-lg">
-                        Enregistrer
-                    </button>
+
 
 
                     <form action="/watch" method="post" enctype="multipart/form-data">
@@ -442,7 +386,7 @@
                         <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
 
                         <button type="submit"
-                            class="flex flex-row-reverse text-white bg-black border-0  py-2 px-6 focus:outline-none  rounded text-lg"
+                            class="flex flex-row-reverse px-6 py-2 text-lg text-white bg-black border-0 rounded focus:outline-none"
                             aria-required="true" name="submit" id="save">
                             Terminer
 
@@ -460,49 +404,43 @@
 
     {{-- LES MEMOS PUBLICS --}}
 
-    <div class="flex flex-col px-2 w-full mt-5">
-        <div class="border-b pb-1 flex justify-between items-center mb-2">
-            <span class=" text-base font-semibold uppercase text-gray-700">Les mémos des autres
+    <div class="flex flex-col w-full px-2 mt-5">
+        <div class="flex items-center justify-between pb-1 mb-2 border-b">
+            <span class="text-base font-semibold text-gray-700 uppercase ">Les mémos des autres
                 utilisateurs</span>
             <img class="w-4 cursor-pointer"
                 src="https://p.kindpng.com/picc/s/152-1529312_filter-ios-filter-icon-png-transparent-png.png" />
         </div>
-
+        @foreach ($memos->where('videoId', '=', $id)  as $memo)
         {{-- Memo user1 --}}
-        <div class="flex border-b py-3 cursor-pointer hover:shadow-md px-2 ">
 
-            <img class='w-10 h-10 object-cover rounded-lg' alt='User avatar'
-                src='https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200'>
+        <div class="flex px-2 py-3 border-b cursor-pointer hover:shadow-md ">
+
+            <img class='object-cover w-10 h-10 rounded-lg' alt='User avatar'
+                src='https://photoclubdethuir.fr/wp-content/uploads/2019/01/avatar_gris-8.png'>
 
 
-            <div class="flex flex-col px-2 w-full">
+            <div class="flex flex-col w-full px-2">
 
-                <span class="text-sm text-red-500 capitalize font-semibold pt-1">
-                    Arnaud
+                <span class="pt-1 text-sm font-semibold text-red-500 capitalize">
+
+                   <?php
+                    $user = App\Models\User::find($memo->user_id);
+                    echo $user->name;
+                    ?>
                 </span>
 
-                <span class="text-xs text-gray-500 uppercase font-medium ">
-                    -"Boston," Augustana
+                <span class="text-xs font-medium text-gray-500 uppercase ">
+                    {{$memo->contenu}}
                 </span>
+                <td class="px-4 py-3">@include('update')
+                    <td>
+
+                        <td class="px-4 py-3">@include('memodelete')
+                            <td>
             </div>
         </div>
-
-        {{-- Memo user2 --}}
-        <div class="flex border-b py-3 cursor-pointer hover:shadow-md px-2 ">
+        @endforeach
 
 
-            <img class='w-10 h-10 object-cover rounded-lg' alt='User avatar'
-                src='https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200'>
-
-
-            <div class="flex flex-col px-2 w-full">
-
-                <span class="text-sm text-red-500 capitalize font-semibold pt-1">
-                    Romain
-                </span>
-                <span class="text-xs text-gray-500 uppercase font-medium ">
-                    -"Boston," Augustana
-                </span>
-            </div>
-        </div>
     @endsection
