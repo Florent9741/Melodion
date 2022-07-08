@@ -66,7 +66,7 @@
                                                 class="inline-block p-0 m-0 text-right duration-300 ease-in-out hover:text-green-500">
                                                 <button type="submit" name="like" class="pointer-events-none"
                                                     value="1"><i
-                                                        class="fa-solid fa-thumbs-up"></i>{{ $media->countlike }}</button>
+                                                        class="fa-solid fa-thumbs-up">  </i> {{  $media->countlike }}</button>
                                             </div>
 
                                         </form>

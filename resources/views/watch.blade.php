@@ -387,6 +387,7 @@ rel="stylesheet">
         </div>
         @foreach ($memos->where('videoId', '=', $id)  as $memo)
         {{-- Memo user1 --}}
+        
         <div class="flex px-2 py-3 border-b cursor-pointer hover:shadow-md ">
 
             <img class='object-cover w-10 h-10 rounded-lg' alt='User avatar'
@@ -396,7 +397,11 @@ rel="stylesheet">
             <div class="flex flex-col w-full px-2">
 
                 <span class="pt-1 text-sm font-semibold text-red-500 capitalize">
-                   {{Auth::user()->name}}
+
+                   <?php
+                    $user = App\Models\User::find($memo->user_id);
+                    echo $user->name;
+                    ?>
                 </span>
 
                 <span class="text-xs font-medium text-gray-500 uppercase ">
