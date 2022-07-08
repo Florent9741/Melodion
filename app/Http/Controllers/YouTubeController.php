@@ -56,6 +56,9 @@ class YouTubeController extends Controller
         return view('watch', compact('singleVideo','videoLists','id','memos'));
     }
 
+  
+    
+
     protected function _videoLists($keywords)
     {
         $part = 'snippet';

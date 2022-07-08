@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Videos extends Model
 {
+    protected $primarykey = 'videoId';
     use HasFactory;
 
     protected $primaryKey = 'videoId';

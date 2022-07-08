@@ -26,7 +26,7 @@
           <button id="retour" type="submit" class="flex justify-center w-24 px-4 py-2 mt-10 ml-10 text-sm font-semibold text-black bg-blue-300 border border-blue-500 rounded-md  hover:bg-lightblue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-50" aria-required="true">
 
             Retour
-          </button>
+          </button> </a>
         </div>
 
 <!-- <div class="fb-login-button" >Login with Facebook</div> -->

@@ -41,6 +41,7 @@
 
                         <div class="w-2/5">
                             <div
+<<<<<<< HEAD
                                 class="flex flex-col items-center text-center lg:flex-grow md:w-full lg:pl-24 md:pl-16 md:items-start md:text-left">
                                 <h1 class="mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl"> Rédiger un
                                     mémo
@@ -55,6 +56,24 @@
                                         <div class="flex justify-center">
                                             <button type="submit"
                                                 class="inline-flex px-6 py-2 text-lg text-white bg-red-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
+=======
+                                class="lg:flex-grow md:w-full lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"> Rédiger un
+                                    mémo
+                                </h1>
+                                <div class="relative mb-4">
+                                    <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
+                                    <form action="/update/{{$id}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="id_memos" value="{{$memo->id}}">
+                                        <textarea id="message" name="contenu" value= "{{$memo->contenu}}" cols="50" rows="15"
+                                            
+                                            class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                                            <input type= "hidden" name="user_id" value= "{{Auth::user()->id}}">
+                                        <div class="flex justify-center">
+                                            <button type="submit"
+                                                class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+>>>>>>> 07cbb2943eb2252493a44a90bec82f595add6ed5
 
                                                 Enregistrer
                                             </button>
@@ -75,4 +94,8 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> 07cbb2943eb2252493a44a90bec82f595add6ed5
