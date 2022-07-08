@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\VideoState;
 use App\Models\Bibliotheques;
 use App\Models\Suggestion;
 use Illuminate\Support\Facades\Http;
@@ -26,8 +27,9 @@ class MelodionController extends Controller
         $biblio->user_id = $request->user_id;
         $biblio->videoId = $request->videoId;
         $biblio->public = false;
+        $biblio->statut = $request->VideoState;
         $biblio->save();
-       
+        
         return redirect()-> route('biblio',$request->user_id)->with('status', 'vidéo ajoutée avec succès !');
     }
 
@@ -110,35 +112,19 @@ class MelodionController extends Controller
 
  public function show($id)
     {
-        $biblios=Bibliotheques::where('user_id','=',$id)->latest()->get();
-        //
-       foreach ($biblios as $biblio) {
-        
-        $film[]=$biblio->videoId;
-       }
-    if (isset ($film)) {
-       
-      //$videos = Videos::with('users')->whereIn('videoId', $film)->distinct()->get();
-        $videos= DB::table('videos')
-        ->whereIn('videoId', $film)
-        ->distinct()
-        ->get();
-      
         $user=User::with('videos')->find($id);
-        $medias = $user->videos;
-        //$videos = Videos::with('users')->get();
-     //->where('videoId', '=', $film)
-     //->where('id', '=', $id)->get();
-      // dd($videos);
-
-        return view('biblio', [
-            'videos' => $videos,
-            'medias' => $medias
-        ]);
-    }else{
-        return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
+        $videos = $user->videos;
+       
+        if($videos)
+        {
+                return view('biblio', [
+                    'videos' => $videos
+                    
+                ]);
+        } else
+            return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
     }
-}
+
 
 public function destroy(Request $request ,$videoId )
 {
@@ -153,5 +139,18 @@ public function destroy(Request $request ,$videoId )
             return redirect()->route('biblio', $_GET['userId'])->with('status', 'vidéo supprimée avec succès !');
         }
 }
+
+public function terminer(Request $request){
+if (isset($request)){
+    $update=DB::update('UPDATE bibliotheques SET statut=1 WHERE videoId=? AND user_id=?' ,[$request->videoId, $request->user_id]);
+
+     
+  
+
+    return redirect()->route ('biblio', $request->user_id)->with ('status', 'vidéo terminée');
+}
+    
+    }
+
 
 }
