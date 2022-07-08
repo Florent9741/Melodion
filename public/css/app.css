@@ -1087,6 +1087,9 @@ video {
 .p-4 {
   padding: 1rem;
 }
+.p-5 {
+  padding: 1.25rem;
+}
 .px-16 {
   padding-left: 4rem;
   padding-right: 4rem;
@@ -1494,6 +1497,10 @@ video {
 .hover\:text-red-500:hover {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+.hover\:text-green-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(21 128 61 / var(--tw-text-opacity));
 }
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;

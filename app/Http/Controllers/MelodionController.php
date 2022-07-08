@@ -114,6 +114,7 @@ class MelodionController extends Controller
 
     protected function _singleVideoadd($id)
     {
+<<<<<<< HEAD
         $api_key = config('services.youtube.api_key');
         $part = 'snippet';
         $url = "https://www.googleapis.com/youtube/v3/videos?part=$part&id=$id&key=$api_key";
@@ -142,6 +143,35 @@ class MelodionController extends Controller
 
 
     public function edit($id)
+=======
+     $api_key=config('services.youtube.api_key');
+     $part='snippet';
+     $url="https://www.googleapis.com/youtube/v3/videos?part=$part&id=$id&key=$api_key";
+     $response= Http::get($url);
+     $results=json_decode($response);
+     foreach ($results->items as $item)
+     $check=DB::select('SELECT * FROM videos WHERE videoId=?',[$item->id]);
+     if (count($check)== 1) {
+        //rien
+      } else
+     //dd($item);
+     {
+        DB::table('videos')->insert([
+       "videoId" =>$item->id,
+       "title" =>$item->snippet->title,
+       "description" =>$item->snippet->description,
+       "url" =>$item->snippet->thumbnails->medium->url,
+       "publishedAt" =>date('Y-m-d H:i:s',strtotime($item->snippet->publishedAt)),  
+       "created_at"=>now(),
+       "updated_at"=>now()     
+   ]);}
+     File::put(storage_path().'/app/public/single.json', $response->body());
+     return $results;
+    } 
+
+
+     public function edit($id)
+>>>>>>> 711512acbe84fde5b3ee5cd6d7e3de73a5ed47cb
     {
         $video = Videos::find($id);
         //  $auteurs = Auteurs::all();
@@ -170,11 +200,27 @@ class MelodionController extends Controller
             $member->save();
             return redirect()->route('profile', $member->id)->with('status', 'votre profil a bien été modifié !');
         } else {
-            return redirect()->route('home');
-        }*/
-    }
+            return redirect()->route('home');*/
+        }
+/*public function show($id)
+    {
+    $user=User::with('videos')->find($id);
+    $videos = $user->videos;
+  //dd($videos);
+   
+    if($videos)
+    {
+            return view('biblio', [
+                'videos' => $videos
+                
+            ]);
+    } else
+        return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
+}
+*/
 
-    public function show($id)
+
+ public function show($id)
     {
 
         
