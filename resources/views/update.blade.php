@@ -39,15 +39,14 @@
                             </button>
                         </div>
 
-                        <div class="w-2/5">
-                            <div
-                                class="lg:flex-grow md:w-full lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                        
+                           
                                 <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"> Rédiger un
                                     mémo
                                 </h1>
                                 <div class="relative mb-4">
                                     <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
-                                    <form action="/update/{{$id}}" method="post">
+                                    <form action="/update/{{$id}}" method="post" class="p-0 m-0">
                                         @csrf
                                         <input type="hidden" name="id_memos" value="{{$memo->id}}">
                                         <textarea id="message" name="contenu" cols="50" rows="15"
@@ -65,8 +64,8 @@
 
                                     </form>
                                 </div>
-                            </div>
-                        </div>
+                         
+                        
 
                    
 

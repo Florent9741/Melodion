@@ -77,7 +77,7 @@ class MelodionController extends Controller
 
     } catch (Throwable $e) {
         report($e);
-        return redirect()->route('watch', $memos->videoId)->with('status', $e,'Veuillez ajouter la video dans la biblioteque pour pouvoir insérer un memo.');
+        return redirect()->route('watch', $memos->videoId)->with('status','Veuillez ajouter la video dans la biblioteque pour pouvoir insérer un memo.');
    
     }
         return redirect()->route('watch', $memos->videoId);
