@@ -42,6 +42,7 @@
                         <div class="w-2/5">
                             <div
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 class="flex flex-col items-center text-center lg:flex-grow md:w-full lg:pl-24 md:pl-16 md:items-start md:text-left">
                                 <h1 class="mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl"> Rédiger un
                                     mémo
@@ -57,6 +58,8 @@
                                             <button type="submit"
                                                 class="inline-flex px-6 py-2 text-lg text-white bg-red-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
 =======
+=======
+>>>>>>> 4997cb72ad19aebe634877339a3b8e44e7709cfe
                                 class="lg:flex-grow md:w-full lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
                                 <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"> Rédiger un
                                     mémo
@@ -73,7 +76,10 @@
                                         <div class="flex justify-center">
                                             <button type="submit"
                                                 class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+<<<<<<< HEAD
 >>>>>>> 07cbb2943eb2252493a44a90bec82f595add6ed5
+=======
+>>>>>>> 4997cb72ad19aebe634877339a3b8e44e7709cfe
 
                                                 Enregistrer
                                             </button>
@@ -95,7 +101,11 @@
     </div>
 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 </div>
 =======
 </div>
 >>>>>>> 07cbb2943eb2252493a44a90bec82f595add6ed5
+=======
+</div>
+>>>>>>> 4997cb72ad19aebe634877339a3b8e44e7709cfe

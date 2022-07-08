@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bibliotheques;
 use App\Models\Likes;
+use App\Models\Memos;
 use App\Models\Videos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
-use App\Models\Memos;
+
 
 
 

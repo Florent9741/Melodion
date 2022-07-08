@@ -2,6 +2,18 @@
 
 @section('main')
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+rel="stylesheet">
+<script src="https://kit.fontawesome.com/5373dfbc9f.js" crossorigin="anonymous"></script>
+
+
+@if (session('status'))
+<div class="mt-20 mb-10 text-3xl font-bold text-left text-green-600">
+    {{ session('status') }}
+</div>
+@endif
     {{-- La partie du haut player et memo --}}
     <div class="flex flex-col md:flex-row ">
 
@@ -318,22 +330,27 @@
 
                     <form action="/store/{{$id}}" method="post">
                         @csrf
+                       
                         <textarea id="message" name="contenu" cols="50" rows="15"
-                            class="w-full h-32 px-3 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
-
-                      <div class="flex flex-row gap-x-3 ">
-
-                    <button
-                        class="flex flex-row-reverse px-6 py-2 text-lg text-white bg-red-500 border-0 rounded hover:bg-indigo-600 focus:outline-none">
-                        Enregistrer
-                    </button>  
+                            class="w-full h-64 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
+                            <div class="flex justify-center">
+                                <button
+                                type="submit"
+                                    class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                    
+                                    Enregistrer
+                                 </button>
+    
+                            </div>
 
                     </form>
                 </div>
 
 
 
-               
+                <div class="flex flex-row gap-x-3 ">
+
+                  
 
 
                     <form action="/watch" method="post" enctype="multipart/form-data">
@@ -407,7 +424,7 @@
             <img class="w-4 cursor-pointer"
                 src="https://p.kindpng.com/picc/s/152-1529312_filter-ios-filter-icon-png-transparent-png.png" />
         </div>
-
+        @foreach ($memos->where('videoId', '=', $id)  as $memo)
         {{-- Memo user1 --}}
         <div class="flex px-2 py-3 border-b cursor-pointer hover:shadow-md ">
 
@@ -422,27 +439,16 @@
                 </span>
 
                 <span class="text-xs font-medium text-gray-500 uppercase ">
-                    -"Boston," Augustana
+                    {{$memo->contenu}}
                 </span>
+                <td class="px-4 py-3">@include('update')
+                    <td>	
+                        
+                        <td class="px-4 py-3">@include('memodelete')
+                            <td>
             </div>
         </div>
+        @endforeach
 
-        {{-- Memo user2 --}}
-        <div class="flex px-2 py-3 border-b cursor-pointer hover:shadow-md ">
-
-
-            <img class='object-cover w-10 h-10 rounded-lg' alt='User avatar'
-                src='https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200'>
-
-
-            <div class="flex flex-col w-full px-2">
-
-                <span class="pt-1 text-sm font-semibold text-red-500 capitalize">
-                    Romain
-                </span>
-                <span class="text-xs font-medium text-gray-500 uppercase ">
-                    -"Boston," Augustana
-                </span>
-            </div>
-        </div>
+        
     @endsection

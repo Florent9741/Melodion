@@ -34,6 +34,9 @@ class MelodionController extends Controller
 
             return false;
         }    
+
+        try {
+
             $biblio = new Bibliotheques();
             $biblio->user_id = $request->user_id;
             $biblio->videoId = $request->videoId;
@@ -41,45 +44,103 @@ class MelodionController extends Controller
            
             $biblio->save();
         
+        } catch (Throwable $e) {
+            report($e);
+            return redirect()->route('biblio', $request->user_id)->with('status', 'la video existe déja dans la bibliothèque');
 
-
-
+            return false;
+        }
 
 
 
         return redirect()->route('biblio', $request->user_id)->with('status', 'vidéo ajoutée avec succès !');
     }
 
-    protected function _singleVideoadd($id)
+
+    public function creatememo(Request $request, $id)
     {
-        $api_key = config('services.youtube.api_key');
-        $part = 'snippet';
-        $url = "https://www.googleapis.com/youtube/v3/videos?part=$part&id=$id&key=$api_key";
-        $response = Http::get($url);
-        $results = json_decode($response);
-        foreach ($results->items as $item)
-            $check = DB::select('SELECT * FROM videos WHERE videoId=?', [$item->id]);
-        if (count($check) == 1) {
-            //rien
-        } else
-        //dd($item);
-        {
-            DB::table('videos')->insert([
-                "videoId" => $item->id,
-                "title" => $item->snippet->title,
-                "description" => $item->snippet->description,
-                "url" => $item->snippet->thumbnails->medium->url,
-                "publishedAt" => date('Y-m-d H:i:s', strtotime($item->snippet->publishedAt)),
-                "created_at" => now(),
-                "updated_at" => now()
-            ]);
-        }
-        File::put(storage_path() . '/app/public/single.json', $response->body());
-        return $results;
+        $validate = $request->validate([
+            'contenu' => 'required',
+
+        ]);
+
+        try {
+
+        $memos = new Memos();
+        $memos->user_id = Auth::id();
+        $memos->videoId = "$id";
+        $memos->contenu = $request['contenu'];
+ 
+        $memos->save();
+
+    } catch (Throwable $e) {
+        report($e);
+        return redirect()->route('watch', $memos->videoId)->with('status', 'Veuillez ajouter la video dans la biblioteque pour pouvoir insérer un memo.');
+    
+
+        return false;
+    }
+        return redirect()->route('watch', $memos->videoId);
     }
 
+    public function updatememo(Request $request, $id)
+    {
+        
+        $memos = Memos::where(['videoId'=>$id, 'user_id'=> $request->user_id])
+        ->find($request->id_memos);
 
-    public function edit($id)
+
+        
+       $memos->id =$request->id_memos;
+        $memos->update([
+            'user_id'  => $request->user_id,
+            'videoId' => $id,
+            'contenu' => $request->contenu,
+            
+        ]);
+
+    return redirect()->route('watch',$id)->with('modifié','Film modifié');
+    }
+
+    public function delete(Request $request)
+    {
+    
+        $memos = Memos::where(['user_id'=> $request->user_id]);
+        
+       $memos=Memos::find($request->id_memos);
+        $memos->delete();
+        return redirect()->route('watch',$memos->videoId);
+    }
+
+    protected function _singleVideoadd($id)
+    {
+     $api_key=config('services.youtube.api_key');
+     $part='snippet';
+     $url="https://www.googleapis.com/youtube/v3/videos?part=$part&id=$id&key=$api_key";
+     $response= Http::get($url);
+     $results=json_decode($response);
+     foreach ($results->items as $item)
+     $check=DB::select('SELECT * FROM videos WHERE videoId=?',[$item->id]);
+     if (count($check)== 1) {
+        //rien
+      } else
+     //dd($item);
+     {
+        DB::table('videos')->insert([
+       "videoId" =>$item->id,
+       "title" =>$item->snippet->title,
+       "description" =>$item->snippet->description,
+       "url" =>$item->snippet->thumbnails->medium->url,
+       "publishedAt" =>date('Y-m-d H:i:s',strtotime($item->snippet->publishedAt)),  
+       "created_at"=>now(),
+       "updated_at"=>now()     
+   ]);}
+     File::put(storage_path().'/app/public/single.json', $response->body());
+     return $results;
+    } 
+
+
+     public function edit($id)
     {
         $video = Videos::find($id);
         //  $auteurs = Auteurs::all();
@@ -108,11 +169,27 @@ class MelodionController extends Controller
             $member->save();
             return redirect()->route('profile', $member->id)->with('status', 'votre profil a bien été modifié !');
         } else {
-            return redirect()->route('home');
-        }*/
-    }
+            return redirect()->route('home');*/
+        }
+/*public function show($id)
+    {
+    $user=User::with('videos')->find($id);
+    $videos = $user->videos;
+  //dd($videos);
+   
+    if($videos)
+    {
+            return view('biblio', [
+                'videos' => $videos
+                
+            ]);
+    } else
+        return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
+}
+*/
 
-    public function show($id)
+
+ public function show($id)
     {
 
         
