@@ -390,13 +390,13 @@ rel="stylesheet">
         <div class="flex px-2 py-3 border-b cursor-pointer hover:shadow-md ">
 
             <img class='object-cover w-10 h-10 rounded-lg' alt='User avatar'
-                src='https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200'>
+                src='https://photoclubdethuir.fr/wp-content/uploads/2019/01/avatar_gris-8.png'>
 
 
             <div class="flex flex-col w-full px-2">
 
                 <span class="pt-1 text-sm font-semibold text-red-500 capitalize">
-                    Arnaud
+                   {{Auth::user()->name}}
                 </span>
 
                 <span class="text-xs font-medium text-gray-500 uppercase ">
