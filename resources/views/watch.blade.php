@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('main')
-
     {{-- La partie du haut player et memo --}}
     <div class="flex flex-col md:flex-row ">
 
@@ -12,115 +11,117 @@
             {{-- Le player la barre et le currentime --}}
             <div class="flex flex-col ">
 
-                        <div id="player" class="w-auto h-full md:w-full md:h-80 md:rounded">
+                <div id="player" class="w-auto h-full md:w-full md:h-80 md:rounded">
+                </div>
+
+
+                <!-- affiche le current time -->
+                <div class="flex flex-row">
+                    <div id="currentTime" class="flex flex-row">
+                        <p> <span id="currentTimeSpan"></span>
+                            {{-- affiche le total time en minute et seconde --}}
+                            : <span id="totalTimeSpan"></span></p>
+                    </div>
+
+                </div>
+
+                <!-- curseur de progression -->
+                <input type="range" id="seek-bar" value="0" max="100" step="1">
+            </div>
+
+            <div class="w-full flex flex-col gap-5 xl:flex-row items-center lg:space-between lg:flex-wrap lg:gap-7   " >
+                        {{-- Les boutons --}}
+                        <div class="lg:order-1  lg:w-1/2 flex flex-row justify-center my-2">
+
+                            <!-- boutton pour rejouer la video -->
+                            <button id="replay"
+                                class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                                <i class="fa-solid fa-backward-step"></i>
+
+                                {{-- bouton qui switch sur pause ou sur play --}}
+                                <button id="play-pause1"
+                                    class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+
+                                    <i class="fa-solid fa-play"></i>
+
+                                    <i class="fa-solid fa-pause"></i>
+
+
+                                    <!-- boutton pour arreter la video -->
+
+                                    <button id="stop"
+                                        class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"><i
+                                            class="fa-solid fa-stop "></i>
+
                         </div>
 
 
-                            <!-- affiche le current time -->
-                                <div class="flex flex-row">
-                                    <div id="currentTime" class="flex flex-row">
-                                            <p> <span id="currentTimeSpan"></span>
-                                        {{-- affiche le total time en minute et seconde --}}
-                                        : <span id="totalTimeSpan"></span></p>
-                                    </div>
+
+                        {{-- La vitesse --}}
+                        <div class="lg:order-3 w-full px-1 lg:w-2/3">
+                            <input type="range" min="25" max="100" value="25" class="range" step="5" />
+                            <div class="w-full flex justify-between text-xs px-2 my-2 ">
+
+                                <span id="0.25">|x0,25</span>
+                                <span id="0.5">|x0.5</span>
+                                <span id="0.75">|x0.75</span>
+                                <span id="1">|x1</span>
+
+                            </div>
+                        </div>
+
+                        {{-- Le son --}}
+                        <div class="lg:order-2 w-full lg:w-1/3 px-1  flex flex-row">
+
+                            {{-- input toggle checkbox mute/unmute --}}
+
+                            <i class="fa-solid fa-volume-xmark"></i>
+                            <input type="checkbox" id="mute-checkbox">
+
+
+                            {{-- progress bar pour le volume --}}
+                            <input id="volumebar" type="range" min="0" max="100" value="50"
+                                class="range range-xs range-accent " step="1" />
+
+                        </div>
+
+                        {{-- lecture en boucle --}}
+
+                        <div class="lg:order-4 lg:gap-x-6 w-full lg:w-1/6 flex flex-row justify-evenly lg:flex-end lg:mb-1 ">
+
+                            <div>
+
+                                <!-- boutton A currenttime  -->
+                                <button id="A" class="bg-blue-500 w-20 rounded-full"><i class="fa-solid fa-a"></i>
+                                </button>
+
+                                <!-- affiche la valeur de A en minute et seconde -->
+                                <div id="A-time">
+                                    <p class="lg:pt-3 text-center">A time: <span id="A-time-span"></span>
 
                                 </div>
 
-                                <!-- curseur de progression -->
-                            <input type="range" id="seek-bar" value="0" max="100" step="1">
+                            </div>
+
+
+                            <div>
+                                <!-- boutton B currenttime  -->
+                                <button id="B" class="bg-red-500 w-20 rounded-full"><i class="fa-solid fa-b"></i></button>
+                                <!-- affiche la valeur de B en minute et seconde  -->
+                                <div id="B-time">
+                                    <p class="lg:pt-3 text-center">B time: <span id="B-time-span"></span>
+                                </div>
+                            </div>
+
+                            <div>
+
+                                <input type="checkbox" id="loop-checkbox" class="checkbox checkbox-sm">
+                                <div class="justify-center">
+                                    <i class="fa-solid fa-arrow-rotate-left "></i>
+                                </div>
+                            </div>
+                        </div>
             </div>
-
-
-            {{-- Les boutons --}}
-            <div class="flex flex-row justify-center my-2">
-
-                <!-- boutton pour rejouer la video -->
-                <button id="replay"
-                    class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
-                    <i class="fa-solid fa-backward-step"></i>
-
-                    {{-- bouton qui switch sur pause ou sur play --}}
-                    <button id="play-pause1"
-                        class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
-
-                        <i class="fa-solid fa-play"></i>
-
-                        <i class="fa-solid fa-pause"></i>
-
-
-                        <!-- boutton pour arreter la video -->
-
-                        <button id="stop"
-                            class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"><i
-                                class="fa-solid fa-stop "></i>
-
-            </div>
-
-
-            {{-- La vitesse --}}
-            <input type="range" min="25" max="100" value="25" class="range" step="5" />
-            <div class="w-full flex justify-between text-xs px-2 my-2 ">
-
-                <span id="0.25">|x0,25</span>
-                <span id="0.5">|x0.5</span>
-                <span id="0.75">|x0.75</span>
-                <span id="1">|x1</span>
-
-            </div>
-
-
-            {{-- Le son --}}
-            <div class="flex flex-row">
-
-                {{-- input toggle checkbox mute/unmute --}}
-
-                <i class="fa-solid fa-volume-xmark"></i>
-                <input type="checkbox" id="mute-checkbox">
-
-
-                {{-- progress bar pour le volume --}}
-                <input id="volumebar" type="range" min="0" max="100" value="50"
-                    class="range range-xs range-primary " step="1" />
-
-            </div>
-
-            {{-- lecture en boucle --}}
-
-            <div class="flex flex-row justify-evenly">
-
-                <div>
-
-                    <!-- boutton A currenttime  -->
-                    <button id="A" class="bg-blue-500 w-20 rounded-full"><i class="fa-solid fa-a"></i>
-                    </button>
-
-                    <!-- affiche la valeur de A en minute et seconde -->
-                    <div id="A-time">
-                        <p>A time: <span id="A-time-span"></span>
-
-                    </div>
-
-                </div>
-
-
-                <div>
-                    <!-- boutton B currenttime  -->
-                    <button id="B" class="bg-red-500 w-20 rounded-full"><i class="fa-solid fa-b"></i></button>
-                    <!-- affiche la valeur de B en minute et seconde  -->
-                    <div id="B-time">
-                        <p>B time: <span id="B-time-span"></span>
-                    </div>
-                </div>
-
-                <div>
-
-                    <input type="checkbox" id="loop-checkbox" class="checkbox checkbox-sm">
-                    <div class="justify-center">
-                        <i class="fa-solid fa-arrow-rotate-left "></i>
-                    </div>
-                </div>
-            </div>
-
             <script>
                 // 2. This code loads the IFrame Player API code asynchronously.
                 var tag = document.createElement('script');
@@ -137,7 +138,7 @@
                     player = new YT.Player('player', {
                         height: '360',
                         width: '640',
-                        videoId: '{{ $id }}',
+                        videoId: '{{ $singleVideo->items[0]->id }}',
 
 
                         events: {
@@ -345,7 +346,7 @@
 
 
         {{-- Le formulaire de memo --}}
-        <div class=" flex-col w-full md:w-2/5 sm:my-5">
+        <div class=" flex-col w-full md:w-2/5 sm:my-5 md:ml-4 lg::ml-0">
 
             {{-- <form action="{{ route('library') }}" method="post" class="flex justify-end">
                                                             @csrf
@@ -358,21 +359,23 @@
 
             {{-- bouton pour ajouter la video à la bibliothèque --}}
             <form action="{{ route('library') }}" method="post" class="flex justify-center">
-                            @csrf
-                            <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
-                            @if (null !== Auth::user())
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                            @endif
+                @csrf
+                <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
+                @if (null !== Auth::user())
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                @endif
 
-                            <input type="submit" class="sr-only" value="valider">
+                <input type="submit" class="sr-only" value="valider">
 
-                            <button class="mt-4 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-end font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
-                                <i class="fa-solid fa-bookmark fa-red-500"></i>   Ajouter à la bibliothèque
-                            </button>
+                <button
+                    class="mt-4 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-end font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                    <i class="fa-solid fa-bookmark text-red-500"></i>  Ajouter à la bibliothèque
+                </button>
 
             </form>
 
-            <div class="  lg:flex-grow md:w-full  lg:pl-24  flex flex-col md:items-start md:text-left items-center text-center">
+            <div
+                class="  lg:flex-grow md:w-full   md:justify-center flex flex-col  md:text-left items-center text-center">
 
                 <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
                     Rédiger un mémo

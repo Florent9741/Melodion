@@ -29,7 +29,7 @@ class MelodionController extends Controller
         $biblio->public = false;
         $biblio->statut = $request->VideoState;
         $biblio->save();
-        
+
         return redirect()-> route('biblio',$request->user_id)->with('status', 'vidéo ajoutée avec succès !');
     }
 
@@ -48,13 +48,13 @@ class MelodionController extends Controller
        "title" =>$item->snippet->title,
        "description" =>$item->snippet->description,
        "url" =>$item->snippet->thumbnails->medium->url,
-       "publishedAt" =>date('Y-m-d H:i:s',strtotime($item->snippet->publishedAt)),  
+       "publishedAt" =>date('Y-m-d H:i:s',strtotime($item->snippet->publishedAt)),
        "created_at"=>now(),
-       "updated_at"=>now()     
+       "updated_at"=>now()
    ]);}
      File::put(storage_path().'/app/public/single.json', $response->body());
      return $results;
-    } 
+    }
 
 
      public function edit($id)
@@ -75,14 +75,14 @@ class MelodionController extends Controller
     public function update(Request $request, $id)
     {
 
-        
+
       /*  $video = User::with('videos')->where('videoId', '=', $id)->get();
         if (isset($video)) {
             // dd($request);
             $member->prenom = $request->prenom;
             $member->name = $request->name;
             $member->email = $request->email;
-  
+
             $member->save();
             return redirect()->route('profile', $member->id)->with('status', 'votre profil a bien été modifié !');
         } else {
@@ -90,32 +90,32 @@ class MelodionController extends Controller
         }*/
     }
 
-    public function show($id)
-    {
-        $user=User::with('videos')->find($id);
+    public function show()
+     {
+        $user=User::with('videos')->find(auth()->user()->id);
+
         $videos = $user->videos;
-       
+
+
+
+
         if($videos)
         {
-                return view('biblio', [
-                    'videos' => $videos
-                    
-                ]);
-        } else
-            return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
+                return view('biblio', compact( 'videos'));
+        }
     }
 
 
 public function destroy(Request $request ,$videoId )
 {
    // dd($_GET['userId']);
-   
+
     if (isset($videoId) and !is_numeric($videoId)) {
      //
        Bibliotheques::where(['user_id'=> $_GET['userId'] ,'videoId'=> $videoId])
         ->delete();
         Videos::where('videoId', '=', $videoId)->delete();
-        
+
             return redirect()->route('biblio', $_GET['userId'])->with('status', 'vidéo supprimée avec succès !');
         }
 }
@@ -124,12 +124,12 @@ public function terminer(Request $request){
 if (isset($request)){
     $update=DB::update('UPDATE bibliotheques SET statut=1 WHERE videoId=? AND user_id=?' ,[$request->videoId, $request->user_id]);
 
-     
-  
+
+
 
     return redirect()->route ('biblio', $request->user_id)->with ('status', 'vidéo terminée');
 }
-    
+
     }
 
 
