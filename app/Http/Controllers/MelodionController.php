@@ -240,37 +240,7 @@ class MelodionController extends Controller
         }
     }
 
-    public function creatememo(Request $request, $id)
-    {
-        $validate = $request->validate([
-            'contenu' => 'required',
-
-        ]);
-dd($request);
-        $memos = new Memos();
-        $memos->user_id = Auth::id();
-        $memos->videoId = "$id";
-        $memos->contenu = $request['contenu'];
- 
-        $memos->save();
-
-        return redirect()->route('watch', $memos->videoId);
-    }
-
-    public function updatememo(Request $request, $id)
-    {
-        $memos = Memos::find($id);
-        $memos->contenu = $request->contenu;
-     
-
-
-
-
-        $memos->save();
-
-
-        return redirect()->route('watch');
-    }
+   
 
     public function memodelete($id)
     {
