@@ -1,9 +1,10 @@
 <div class="flex flex-col">
 
-    <div class="flex justify-center mt-16">
+    <div class="mt-3 flex justify-center">
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
         <div x-data="{ modelOpen: false }">
+            
             <button @click="modelOpen =!modelOpen"
             <i class="p-3 fa-solid fa-pen-to-square hover:text-blue-700"></i>
             </button>
@@ -39,19 +40,18 @@
                             </button>
                         </div>
 
+<<<<<<< HEAD
                         <div class="justify-center w-full pl-4 text-center">
                             <div
                                 class="flex flex-col items-center w-full text-center lg:flex-grow md:items-start md:text-left">
-                                <h1 class="w-full mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl"> Rédiger un
-                                    mémo
                                 </h1>
                                 <div class="relative mb-4">
-                                    <label for="message" class="text-sm leading-7 text-gray-600">Message</label>
-                                    <form action="/update/{{$id}}" method="post">
+                                    <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
+                                    <form action="/update/{{$id}}" method="post" class="p-0 m-0">
+>>>>>>> e797bd148b04fa06ebd53cc019ce8dc5717816b2
                                         @csrf
                                         <input type="hidden" name="id_memos" value="{{$memo->id}}">
                                         <textarea id="message" name="contenu" cols="50" rows="15"
-                                            
                                             class="w-full h-32 px-3 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">{{$memo->contenu}}</textarea>
                                             <input type= "hidden" name="user_id" value= "{{Auth::user()->id}}">
                                         <div class="flex justify-center">
@@ -62,11 +62,11 @@
                                             </button>
 
                                         </div>
-
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                                    </form>
+                               
+                        
 
                    
 
@@ -76,5 +76,5 @@
             </div>
         </div>
     </div>
-</div>
+
 </div>
