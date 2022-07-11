@@ -44,9 +44,12 @@
                                 <a href="/biblio/{{Auth::user()->id}}" class="block px-4 py-2 hover:text-red-500">Bibliothèque</a>
                             @endif
                            </li>
+                           @if (Auth::user()->admin == 1)
                             <li>
                                 <a href="{{ route('user') }}" class="block px-4 py-2 hover:text-red-500">Tableau de bord</a>
                             </li>
+                            @endif
+
 
                             <li>
                                 <a href="{{ route('signout') }}" class="block px-4 py-2 hover:text-red-500">Deconnexion</a>
