@@ -352,15 +352,16 @@
                         @endif
                         @if(!empty($singleVideo->items[0]))
                         <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
-                        
-                        @endif
-                        <button type="submit"
-                            class="flex flex-row-reverse text-lg text-white bg-black border-0 rounded focus:outline-none"
-                            aria-required="true" name="submit" id="save">
-                            Terminer
-
+    
+                             <button type="submit"
+                            class=" mt-3 px-6 py-2 text-lg text-teal-300 bg-black border-0 rounded focus:outline-none"
+                            aria-required="true" name="submit" id="save"><i class=" pt-1 text-teal-300 fa-solid fa-square-check"> </i>
+                             Terminer
+    
                         </button>
-                    </form>
+    
+    
+                     </form>
 
                 </div>
 
@@ -398,6 +399,7 @@
 
 
 
+<<<<<<< HEAD
                         <form action="/watch" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="statut" value="1">
@@ -415,6 +417,8 @@
 
                             </button>
                         </form>
+=======
+>>>>>>> f6142da98c39303e3fd12827fb77c2b8656adb2e
                     </div>
                 </div>
 
@@ -423,11 +427,16 @@
                         @if ($memo->videoId == $id && $memo->user_id == Auth::user()->id)
                             <div class="flex-col  sm:my-5 md:ml-4 lg::ml-0 ">
                                 <div class="flex flex-col justify-evenly items-center m-2">
-                                    <div class="flex flex-row justify-evenly items-center bg-slate-50 border-slate-400 border rounded-lg  p-2 ">
+                                    <div
+                                        class="flex flex-row justify-evenly items-center bg-slate-50 border-slate-400 border rounded-lg  p-2 ">
                                         {{ $memo->contenu }}
                                     </div>
                                     <div class="text-slate-500 m-2">
+<<<<<<< HEAD
                                        Ajouté le :  {{ $memo->created_at }}
+=======
+                                        Ajouter le : {{ $memo->created_at }}
+>>>>>>> f6142da98c39303e3fd12827fb77c2b8656adb2e
                                     </div>
                                 </div>
                             </div>
@@ -454,26 +463,23 @@
 
     {{-- LES MEMOS PUBLICS --}}
 
-
-
     <div class="flex flex-col w-full px-2 mt-5">
         <div class="flex items-center justify-between pb-1 mb-2 border-b">
             <span class="text-base font-semibold text-gray-700 uppercase ">Les mémos des autres
                 utilisateurs</span>
-            <img class="w-4 cursor-pointer"
-                src="https://p.kindpng.com/picc/s/152-1529312_filter-ios-filter-icon-png-transparent-png.png" />
+           
         </div>
         @foreach ($memos->where('videoId', '=', $id) as $memo)
             {{-- Memo user1 --}}
 
             <div class="flex px-2 py-3 border-b cursor-pointer hover:shadow-md ">
-
+<div class="flex flex-row w-full">
                 <img class='object-cover w-10 h-10 rounded-lg' alt='User avatar'
                     src='https://photoclubdethuir.fr/wp-content/uploads/2019/01/avatar_gris-8.png'>
 
 
-                <div class="flex flex-col w-full px-2">
-
+        
+<div class="flex flex-col pl-2 space-evenly align-center w-auto ">
                     <span class="pt-1 text-sm font-semibold text-red-500 capitalize">
 
                         <?php
@@ -485,17 +491,49 @@
                     <span class="text-xs font-medium text-gray-500 uppercase ">
                         {{ $memo->contenu }}
                     </span>
+                  </div>
+                   </div> 
                     @if (null !== Auth::user())
                         @if (Auth::user()->id == $memo->user_id)
-                            <div class="px-4 flex flex-row items-center space-x-96">
+                            <div class=" px-4 flex flex-col items-center">
                                 @include('update')
                                 @include('memodelete')
                             </div>
                         @endif
                     @endif
-                </div>
+              
             </div>
     </div>
-    </div>
-    @endforeach
+    {{-- @foreach ($memos->where('videoId', '=', $id) as $memo) --}}
+        {{-- Memo user1 --}}
+
+        {{-- <div class="flex px-2 py-3 border-b cursor-pointer hover:shadow-md "> --}}
+
+            {{-- <img class='object-cover w-10 h-10 rounded-lg' alt='User avatar' --}}
+                {{-- src='https://photoclubdethuir.fr/wp-content/uploads/2019/01/avatar_gris-8.png'>
+
+
+            <div class="flex flex-col w-full px-2">
+
+                <span class="pt-1 text-sm font-semibold text-red-500 capitalize">
+
+             
+                </span>
+
+                <span class="text-xs font-medium text-gray-500 uppercase ">
+                    {{ $memo->contenu }}
+                </span>
+                @if (null !== Auth::user())
+                    @if (Auth::user()->id == $memo->user_id)
+                        <div class="px-4 flex flex-row items-center space-x-96">
+                            @include('update')
+                            @include('memodelete')
+                        </div>
+                    @endif
+                @endif
+            </div>
+        </div>
+</div>
+</div>--}}
+@endforeach
 @endsection

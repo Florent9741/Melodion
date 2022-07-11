@@ -19,18 +19,18 @@
 
 
  <div class="container mt-4">
-    <div class="row">
+    <div class="grid sm:grid-cols-1 md:grid-cols-3 md:gap-4">
         @foreach ($videos as $video)
 
 
-        <div class="col-4">
+        <div >
             <a href="{{route('watch', $video->videoId)}}" class="href">
                 <div class="card mb-4">
-                    <img src="{{$video->url}}" class="img-fluid" alt="...">
+                    <img src="{{$video->url}}" class="img-fluid text-xs" alt="...">
                     <div class="card-body">
-                        <h5 class="card-titled">{{\Illuminate\Support\Str::limit($video->title,$limit=50,$end=' ...')}}</h5>
+                        <h5 class="card-title text-xs">{{\Illuminate\Support\Str::limit($video->title,$limit=50,$end=' ...')}}</h5>
                     </div>
-                    <div class="card-footer text-muted">
+                    <div class="card-footer text-muted text-xs">
                        Published at {{date('d M Y',strtotime($video->publishedAt)) }}
                        <form class="block text-right" action="{{route('likes')}}" method="POST">
                            @csrf
