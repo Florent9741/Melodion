@@ -9,9 +9,9 @@
 
             <h2 class="md:text-4xl">Votre application de relevé de note en ligne</h2>
 
-            <form class="d-flex " method="GET" action="{{ route('results') }}">
-                <input class="form-control me-2" type="search" name="search_query" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+            <form class="d-flex mt-2 " method="GET" action="{{ route('results') }}">
+                <input class="form-control me-2" type="search" name="search_query" placeholder="Recherchez/entrez une URL" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Recherchez</button>
             </form>
 
         </div>
@@ -31,7 +31,7 @@
                         <h5 class="card-title ">{{\Illuminate\Support\Str::limit($video->title,$limit=20,$end=' ...')}}</h5>
                     </div>
                     <div class="card-footer text-muted ">
-                       Published at {{date('d M Y',strtotime($video->publishedAt)) }}
+                       Publiée le {{date('d M Y',strtotime($video->publishedAt)) }}
                        <form class="block text-right" action="{{route('likes')}}" method="POST">
                            @csrf
                            @if (!null==(Auth::user()))
