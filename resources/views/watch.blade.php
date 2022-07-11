@@ -10,7 +10,7 @@
     <div class="flex flex-col md:flex-row ">
 
 
-        <div id="monplayer" class="flex flex-col w-full gap-4  md:w-3/5 md:mt-4 md:ml-4">
+        <div id="monplayer" class="flex flex-col w-full gap-4 mb-4  md:w-3/5 md:mt-4 md:ml-4">
             <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 
             {{-- Le player la barre et le currentime --}}
@@ -34,7 +34,7 @@
                 <input type="range" id="seek-bar" value="0" max="100" step="1">
             </div>
 
-            <div class="w-full flex flex-col gap-5 xl:flex-row items-center lg:space-between lg:flex-wrap lg:gap-7   ">
+            <div class="w-full flex flex-col gap-5 xl:flex-row items-center lg:space-between lg:flex-wrap lg:gap-7  ">
                 {{-- Les boutons --}}
                 <div class="lg:order-1  lg:w-1/2 flex flex-row justify-center my-2">
 
@@ -318,9 +318,61 @@
             {{-- Le formulaire de memo --}}
             <div class=" flex-col w-full md:w-2/5 sm:my-5 md:ml-4 lg::ml-0">
 
-                <div class="flex flex-row justify-evenly items-center">
-                    {{-- bouton pour ajouter la video à la bibliothèque --}}
-                    <form action="{{ route('library') }}" method="post" class="">
+            <div class="flex flex-row justify-evenly items-center  sm:mt-5">
+                {{-- bouton pour ajouter la video à la bibliothèque --}}
+                <form action="{{ route('library') }}" method="post" class="">
+                    @csrf
+                    <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
+                    @if (null !== Auth::user())
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                    @endif
+
+                    <input type="submit" class="sr-only " value="valider">
+
+                    <button
+                        class=" text-gray-900 sm:mt-5 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-end font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2  dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                        <i class="fa-solid fa-bookmark fa-red-500"></i> Ajouter à la bibliothèque
+                    </button>
+
+                </form>
+
+                {{-- bouton terminer --}}
+
+
+
+                <form action="/watch" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="statut" value="1">
+                    @if (!null == Auth::user())
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                    @endif
+                    <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
+
+
+
+
+   <button type="submit"
+                        class=" mt-3 px-6 py-2 text-lg text-teal-300 bg-black border-0 rounded focus:outline-none"
+                        aria-required="true" name="submit" id="save"><i class=" pt-1 text-teal-300 fa-solid fa-square-check"> </i> Terminer  
+                        
+                    </button>
+             
+                    
+                 </form>
+
+            </div>
+
+
+
+            <div class="  lg:flex-grow md:w-full   md:justify-center flex flex-col  md:text-left items-center text-center">
+
+                <h1 class="mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl mt-5">
+                    Rédiger un mémo
+                </h1>
+
+                <div class="relative px-2 mb-4 md:px-0 lg:px-0 ">
+
+                    <form action="/store/{{ $id }}" method="post">
                         @csrf
                         <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
                         @if (null !== Auth::user())
@@ -335,26 +387,13 @@
                         </button>
 
                     </form>
-
-                    {{-- bouton terminer --}}
-
+                </div>
 
 
-                    <form action="/watch" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="statut" value="1">
-                        @if (!null == Auth::user())
-                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                        @endif
-                        <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
 
-                        <button type="submit"
-                            class="flex flex-row-reverse text-lg text-white bg-black border-0 rounded focus:outline-none"
-                            aria-required="true" name="submit" id="save">
-                            Terminer
-
-                        </button>
-                    </form>
+            
+            </div>
+        </div>
 
                 </div>
 
@@ -446,14 +485,46 @@
 
     {{-- LES MEMOS PUBLICS --}}
 
+        <div class="flex flex-col w-full px-2 mt-5">
+            <div class="flex items-center justify-between pb-1 mb-2 border-b">
+                <span class="text-base font-semibold text-gray-700 uppercase ">Les mémos des autres
+                    utilisateurs</span>
+               
+            </div>
+            @foreach ($memos->where('videoId', '=', $id) as $memo)
+                {{-- Memo user1 --}}
+
+                <div class="flex px-2 py-3 border-b cursor-pointer hover:shadow-md ">
+<div class="flex flex-row w-full">
+                    <img class='object-cover w-10 h-10 rounded-lg' alt='User avatar'
+                        src='https://photoclubdethuir.fr/wp-content/uploads/2019/01/avatar_gris-8.png'>
 
 
-    <div class="flex flex-col w-full px-2 mt-5">
-        <div class="flex items-center justify-between pb-1 mb-2 border-b">
-            <span class="text-base font-semibold text-gray-700 uppercase ">Les mémos des autres
-                utilisateurs</span>
-            <img class="w-4 cursor-pointer"
-                src="https://p.kindpng.com/picc/s/152-1529312_filter-ios-filter-icon-png-transparent-png.png" />
+            
+<div class="flex flex-col pl-2 space-evenly align-center w-auto ">
+                        <span class="pt-1 text-sm font-semibold text-red-500 capitalize">
+
+                            <?php
+                            $user = App\Models\User::find($memo->user_id);
+                            echo $user->name;
+                            ?>
+                        </span>
+
+                        <span class="text-xs font-medium text-gray-500 uppercase ">
+                            {{ $memo->contenu }}
+                        </span>
+                      </div>
+                       </div> 
+                        @if (null !== Auth::user())
+                            @if (Auth::user()->id == $memo->user_id)
+                                <div class=" px-4 flex flex-col items-center">
+                                    @include('update')
+                                    @include('memodelete')
+                                </div>
+                            @endif
+                        @endif
+                  
+                </div>
         </div>
         @foreach ($memos->where('videoId', '=', $id) as $memo)
             {{-- Memo user1 --}}
