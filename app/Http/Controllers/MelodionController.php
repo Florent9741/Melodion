@@ -26,14 +26,14 @@ class MelodionController extends Controller
 
             $singleVideo = $this->_singleVideoadd($request->videoId);
 
-            
+
             // Validate the value...
         } catch (Throwable $e) {
             report($e);
             return redirect()->route('biblio', $request->user_id)->with('status', 'la video existe déja dans la bibliothèque');
 
             return false;
-        }    
+        }
 
         try {
 
@@ -41,9 +41,9 @@ class MelodionController extends Controller
             $biblio->user_id = $request->user_id;
             $biblio->videoId = $request->videoId;
             $biblio->public = false;
-           
+
             $biblio->save();
-        
+
         } catch (Throwable $e) {
             report($e);
             return redirect()->route('biblio', $request->user_id)->with('status', 'la video existe déja dans la bibliothèque');
@@ -59,54 +59,50 @@ class MelodionController extends Controller
 
     public function creatememo(Request $request, $id)
     {
-        $validate = $request->validate([
+        try {
+
+            $validate = $request->validate([
             'contenu' => 'required',
 
         ]);
 
-        try {
+
 
         $memos = new Memos();
         $memos->user_id = Auth::id();
         $memos->videoId = "$id";
         $memos->contenu = $request['contenu'];
- 
+
         $memos->save();
 
     } catch (Throwable $e) {
         report($e);
-        return redirect()->route('watch', $memos->videoId)->with('status', 'Veuillez ajouter la video dans la biblioteque pour pouvoir insérer un memo.');
-    
+        return redirect()->route('watch', $memos->videoId)->with('status','Veuillez ajouter la video dans la biblioteque pour pouvoir insérer un memo.');
 
-        return false;
     }
         return redirect()->route('watch', $memos->videoId);
     }
 
     public function updatememo(Request $request, $id)
     {
-        
+
         $memos = Memos::where(['videoId'=>$id, 'user_id'=> $request->user_id])
         ->find($request->id_memos);
-
-
-        
-       $memos->id =$request->id_memos;
-        $memos->update([
-            'user_id'  => $request->user_id,
-            'videoId' => $id,
-            'contenu' => $request->contenu,
-            
-        ]);
-
+        if (isset($memos)) {
+        $memos->id = $request->id_memos;
+        $memos->user_id  = $request->user_id;
+        $memos->videoId = $id;
+        $memos->contenu = $request->contenu;
+        $memos->save();
+    }
     return redirect()->route('watch',$id)->with('modifié','Film modifié');
     }
 
     public function delete(Request $request)
     {
-    
+
         $memos = Memos::where(['user_id'=> $request->user_id]);
-        
+
        $memos=Memos::find($request->id_memos);
         $memos->delete();
         return redirect()->route('watch',$memos->videoId);
@@ -166,7 +162,7 @@ class MelodionController extends Controller
             $member->prenom = $request->prenom;
             $member->name = $request->name;
             $member->email = $request->email;
-  
+
             $member->save();
             return redirect()->route('profile', $member->id)->with('status', 'votre profil a bien été modifié !');
         } else {
@@ -177,12 +173,12 @@ class MelodionController extends Controller
     $user=User::with('videos')->find($id);
     $videos = $user->videos;
   //dd($videos);
-   
+
     if($videos)
     {
             return view('biblio', [
                 'videos' => $videos
-                
+
             ]);
     } else
         return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
@@ -193,26 +189,23 @@ class MelodionController extends Controller
  public function show($id)
     {
 
-        
+
             $user = User::with('videos')->find($id);
             $medias = $user->videos;
-            
+
+           
             //$videos = Videos::with('users')->get();
             //->where('videoId', '=', $film)
             //->where('id', '=', $id)->get();
-            // dd($videos);
+          
 
             return view('biblio', [
-                
+
                 'medias' => $medias
             ]);
-         
+      
 
-            return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
-        
     }
-
-
 
 
     public function destroy(Request $request, $videoId)

@@ -1,19 +1,11 @@
 @extends('layouts.app')
 
 @section('main')
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-rel="stylesheet">
-<script src="https://kit.fontawesome.com/5373dfbc9f.js" crossorigin="anonymous"></script>
-
-
-@if (session('status'))
-<div class="mt-20 mb-10 text-3xl font-bold text-left text-green-600">
-    {{ session('status') }}
-</div>
-@endif
+    @if (session('status'))
+        <div class="mt-20 mb-10 text-3xl font-bold text-left text-green-600">
+            {{ session('status') }}
+        </div>
+    @endif
     {{-- La partie du haut player et memo --}}
     <div class="flex flex-col md:flex-row ">
 
@@ -24,117 +16,127 @@ rel="stylesheet">
             {{-- Le player la barre et le currentime --}}
             <div class="flex flex-col ">
 
-                        <div id="player" class="w-auto h-full md:w-full md:h-80 md:rounded">
-                        </div>
+                <div id="player" class="w-auto h-full md:w-full md:h-80 md:rounded">
+                </div>
 
 
-                            <!-- affiche le current time -->
-                                <div class="flex flex-row">
-                                    <div id="currentTime" class="flex flex-row">
-                                            <p> <span id="currentTimeSpan"></span>
-                                        {{-- affiche le total time en minute et seconde --}}
-                                        : <span id="totalTimeSpan"></span></p>
-                                    </div>
+                <!-- affiche le current time -->
+                <div class="flex flex-row">
+                    <div id="currentTime" class="flex flex-row">
+                        <p> <span id="currentTimeSpan"></span>
+                            {{-- affiche le total time en minute et seconde --}}
+                            : <span id="totalTimeSpan"></span></p>
+                    </div>
 
-                                </div>
+                </div>
 
-                                <!-- curseur de progression -->
-                            <input type="range" id="seek-bar" value="0" max="100" step="1">
+                <!-- curseur de progression -->
+                <input type="range" id="seek-bar" value="0" max="100" step="1">
             </div>
 
+            <div class="w-full flex flex-col gap-5 xl:flex-row items-center lg:space-between lg:flex-wrap lg:gap-7   ">
+                {{-- Les boutons --}}
+                <div class="lg:order-1  lg:w-1/2 flex flex-row justify-center my-2">
 
-            {{-- Les boutons --}}
-            <div class="flex flex-row justify-center my-2">
-
-                <!-- boutton pour rejouer la video -->
-                <button id="replay"
-                    class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
-                    <i class="fa-solid fa-backward-step"></i>
-
-                    {{-- bouton qui switch sur pause ou sur play --}}
-                    <button id="play-pause1"
+                    <!-- boutton pour rejouer la video -->
+                    <button id="replay"
                         class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                        <i class="fa-solid fa-backward-step"></i>
 
-                        <i class="fa-solid fa-play"></i>
+                        {{-- bouton qui switch sur pause ou sur play --}}
+                        <button id="play-pause1"
+                            class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
 
-                        <i class="fa-solid fa-pause"></i>
+                            <i class="fa-solid fa-play"></i>
 
-
-                        <!-- boutton pour arreter la video -->
-
-                        <button id="stop"
-                            class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"><i
-                                class="fa-solid fa-stop "></i>
-
-            </div>
+                            <i class="fa-solid fa-pause"></i>
 
 
-            {{-- La vitesse --}}
-            <input type="range" min="25" max="100" value="25" class="range" step="5" />
-            <div class="flex justify-between w-full px-2 my-2 text-xs ">
+                            <!-- boutton pour arreter la video -->
 
-                <span id="0.25">|x0,25</span>
-                <span id="0.5">|x0.5</span>
-                <span id="0.75">|x0.75</span>
-                <span id="1">|x1</span>
+                            <button id="stop"
+                                class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"><i
+                                    class="fa-solid fa-stop "></i>
 
-            </div>
+                </div>
 
 
-            {{-- Le son --}}
-            <div class="flex flex-row">
 
-                {{-- input toggle checkbox mute/unmute --}}
+                {{-- La vitesse --}}
+                <div class="lg:order-3 w-full px-1 lg:w-2/3">
+                    <input type="range" min="25" max="100" value="25" class="range" step="5" />
+                    <div class="w-full flex justify-between text-xs px-2 my-2 ">
 
-                <i class="fa-solid fa-volume-xmark"></i>
-                <input type="checkbox" id="mute-checkbox">
+                        <span id="0.25">|x0,25</span>
+                        <span id="0.5">|x0.5</span>
+                        <span id="0.75">|x0.75</span>
+                        <span id="1">|x1</span>
 
+                    </div>
+                </div>
 
-                {{-- progress bar pour le volume --}}
-                <input id="volumebar" type="range" min="0" max="100" value="50"
-                    class="range range-xs range-primary " step="1" />
+                {{-- Le son --}}
+                <div class="lg:order-2 w-full lg:w-1/3 px-1 pt-1 flex flex-row">
 
-            </div>
+                    {{-- input toggle checkbox mute/unmute --}}
 
-            {{-- lecture en boucle --}}
+                    {{-- <i class="fa-solid fa-volume-xmark"></i>
+                            <input type="checkbox" id="mute-checkbox"> --}}
 
-            <div class="flex flex-row justify-evenly">
-
-                <div>
-
-                    <!-- boutton A currenttime  -->
-                    <button id="A" class="w-20 bg-blue-500 rounded-full"><i class="fa-solid fa-a"></i>
+                    {{-- boutton mute/unmute --}}
+                    <button id="mute"
+                        class="flex flex-row place-self-center text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-center font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                        <i class="fa-solid fa-volume-mute hidden"></i>
+                        <i class="fa-solid fa-volume-up"></i>
                     </button>
 
-                    <!-- affiche la valeur de A en minute et seconde -->
-                    <div id="A-time">
-                        <p>A time: <span id="A-time-span"></span>
-
-                    </div>
+                    {{-- progress bar pour le volume --}}
+                    <input id="volumebar" type="range" min="0" max="100" value="50"
+                        class="range range-xs range-accent place-self-center" step="1" />
 
                 </div>
 
 
-                <div>
-                    <!-- boutton B currenttime  -->
-                    <button id="B" class="w-20 bg-red-500 rounded-full"><i class="fa-solid fa-b"></i></button>
-                    <!-- affiche la valeur de B en minute et seconde  -->
-                    <div id="B-time">
-                        <p>B time: <span id="B-time-span"></span>
+
+                {{-- lecture en boucle --}}
+
+                <div class="lg:order-4 lg:gap-x-6 w-full lg:w-1/6 flex flex-row justify-evenly lg:flex-end lg:mb-1 ">
+
+                    <div>
+
+                        <!-- boutton A currenttime  -->
+                        <button id="A" class="bg-blue-500 w-20 rounded-full"><i class="fa-solid fa-a"></i>
+                        </button>
+
+                        <!-- affiche la valeur de A en minute et seconde -->
+                        <div id="A-time">
+                            <p class="lg:pt-3 text-center">A time: <span id="A-time-span"></span>
+
+                        </div>
+
                     </div>
-                </div>
 
-                <div>
 
-                    <input type="checkbox" id="loop-checkbox" class="checkbox checkbox-sm">
-                    <div class="justify-center">
-                        <i class="fa-solid fa-arrow-rotate-left "></i>
+                    <div>
+                        <!-- boutton B currenttime  -->
+                        <button id="B" class="bg-red-500 w-20 rounded-full"><i class="fa-solid fa-b"></i></button>
+                        <!-- affiche la valeur de B en minute et seconde  -->
+                        <div id="B-time">
+                            <p class="lg:pt-3 text-center">B time: <span id="B-time-span"></span>
+                        </div>
+                    </div>
+
+                    <div>
+
+                        <input type="checkbox" id="loop-checkbox" class="checkbox checkbox-sm">
+                        <div class="justify-center">
+                            <i class="fa-solid fa-arrow-rotate-left "></i>
+                        </div>
                     </div>
                    
                    
                 </div>
             </div>
-
             <script>
                 // 2. This code loads the IFrame Player API code asynchronously.
                 var tag = document.createElement('script');
@@ -144,6 +146,7 @@ rel="stylesheet">
                 // 3. This function creates an <iframe> (and YouTube player)
                 //    after the API code downloads.
                 var player;
+
                 function onYouTubeIframeAPIReady() {
                     player = new YT.Player('player', {
                         height: '360',
@@ -163,8 +166,9 @@ rel="stylesheet">
                 //    The function indicates that when playing a video (state=1),
                 //    the player should play for six seconds and then stop.
                 var done = false;
-                function onPlayerStateChange(event) {
-                }
+
+                function onPlayerStateChange(event) {}
+
                 function stopVideo() {
                     player.stopVideo();
                 }
@@ -190,11 +194,30 @@ rel="stylesheet">
                     player.setPlaybackRate(this.value / 100);
                 });
                 // input toggle checkbox mute/unmute
-                document.getElementById('mute-checkbox').addEventListener('change', function() {
-                    if (this.checked) {
-                        player.mute();
-                    } else {
+                // document.getElementById('mute-checkbox').addEventListener('change', function() {
+                //     if (this.checked) {
+                //         player.mute();
+                //     } else {
+                //         player.unMute();
+                //     }
+                // });
+
+                // boutton mute/unmute
+                document.getElementById('mute').addEventListener('click', function() {
+                    if (player.isMuted()) {
                         player.unMute();
+
+                    } else {
+                        player.mute();
+                    }
+                });
+
+                //  si volume mute montrer icon mute sinon icon volume up
+                document.getElementById('mute').addEventListener('click', function() {
+                    if (!player.isMuted()) {
+                        document.getElementById('mute').innerHTML = '<i class="fa-solid fa-volume-mute"></i>';
+                    } else {
+                        document.getElementById('mute').innerHTML = '<i class="fa-solid fa-volume-up"></i>';
                     }
                 });
                 // progress bar volumebar
@@ -262,6 +285,7 @@ rel="stylesheet">
                     // affiche B en minute et seconde
                     document.getElementById('B-time-span').innerHTML = minutes + ":" + seconds;
                 });
+
                 function abloop(currentTime, boucle = true) {
                     // si B est different de -1 ET B > A
                     if (boucle && playPausePoints.B != -1 && playPausePoints.B > playPausePoints.A && currentTime >= playPausePoints
@@ -292,65 +316,30 @@ rel="stylesheet">
         </div>
 
 
+        @Auth
+            {{-- Le formulaire de memo --}}
+            <div class=" flex-col w-full md:w-2/5 sm:my-5 md:ml-4 lg::ml-0">
 
-
-        {{-- Le formulaire de memo --}}
-        <div class="flex-col w-full md:w-2/5 sm:my-5">
-
-            {{-- <form action="{{ route('library') }}" method="post" class="flex justify-end">
-                                                            @csrf
-                                                            <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
-                                                            @if (null !== Auth::user())
-                                                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                                            @endif --}}
-
-            {{-- bouton pour ajouter la video à la bibliothèque --}}
-            <form action="{{ route('library') }}" method="post" class="flex justify-center">
-                            @csrf
-                            <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
-                            @if (null !== Auth::user())
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                            @endif
-
-                            <input type="submit" class="sr-only" value="valider">
-
-                            <button class="mt-4 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-end font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
-                                <i class="fa-solid fa-bookmark fa-red-500"></i>   Ajouter à la bibliothèque
-                            </button>
-
-            </form>
-
-            <div class="flex flex-col items-center text-center lg:flex-grow md:w-full lg:pl-24 md:items-start md:text-left">
-
-                <h1 class="mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl">
-                    Rédiger un mémo
-                </h1>
-
-                <div class="relative px-2 mb-4 md:px-0 lg:px-0 ">
-
-                    <form action="/store/{{$id}}" method="post">
+                <div class="flex flex-row justify-evenly items-center">
+                    {{-- bouton pour ajouter la video à la bibliothèque --}}
+                    <form action="{{ route('library') }}" method="post" class="">
                         @csrf
-                       
-                        <textarea id="message" name="contenu" cols="50" rows="15"
-                            class="w-full h-64 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
-                            <div class="flex justify-center">
-                                <button
-                                type="submit"
-                                    class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                                    
-                                    Enregistrer
-                                 </button>
-    
-                            </div>
+                        <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
+                        @if (null !== Auth::user())
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                        @endif
+
+                        <input type="submit" class="sr-only" value="valider">
+
+                        <button
+                            class=" text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-end font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2  dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                            <i class="fa-solid fa-bookmark fa-red-500"></i> Ajouter à la bibliothèque
+                        </button>
 
                     </form>
-                </div>
 
+                    {{-- bouton terminer --}}
 
-
-                <div class="flex flex-row gap-x-3 ">
-
-                  
 
 
                     <form action="/watch" method="post" enctype="multipart/form-data">
@@ -362,60 +351,104 @@ rel="stylesheet">
                         <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
 
                         <button type="submit"
-                            class="flex flex-row-reverse px-6 py-2 text-lg text-white bg-black border-0 rounded focus:outline-none"
+                            class="flex flex-row-reverse text-lg text-white bg-black border-0 rounded focus:outline-none"
                             aria-required="true" name="submit" id="save">
                             Terminer
 
                         </button>
                     </form>
-                </div>
-            </div>
-            <div class="flex flex-col p-5">
-                <div class="border-b pb-1 flex justify-between items-center mb-2">
-                    <span class=" text-base font-semibold uppercase text-gray-700">Les mémos des autres utilisateurs</span>
-                    <img class="w-4 cursor-pointer"
-                        src="https://p.kindpng.com/picc/s/152-1529312_filter-ios-filter-icon-png-transparent-png.png" />
-                </div>
-                @foreach ($memos->where('videoId', '=', $id)  as $memo)
-                 
-                      
-                 
-                <div class="flex border-b py-3 cursor-pointer hover:shadow-md px-2 ">
-                   
-                    <img class='w-10 h-10 object-cover rounded-lg' alt='User avatar'
-                        src='https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200'>
-                    <div class="flex flex-col px-2 w-full">
-    
-                        <span class="text-sm text-red-500 capitalize font-semibold pt-1">
-                            florent 
-                        </span>
-                        <span class="text-xs text-gray-500 uppercase font-medium ">
-                            {{$memo->contenu}}
-                        </span>
-                        <td class="px-4 py-3">@include('update')
-                            <td>	
-                                
-                                <td class="px-4 py-3">@include('memodelete')
-                                    <td>	
 
+                </div>
+
+
+
+                <div class="  lg:flex-grow md:w-full   md:justify-center flex flex-col  md:text-left items-center text-center">
+
+                    <h1 class="mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl">
+                        Rédiger un mémo
+                    </h1>
+
+                    <div class="relative px-2 mb-4 md:px-0 lg:px-0 ">
+
+                        <form action="/store/{{ $id }}" method="post">
+                            @csrf
+
+                            <textarea id="message" name="contenu" cols="50" rows="15"
+                                class="w-full h-64 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
+                            <div class="flex justify-center">
+                                <button type="submit"
+                                    class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+
+                                    Enregistrer
+                                </button>
+
+                            </div>
+
+                        </form>
+                    </div>
+
+
+
+                    <div class="flex flex-row gap-x-3 ">
+
+
+
+
+                        <form action="/watch" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="statut" value="1">
+                            @if (!null == Auth::user())
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            @endif
+                            <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
+
+                            <button type="submit"
+                                class="flex flex-row-reverse px-6 py-2 text-lg text-white bg-black border-0 rounded focus:outline-none"
+                                aria-required="true" name="submit" id="save">
+                                Terminer
+
+                            </button>
+                        </form>
                     </div>
                 </div>
-                @endforeach
-                
-               
-           
 
-               
+                <div class="border w-auto m-2 mr-4 text-left">
+                    @foreach ($memos->where('videoId', '=', $id && 'user_id', '=', Auth::user()->id) as $memo)
+                        @if ($memo->videoId == $id && $memo->user_id == Auth::user()->id)
+                            <div class="flex-col  sm:my-5 md:ml-4 lg::ml-0 ">
+                                <div class="flex flex-col justify-evenly items-center m-2">
+                                    <div class="flex flex-row justify-evenly items-center bg-slate-50 border-slate-400 border rounded-lg  p-2 ">
+                                        {{ $memo->contenu }}
+                                    </div>
+                                    <div class="text-slate-500 m-2">
+                                       Ajouter le :  {{ $memo->created_at }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+
+
+
             </div>
-        </div>
 
 
 
+
+
+
+            {{-- Mes memos --}}
+
+        @endauth
+    </div>
     </div>
 
 
 
     {{-- LES MEMOS PUBLICS --}}
+
+
 
     <div class="flex flex-col w-full px-2 mt-5">
         <div class="flex items-center justify-between pb-1 mb-2 border-b">
@@ -424,31 +457,39 @@ rel="stylesheet">
             <img class="w-4 cursor-pointer"
                 src="https://p.kindpng.com/picc/s/152-1529312_filter-ios-filter-icon-png-transparent-png.png" />
         </div>
-        @foreach ($memos->where('videoId', '=', $id)  as $memo)
-        {{-- Memo user1 --}}
-        <div class="flex px-2 py-3 border-b cursor-pointer hover:shadow-md ">
+        @foreach ($memos->where('videoId', '=', $id) as $memo)
+            {{-- Memo user1 --}}
 
-            <img class='object-cover w-10 h-10 rounded-lg' alt='User avatar'
-                src='https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200'>
+            <div class="flex px-2 py-3 border-b cursor-pointer hover:shadow-md ">
+
+                <img class='object-cover w-10 h-10 rounded-lg' alt='User avatar'
+                    src='https://photoclubdethuir.fr/wp-content/uploads/2019/01/avatar_gris-8.png'>
 
 
-            <div class="flex flex-col w-full px-2">
+                <div class="flex flex-col w-full px-2">
 
-                <span class="pt-1 text-sm font-semibold text-red-500 capitalize">
-                    Arnaud
-                </span>
+                    <span class="pt-1 text-sm font-semibold text-red-500 capitalize">
 
-                <span class="text-xs font-medium text-gray-500 uppercase ">
-                    {{$memo->contenu}}
-                </span>
-                <td class="px-4 py-3">@include('update')
-                    <td>	
-                        
-                        <td class="px-4 py-3">@include('memodelete')
-                            <td>
+                        <?php
+                        $user = App\Models\User::find($memo->user_id);
+                        echo $user->name;
+                        ?>
+                    </span>
+
+                    <span class="text-xs font-medium text-gray-500 uppercase ">
+                        {{ $memo->contenu }}
+                    </span>
+                    @if (null !== Auth::user())
+                        @if (Auth::user()->id == $memo->user_id)
+                            <div class="px-4 flex flex-row items-center space-x-96">
+                                @include('update')
+                                @include('memodelete')
+                            </div>
+                        @endif
+                    @endif
+                </div>
             </div>
-        </div>
-        @endforeach
-
-        
-    @endsection
+    </div>
+    </div>
+    @endforeach
+@endsection

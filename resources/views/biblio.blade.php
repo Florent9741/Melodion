@@ -21,9 +21,12 @@
             <div class="row">
 
                 {{-- ton end section est là normalement --}}
+
                
-                @if (isset($medias))
-                   @foreach ($medias as $media)
+                @if (count($medias) > 0)
+               
+                @foreach ($medias as $media)
+                                              
                         <div class="col-4">
                             <div class="mb-4 card">
                                 <a href="{{ route('watch', $media->pivot->videoId) }}">
@@ -34,13 +37,7 @@
                                             <i class="absolute z-10 text-yellow-600 fa-solid fa-circle-check"></i>
                                         @endif
 
-                                       
-                                    
-
-
-
-
-                                    <img src="{{ $media->url }}" alt="yt-image" class="w-64 h-auto">
+                                    <img src="{{ $media->url }}" alt="yt-image" class="img-fluid w-96 h-auto">
 
                                     <div class="card-body">
                                         <h5> {{ \Illuminate\Support\Str::limit($media->title, $limit = 10, $end = ' ...') }}
@@ -51,7 +48,7 @@
                                         @else
                                             <p> <br></p>
                                         @endif
-                                 
+
                                     </div>
                                 </a>
                                     <div class="card-footer text-muted">
@@ -66,12 +63,12 @@
                                                 class="inline-block p-0 m-0 text-right duration-300 ease-in-out hover:text-green-500">
                                                 <button type="submit" name="like" class="pointer-events-none"
                                                     value="1"><i
-                                                        class="fa-solid fa-thumbs-up"></i>{{ $media->countlike }}</button>
+                                                        class="fa-solid fa-thumbs-up">  </i> {{  $media->countlike }}</button>
                                             </div>
 
                                         </form>
                                     </div>
-                                
+
 
                                 <form
                                     action="{{ route('biblio.destroy', $media->pivot->videoId . '?userId=' . Auth::user()->id) }}"
@@ -84,9 +81,15 @@
 
                             </div>
                         </div>
+                   
                    @endforeach
-                @endif
-            </div> 
+                   @else
+                   
+                       <div class="mt-24 mb-80 text-3xl font-bold text-left text-green-600">
+                        La Bibliothèque est vide... </div>
+                   @endif
+                  
+            </div>
         </div>
 
 
