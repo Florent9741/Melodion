@@ -41,7 +41,7 @@
                       <thead class="border-b ">
 
 
-                  <tr>
+                  <tr class="text-center">
                    <th >
                       ID</th>
                     <th>
