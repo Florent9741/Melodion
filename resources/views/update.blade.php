@@ -1,12 +1,11 @@
-<div class="flex flex-col">
 
-    <div class="mt-3 flex justify-center">
+
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
         <div x-data="{ modelOpen: false }">
             
             <button @click="modelOpen =!modelOpen"
-            <i class="p-3 fa-solid fa-pen-to-square hover:text-blue-700"></i>
+            <i class=" fa-solid fa-pen-to-square hover:text-blue-700"></i>
             </button>
 
             <div x-show="modelOpen" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title"
