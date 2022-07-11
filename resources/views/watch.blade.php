@@ -409,11 +409,31 @@
                     </form>
                 </div>
             </div>
+
+
+                    @foreach ($memos->where('videoId', '=', $id && 'user_id', '=', Auth::user()->id) as $memo)
+                    @if ($memo->videoId == $id && $memo->user_id == Auth::user()->id)
+                        <div class="flex-col w-full md:w-2/5 sm:my-5 md:ml-4 lg::ml-0">
+                            <div class="flex flex-row justify-evenly items-center">
+                                <div class="flex flex-row justify-evenly items-center">
+                                    {{$memo -> contenu}}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @endforeach
         </div>
 
 
+
+
+
+
+        {{-- Mes memos --}}
+
         @endauth
     </div>
+</div>
 
 
 
@@ -461,6 +481,7 @@
                     </div>
                 </div>
         </div>
+    </div>
 
 
     @endforeach

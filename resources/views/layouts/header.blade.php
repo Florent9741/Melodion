@@ -39,6 +39,9 @@
                         </li>
                         @auth
 
+                        <li>
+                            {{Auth::user()->name}}
+                        </li>
                             <li>
                                 @if (!null==Auth::user())
                                 <a href="/biblio/{{Auth::user()->id}}" class="block px-4 py-2 hover:text-red-500">Bibliothèque</a>
