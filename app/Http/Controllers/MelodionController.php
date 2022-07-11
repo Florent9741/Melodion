@@ -193,22 +193,19 @@ class MelodionController extends Controller
             $user = User::with('videos')->find($id);
             $medias = $user->videos;
 
+           
             //$videos = Videos::with('users')->get();
             //->where('videoId', '=', $film)
             //->where('id', '=', $id)->get();
-            // dd($videos);
+          
 
             return view('biblio', [
 
                 'medias' => $medias
             ]);
-
-
-            return view('biblio')->with('status', 'vous n\'avez pas encore de vidéos dans votre bibliothèque !');
+      
 
     }
-
-
 
 
     public function destroy(Request $request, $videoId)

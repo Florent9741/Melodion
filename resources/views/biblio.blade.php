@@ -22,8 +22,11 @@
 
                 {{-- ton end section est là normalement --}}
 
-                @if (isset($medias))
-                   @foreach ($medias as $media)
+               
+                @if (count($medias) > 0)
+               
+                @foreach ($medias as $media)
+                                              
                         <div class="col-4">
                             <div class="mb-4 card">
                                 <a href="{{ route('watch', $media->pivot->videoId) }}">
@@ -33,12 +36,6 @@
                                         @else
                                             <i class="absolute z-10 text-yellow-600 fa-solid fa-circle-check"></i>
                                         @endif
-
-
-
-
-
-
 
                                     <img src="{{ $media->url }}" alt="yt-image" class="img-fluid w-96 h-auto">
 
@@ -84,8 +81,14 @@
 
                             </div>
                         </div>
+                   
                    @endforeach
-                @endif
+                   @else
+                   
+                       <div class="mt-24 mb-80 text-3xl font-bold text-left text-green-600">
+                        La Bibliothèque est vide... </div>
+                   @endif
+                  
             </div>
         </div>
 
