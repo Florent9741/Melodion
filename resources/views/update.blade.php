@@ -40,7 +40,7 @@
                             </button>
                         </div>
 
-<<<<<<< HEAD
+
                         <div class="justify-center w-full pl-4 text-center">
                             <div
                                 class="flex flex-col items-center w-full text-center lg:flex-grow md:items-start md:text-left">
@@ -48,7 +48,7 @@
                                 <div class="relative mb-4">
                                     <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
                                     <form action="/update/{{$id}}" method="post" class="p-0 m-0">
->>>>>>> e797bd148b04fa06ebd53cc019ce8dc5717816b2
+
                                         @csrf
                                         <input type="hidden" name="id_memos" value="{{$memo->id}}">
                                         <textarea id="message" name="contenu" cols="50" rows="15"
