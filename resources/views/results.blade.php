@@ -2,12 +2,12 @@
 
 @section('main')
 
-    <div class="container mt-4">
+    <div class="container h-screen mt-4">
         <div class="row">
             <div class="col">
                 @if(!empty($videoLists->items))
                 @foreach ($videoLists->items as $key=>$item)
-                
+
                 <div class="row mb-3">
                     <a href="{{route('watch', $item->id->videoId)}}" class="href" style="display:contents">
                         <div class="col-4">
@@ -21,7 +21,7 @@
                     </a>
                 </div>
                @endforeach
-                @else <div class="mt-20 mb-40 text-3xl font-bold text-left text-red-600">La clé API doit être changée dans le fichier .env</div>
+                @else <div class="mt-20 mb-40 text-3xl font-bold text-left text-red-600"> <i class="fa-solid fa-triangle-exclamation"></i> La clé API doit être changée dans le fichier .env</div>
                 @endif
                 </div>
             </div>

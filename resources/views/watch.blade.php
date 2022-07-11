@@ -9,13 +9,14 @@
     {{-- La partie du haut player et memo --}}
     <div class="flex flex-col  md:flex-row ">
 
-
         <div id="monplayer" class=" mb-5 flex flex-col w-full gap-4  md:w-3/5 md:mt-4 md:ml-4">
             <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 
             {{-- Le player la barre et le currentime --}}
             <div class="flex flex-col ">
-
+                @if(empty($singleVideo->items[0]))
+                <div class=" mb-10  text-xl font-bold text-left text-red-600"> <i class="fa-solid fa-triangle-exclamation"></i> La clé API doit être changée dans le fichier .env</div>
+                @endif
                 <div id="player" class="w-auto h-full md:w-full md:h-80 md:rounded">
                 </div>
 
@@ -325,7 +326,7 @@
                         @csrf
                        @if(!empty($singleVideo->items[0]))
                         <input type="hidden" name="videoId" value="{{$singleVideo->items[0]->id}}">
-                        @else <div class=" hidden mt-20 mb-40 text-3xl font-bold text-left text-red-600">La clé API doit être changée dans le fichier .env</div>
+                        @else <div class=" hidden  text-xl font-bold text-left text-red-600"> <i class="fa-solid fa-triangle-exclamation"></i> La clé API doit être changée dans le fichier .env</div>
                         @endif
                         @if (null !== Auth::user())
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -376,15 +377,22 @@
                     </h1>
 
                     <div class="relative px-2 mb-4 md:px-0 lg:px-0 ">
-
-                        <form action="/store/{{ $id }}" method="post">
+{{-- form bouton enregistrer  --}}
+                        <form  action="/store/{{ $id }}" method="post">
                             @csrf
 
                             <textarea id="message" name="contenu" cols="50" rows="15"
-                                class="w-full h-64 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"></textarea>
-                            <div class="flex justify-center">
-                                <button type="submit"
-                                    class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                class="w-full h-64 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+
+
+                >
+
+
+                            </textarea>
+
+                                <div class="flex justify-center">
+                                <button  type="submit"
+                                    class="mt-2 inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
 
                                     Enregistrer
                                 </button>
@@ -396,43 +404,33 @@
 
 
 
-                    <div class="flex flex-row gap-x-3 ">
 
-
-
-
-                        <form action="/watch" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="statut" value="1">
-                            @if (!null == Auth::user())
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                            @endif
-                            @if(!empty($singleVideo->items[0]))
-                            <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
-
-                            @endif
-                            <button type="submit"
-                                class="flex flex-row-reverse px-6 py-2 text-lg text-white bg-black border-0 rounded focus:outline-none"
-                                aria-required="true" name="submit" id="save">
-                                Terminer
-
-                            </button>
-                        </form>
-                    </div>
                 </div>
-
+                {{-- NOS MEMOS  --}}
+                <h1 class=" text-center mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl">
+                    Mémos
+                </h1>
                 <div class="border w-auto m-2 mr-4 text-left">
                     @foreach ($memos as $memo)
                         @if ($memo->videoId == $id && $memo->user_id == Auth::user()->id)
-                            <div class="flex-col  sm:my-5 md:ml-4 lg::ml-0 ">
-                                <div class="flex flex-col justify-evenly items-center m-2">
-                                    <div
-                                        class="flex flex-row justify-evenly items-center bg-slate-50 border-slate-400 border rounded-lg  p-2 ">
+                            <div class="flex flex-row justify-between border-t border-gray-200 sm:my-5 md:mx-4  lg::ml-0 ">
+
+                                {{ $memo->created_at->format('d/m/Y') }}
+
+                                <div class="flex flex-col w-full justify-evenly items-center m-2">
+                                    <div class="flex flex-row w-full  justify-between items-center bg-slate-50 border-slate-400 border rounded-lg  p-2 ">
                                         {{ $memo->contenu }}
+
+                                        <div class=" px-4 flex flex-col items-center">
+                                            @include('update')
+                                            @include('memodelete')
+                                        </div>
                                     </div>
-                                    <div class="text-slate-500 m-2">
-                                       Ajouté le :  {{ $memo->created_at }}
-                                    </div>
+                                    {{-- <div class="text-slate-500 m-2 flex flex-end">
+                                        {{ $memo->created_at->format('d/m/Y') }}
+                                      </div> --}}
+
+
                                 </div>
                             </div>
                         @endif
@@ -459,6 +457,7 @@
                 utilisateurs</span>
 
         </div>
+    </div>
         @foreach ($memos->where('videoId', '=', $id) as $memo)
             {{-- Memo user1 --}}
 

@@ -8,10 +8,27 @@
         <a href="/"> <span class=" w-full font-semibold text-2xl text-white ml-2  ">Melodion</span> </a>
     </div>
 
-    <form class="d-flex w-3/5 pl-2 md:w-2/5 md:justify-center items-center sm:order-2" method="GET" action="{{ route('results') }}">
-        <input class=" w-full h-7 rounded-full form-control me-2" type="search" name="search_query" placeholder="Recherchez une video ou une URL.." aria-label="Search">
+
+{{-- si sur la page index, cacher la barre de recherche du header --}}
+    @if (Request::path() == '/')
+    <form class="  d-flex w-3/5 pl-2 md:w-2/5 md:justify-center items-center sm:order-2" method="GET" action="{{ route('results') }}">
+        <input class=" hidden w-full h-7 rounded-full form-control me-2" type="search" name="search_query" placeholder="Recherchez une video ou une URL.." aria-label="Search">
+        <button class=" hidden btn  md:hidden items-center justify-center" type="submit">  <i class="fa-solid fa-magnifying-glass text-green-600 "></i> </button>
+    </form>
+
+    @else
+    <form class=" d-flex w-3/5 pl-2 md:w-2/5 md:justify-center items-center sm:order-2" method="GET" action="{{ route('results') }}">
+        <input class="  w-full h-7 rounded-full form-control me-2" type="search" name="search_query" placeholder="Recherchez une video ou une URL.." aria-label="Search">
         <button class="btn  md:hidden items-center justify-center" type="submit">  <i class="fa-solid fa-magnifying-glass text-green-600 "></i> </button>
     </form>
+    @endif
+
+
+    {{-- <form class="d-flex w-3/5 pl-2 md:w-2/5 md:justify-center items-center sm:order-2" method="GET" action="{{ route('results') }}">
+        <input class="  w-full h-7 rounded-full form-control me-2" type="search" name="search_query" placeholder="Recherchez une video ou une URL.." aria-label="Search">
+        <button class="btn  md:hidden items-center justify-center" type="submit">  <i class="fa-solid fa-magnifying-glass text-green-600 "></i> </button>
+    </form> --}}
+
 
 
     <div class="  sm:order-3 flex justify-end gap-1 fa-2xl mr-2">
