@@ -17,7 +17,7 @@
                                 <th >
                                     email</th>
                                 <th >
-                                    admin
+                                    rôle
                                 </th>
 
                                 <th >
@@ -47,7 +47,17 @@
 
                                     <td
                                         class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        <span>null</span>
+                                        @if ($membre->admin == Null)
+                                        <span>utilisateur</span>
+                                       
+                
+                                        @elseif ($membre->admin == 1)
+                                          <span>administrateur</span>
+                                        @else
+                                        <span>non identifier</span>
+                                        
+                                       @endif
+                                        
                                     </td>
                                     <td class="border-b">
                                         <form method="get" action="{{ route('user.restore', $membre->id) }}">
