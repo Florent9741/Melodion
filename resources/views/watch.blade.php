@@ -320,9 +320,13 @@
 
                 <div class="flex flex-row justify-evenly items-center">
                     {{-- bouton pour ajouter la video à la bibliothèque --}}
+                  
                     <form action="{{ route('library') }}" method="post" class="">
                         @csrf
-                        <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
+                       @if(!empty($singleVideo->items[0]))
+                        <input type="hidden" name="videoId" value="{{$singleVideo->items[0]->id}}">
+                        @else <div class="mt-20 mb-40 text-3xl font-bold text-left text-red-600">La clé API doit être changée dans le fichier .env</div>
+                        @endif                                    
                         @if (null !== Auth::user())
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         @endif
@@ -335,7 +339,7 @@
                         </button>
 
                     </form>
-
+                
                     {{-- bouton terminer --}}
 
 
@@ -346,8 +350,10 @@
                         @if (!null == Auth::user())
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         @endif
+                        @if(!empty($singleVideo->items[0]))
                         <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
-
+                        
+                        @endif
                         <button type="submit"
                             class="flex flex-row-reverse text-lg text-white bg-black border-0 rounded focus:outline-none"
                             aria-required="true" name="submit" id="save">
@@ -398,8 +404,10 @@
                             @if (!null == Auth::user())
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             @endif
+                            @if(!empty($singleVideo->items[0]))
                             <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
-
+                            
+                            @endif
                             <button type="submit"
                                 class="flex flex-row-reverse px-6 py-2 text-lg text-white bg-black border-0 rounded focus:outline-none"
                                 aria-required="true" name="submit" id="save">
@@ -419,7 +427,7 @@
                                         {{ $memo->contenu }}
                                     </div>
                                     <div class="text-slate-500 m-2">
-                                       Ajouter le :  {{ $memo->created_at }}
+                                       Ajouté le :  {{ $memo->created_at }}
                                     </div>
                                 </div>
                             </div>

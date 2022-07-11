@@ -66,13 +66,13 @@ class MelodionController extends Controller
 
         ]);
 
-
+        date_default_timezone_set('Indian/Reunion');
 
         $memos = new Memos();
         $memos->user_id = Auth::id();
         $memos->videoId = "$id";
         $memos->contenu = $request['contenu'];
-
+        $memos->created_at= now();
         $memos->save();
 
     } catch (Throwable $e) {
@@ -122,6 +122,7 @@ class MelodionController extends Controller
         } else
         //dd($item);
         {
+            date_default_timezone_set('Indian/Reunion');
             DB::table('videos')->insert([
                 "videoId" => $item->id,
                 "title" => $item->snippet->title,

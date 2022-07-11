@@ -52,7 +52,7 @@
                                     </div>
                                 </a>
                                     <div class="card-footer text-muted">
-                                        Published at {{ date('d M Y', strtotime($media->pivot->publishedAt)) }}
+                                        Published at {{ date('d M Y', strtotime($media->pivot->created_at)) }}
                                         <form class="block text-right" action="{{ route('likes') }}" method="POST">
                                             @csrf
 
