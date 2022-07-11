@@ -18,26 +18,26 @@
             </div>
         @endif
         <div class="container mt-4">
-            <div class="row">
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-4">
 
                 {{-- ton end section est là normalement --}}
 
-               
+
                 @if (count($medias) > 0)
-               
+
                 @foreach ($medias as $media)
-                                              
-                        <div class="col-4">
+
+                        <div>
                             <div class="mb-4 card">
                                 <a href="{{ route('watch', $media->pivot->videoId) }}">
                                      {{-- //{{dd($media)}} --}}
                                         @if ($media->pivot->statut )
-                                            <i class="absolute z-10 text-teal-300 fa-solid fa-circle-check"></i>
+                                            <i class="absolute top-5 left-4 z-10 text-teal-300 fa-solid fa-circle-check fa-xl"></i>
                                         @else
-                                            <i class="absolute z-10 text-yellow-600 fa-solid fa-circle-check"></i>
+                                            <i class="absolute z-10 top-5 left-4 text-yellow-600 fa-solid fa-circle-check fa-xl"></i>
                                         @endif
 
-                                    <img src="{{ $media->url }}" alt="yt-image" class="img-fluid w-96 h-auto">
+                                    <img src="{{ $media->url }}" alt="yt-image" class="img-fluid w-full h-auto">
 
                                     <div class="card-body">
                                         <h5> {{ \Illuminate\Support\Str::limit($media->title, $limit = 10, $end = ' ...') }}
@@ -76,19 +76,20 @@
                                     class="px-4 py-2 mb-auto text-sm font-semibold text-white bg-black border border-transparent rounded-md ">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="submit" value="Supprimer">
+                                    <button class="w-full"  type="submit"> <i class="fa-solid fa-trash-can"></i> Supprimer </button>
+                                    {{-- <input type="submit" value=" Supprimer">  --}}
                                 </form>
 
                             </div>
                         </div>
-                   
+
                    @endforeach
                    @else
-                   
+
                        <div class="mt-24 mb-80 text-3xl font-bold text-left text-green-600">
                         La Bibliothèque est vide... </div>
                    @endif
-                  
+
             </div>
         </div>
 

@@ -7,10 +7,10 @@
         </div>
     @endif
     {{-- La partie du haut player et memo --}}
-    <div class="flex flex-col md:flex-row ">
+    <div class="flex flex-col  md:flex-row ">
 
 
-        <div id="monplayer" class="flex flex-col w-full gap-4  md:w-3/5 md:mt-4 md:ml-4">
+        <div id="monplayer" class=" mb-5 flex flex-col w-full gap-4  md:w-3/5 md:mt-4 md:ml-4">
             <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 
             {{-- Le player la barre et le currentime --}}
@@ -95,7 +95,6 @@
                         class="range range-xs range-accent place-self-center" step="1" />
 
                 </div>
-
 
 
                 {{-- lecture en boucle --}}
@@ -318,32 +317,32 @@
             {{-- Le formulaire de memo --}}
             <div class=" flex-col w-full md:w-2/5 sm:my-5 md:ml-4 lg::ml-0">
 
-                <div class="flex flex-row justify-evenly items-center">
+                {{-- Les boutons ajouter et terminer --}}
+                <div class="  gap-2 mb-4 md:mt-2 flex md:flex-row  justify-evenly items-center">
+
                     {{-- bouton pour ajouter la video à la bibliothèque --}}
-                  
                     <form action="{{ route('library') }}" method="post" class="">
                         @csrf
                        @if(!empty($singleVideo->items[0]))
                         <input type="hidden" name="videoId" value="{{$singleVideo->items[0]->id}}">
-                        @else <div class="mt-20 mb-40 text-3xl font-bold text-left text-red-600">La clé API doit être changée dans le fichier .env</div>
-                        @endif                                    
+                        @else <div class=" hidden mt-20 mb-40 text-3xl font-bold text-left text-red-600">La clé API doit être changée dans le fichier .env</div>
+                        @endif
                         @if (null !== Auth::user())
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         @endif
 
                         <input type="submit" class="sr-only" value="valider">
-
-                        <button
-                            class=" text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-end font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2  dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
-                            <i class="fa-solid fa-bookmark fa-red-500"></i> Ajouter à la bibliothèque
+                        {{-- bouton ajouter à la bibliotheque --}}
+                        <button class="  items-center gap-1 flex flex-row text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-end font-medium rounded-lg  px-5 py-2.5 text-center   dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                            <i class="py-1 fa-lg fa-solid fa-bookmark fa-red-500"></i>
+                           <p class="   hidden  xl:flex">
+                               Ajouter à la bibliothèque
+                            </p>
                         </button>
 
                     </form>
-                
+
                     {{-- bouton terminer --}}
-
-
-
                     <form action="/watch" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="statut" value="1">
@@ -353,14 +352,17 @@
                         @if(!empty($singleVideo->items[0]))
                         <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
                         @endif
-                             <button type="submit"
-                            class=" mt-3 px-6 py-2 text-lg text-teal-300 bg-black border-0 rounded focus:outline-none"
-                            aria-required="true" name="submit" id="save"><i class=" pt-1 text-teal-300 fa-solid fa-square-check"> </i>
-                             Terminer
-    
+                        {{-- boutton terminer --}}
+                        {{-- text-teal-300 bg-black border-0 --}}
+
+                        <button type="submit" class="  items-center gap-2 flex flex-row hover:text-green-500 text-white border border-gray-800 bg-black hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 justify-end font-medium rounded-lg  px-5 py-2.5 text-center   dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+                            aria-required="true" name="submit" id="save">
+                            <i class=" fa-lg py-1 text-green-300 fa-solid fa-square-check"> </i>
+                            <p class="  text-base hidden  xl:flex"> Terminer </p>
+
                         </button>
-    
-    
+
+
                      </form>
 
                 </div>
@@ -407,7 +409,7 @@
                             @endif
                             @if(!empty($singleVideo->items[0]))
                             <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
-                            
+
                             @endif
                             <button type="submit"
                                 class="flex flex-row-reverse px-6 py-2 text-lg text-white bg-black border-0 rounded focus:outline-none"
@@ -420,7 +422,7 @@
                 </div>
 
                 <div class="border w-auto m-2 mr-4 text-left">
-                    @foreach ($memos->where('videoId', '=', $id && 'user_id', '=', Auth::user()->id) as $memo)
+                    @foreach ($memos as $memo)
                         @if ($memo->videoId == $id && $memo->user_id == Auth::user()->id)
                             <div class="flex-col  sm:my-5 md:ml-4 lg::ml-0 ">
                                 <div class="flex flex-col justify-evenly items-center m-2">
@@ -441,11 +443,6 @@
 
             </div>
 
-
-
-
-
-
             {{-- Mes memos --}}
 
         @endauth
@@ -460,7 +457,7 @@
         <div class="flex items-center justify-between pb-1 mb-2 border-b">
             <span class="text-base font-semibold text-gray-700 uppercase ">Les mémos des autres
                 utilisateurs</span>
-           
+
         </div>
         @foreach ($memos->where('videoId', '=', $id) as $memo)
             {{-- Memo user1 --}}
@@ -471,7 +468,7 @@
                     src='https://photoclubdethuir.fr/wp-content/uploads/2019/01/avatar_gris-8.png'>
 
 
-        
+
 <div class="flex flex-col pl-2 space-evenly align-center w-auto ">
                     <span class="pt-1 text-sm font-semibold text-red-500 capitalize">
 
@@ -485,7 +482,7 @@
                         {{ $memo->contenu }}
                     </span>
                   </div>
-                   </div> 
+                   </div>
                     @if (null !== Auth::user())
                         @if (Auth::user()->id == $memo->user_id)
                             <div class=" px-4 flex flex-col items-center">
@@ -494,9 +491,9 @@
                             </div>
                         @endif
                     @endif
-              
+
             </div>
     </div>
-    
+
 @endforeach
 @endsection
