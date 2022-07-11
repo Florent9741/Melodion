@@ -40,23 +40,23 @@
                             </button>
                         </div>
 
-                        
-                           
-                                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"> Rédiger un
-                                    mémo
+
+                        <div class="justify-center w-full pl-4 text-center">
+                            <div
+                                class="flex flex-col items-center w-full text-center lg:flex-grow md:items-start md:text-left">
                                 </h1>
                                 <div class="relative mb-4">
                                     <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
                                     <form action="/update/{{$id}}" method="post" class="p-0 m-0">
+
                                         @csrf
                                         <input type="hidden" name="id_memos" value="{{$memo->id}}">
                                         <textarea id="message" name="contenu" cols="50" rows="15"
-                                            
-                                            class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{$memo->contenu}}</textarea>
+                                            class="w-full h-32 px-3 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none resize-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">{{$memo->contenu}}</textarea>
                                             <input type= "hidden" name="user_id" value= "{{Auth::user()->id}}">
                                         <div class="flex justify-center">
                                             <button type="submit"
-                                                class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                                class="inline-flex px-6 py-2 text-lg text-white bg-red-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
 
                                                 Enregistrer
                                             </button>

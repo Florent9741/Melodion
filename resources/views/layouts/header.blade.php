@@ -15,7 +15,8 @@
 
 
     <div class="  sm:order-3 flex justify-end gap-1 fa-2xl mr-2">
-        <i class="fa-solid fa-circle-user text-red-500 "></i>
+       @guest <i class="fa-solid fa-circle-user text-gray-500 "></i> @endguest
+       @auth <i class="fa-solid fa-circle-user text-red-500 "></i> @endauth
         <button id="dropdownDefault" data-dropdown-toggle="dropdown"
             class=" bg-white focus:outline-none font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center "
             type="button"><i class="fa-solid fa-ellipsis-vertical fa-xl hover:text-red-500"></i><button>
@@ -37,15 +38,21 @@
                             <a href="{{ route('index') }}" class="block px-4 py-2  hover:text-red-500">Accueil</a>
                         </li>
                         @auth
-                       
+
+                        <li>
+                            {{Auth::user()->name}}
+                        </li>
                             <li>
                                 @if (!null==Auth::user())
-                                <a href="/biblio/{{Auth::user()->id}}" class="block px-4 py-2 hover:text-red-500">Bibliothèque</a>                           
+                                <a href="/biblio/{{Auth::user()->id}}" class="block px-4 py-2 hover:text-red-500">Bibliothèque</a>
                             @endif
                            </li>
+                           @if (Auth::user()->admin == 1)
                             <li>
                                 <a href="{{ route('user') }}" class="block px-4 py-2 hover:text-red-500">Tableau de bord</a>
                             </li>
+                            @endif
+
 
                             <li>
                                 <a href="{{ route('signout') }}" class="block px-4 py-2 hover:text-red-500">Deconnexion</a>
