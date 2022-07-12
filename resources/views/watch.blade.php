@@ -415,7 +415,7 @@
                         @if ($memo->videoId == $id && $memo->user_id == Auth::user()->id)
                             <div class="flex flex-row justify-between border-t border-gray-200 sm:my-5 md:mx-4  lg::ml-0 ">
 
-                                {{ $memo->created_at->format('d/m/Y') }}
+                                {{ $memo->created_at->format('d/m/Y H:i:s'  ) }}
 
                                 <div class="flex flex-col w-full justify-evenly items-center m-2">
                                     <div class="flex flex-row w-full  justify-between items-center bg-slate-50 border-slate-400 border rounded-lg  p-2 ">
