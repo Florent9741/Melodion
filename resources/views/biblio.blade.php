@@ -1,9 +1,9 @@
-@extends('master')
+@extends('layouts.app')
 
-@section('content')
+@section('main')
     <section class="text-gray-600 body-font">
         @if ($errors->any())
-            <div class="text-red-600 text-2xl text-left font-semibold">
+            <div class="text-2xl font-semibold text-left text-red-600">
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -13,94 +13,85 @@
         @endif
 
         @if (session('status'))
-            <div class="text-3xl text-left font-bold text-green-600 mt-20 mb-10">
+            <div class="mt-20 mb-10 text-3xl font-bold text-left text-green-600">
                 {{ session('status') }}
             </div>
         @endif
-        <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-            @if (isset($biblio))
-                <iframe class="rounded " src="https://www.youtube.com/embed/{{ $biblio[0]->videoId }}" width="854"
-                    height="600" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-            @endif
-            <div
-                class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"> Rédiger un mémo
-                </h1>
-                <div class="relative mb-4">
-                    <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
-                    <form action="/biblio/{id}" method="post">
-                        @csrf
+        <div class="container mt-4">
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-4">
 
-                        <input type="hidden" name="videoId" value="">
+                {{-- ton end section est là normalement --}}
 
-                        <input type="hidden" name="user_id" value="">
 
-                        <textarea id="message" name="contenu" cols="50" rows="15"
-                            class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                @if (count($medias) > 0)
 
-                        <div class="flex justify-center">
-                            <button
-                            type="submit"
-                                class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                                
-                                Enregistrer
-                             </button>
+                @foreach ($medias as $media)
 
+                        <div>
+                            <div class="mb-4 card">
+                                <a href="{{ route('watch', $media->pivot->videoId) }}">
+                                     {{-- //{{dd($media)}} --}}
+                                        @if ($media->pivot->statut )
+                                            <i class="absolute top-5 left-4 z-10 text-teal-300 fa-solid fa-circle-check fa-xl"></i>
+                                        @else
+                                            <i class="absolute z-10 top-5 left-4 text-yellow-600 fa-solid fa-circle-check fa-xl"></i>
+                                        @endif
+
+                                    <img src="{{ $media->url }}" alt="yt-image" class="img-fluid w-full h-auto">
+
+                                    <div class="card-body">
+                                        <h5> {{ \Illuminate\Support\Str::limit($media->title, $limit = 10, $end = ' ...') }}
+                                        </h5>
+                                        @if (!empty($media->description))
+                                            <p>{{ \Illuminate\Support\Str::limit($media->description, $limit = 20, $end = ' ...') }}
+                                            </p>
+                                        @else
+                                            <p> <br></p>
+                                        @endif
+
+                                    </div>
+                                </a>
+                                    <div class="card-footer text-muted">
+                                        Published at {{ date('d M Y', strtotime($media->pivot->created_at)) }}
+                                        <form class="block text-right" action="{{ route('likes') }}" method="POST">
+                                            @csrf
+
+                                            <input type="hidden" name="videoId" value="{{ $media->pivot->videoId }}">
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
+                                            <div
+                                                class="inline-block p-0 m-0 text-right duration-300 ease-in-out hover:text-green-500">
+                                                <button type="submit" name="like" class="pointer-events-none"
+                                                    value="1"><i
+                                                        class="fa-solid fa-thumbs-up">  </i> {{  $media->countlike }}</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+
+                                <form
+                                    action="{{ route('biblio.destroy', $media->pivot->videoId . '?userId=' . Auth::user()->id) }}"
+                                    method="POST"
+                                    class="px-4 py-2 mb-auto text-sm font-semibold text-white bg-black border border-transparent rounded-md ">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="w-full"  type="submit"> <i class="fa-solid fa-trash-can"></i> Supprimer </button>
+                                    {{-- <input type="submit" value=" Supprimer">  --}}
+                                </form>
+
+                            </div>
                         </div>
 
-                    </form>
-                </div>
+                   @endforeach
+                   @else
 
+                       <div class="mt-24 mb-80 text-3xl font-bold text-left text-green-600">
+                        La Bibliothèque est vide... </div>
+                   @endif
 
             </div>
         </div>
-        {{-- ton end section est là normalement --}}
-        <div class="container mx-auto flex">
-            @if (isset($biblio))
-                {
-                @foreach ($videos as $item)
-                    <a href="{{ route('watch', $item->videoId) }}" class="w-64 h-auto">
-                        <div class="card mb-4">
-                            <img src="{{ $item->url }}" alt="yt-image" class="w-64 h-auto">
-                            <div class="card-body">
-                                <h5>{{ $item->title }}</h5>
-                                <p>{{ \Illuminate\Support\Str::limit($item->description, $limit = 50, $end = ' ...') }}</p>
-                            </div>
-                            <div class="card-footer text-muted">
-                                Published at {{ date('d M Y', strtotime($item->publishedAt)) }}
-                            </div>
-                        </div>
-                    </a>
-                @endforeach
-                }
-            @endif
-        </div>
 
-        <div class="flex flex-col p-5">
-            <div class="border-b pb-1 flex justify-between items-center mb-2">
-                <span class=" text-base font-semibold uppercase text-gray-700">Les mémos des autres utilisateurs</span>
-                <img class="w-4 cursor-pointer"
-                    src="https://p.kindpng.com/picc/s/152-1529312_filter-ios-filter-icon-png-transparent-png.png" />
-            </div>
-            
-            <div class="flex border-b py-3 cursor-pointer hover:shadow-md px-2 ">
-                <img class='w-10 h-10 object-cover rounded-lg' alt='User avatar'
-                    src='https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200'>
-                <div class="flex flex-col px-2 w-full">
 
-                    <span class="text-sm text-red-500 capitalize font-semibold pt-1">
-                        Arnaud
-                    </span>
-                    <span class="text-xs text-gray-500 uppercase font-medium ">
-                        -"Boston," Augustana
-                    </span>
-                </div>
-            </div>
-           
-        </div>
-
-    </section>
-
-@endsection
+    @endsection

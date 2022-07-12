@@ -97,7 +97,10 @@ class Authcontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User :: all();
+       if($user->role == "administrateur"){
+
+       }
     }
 
     /**
