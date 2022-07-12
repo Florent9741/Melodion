@@ -21,7 +21,7 @@
                     </a>
                 </div>
                @endforeach
-                @else <div class="mt-20 mb-40 text-3xl font-bold text-left text-red-600"> <i class="fa-solid fa-triangle-exclamation"></i> La clé API doit être changée dans le fichier .env</div>
+                @else <div class="mt-20 mb-40 text-3xl font-bold text-left text-red-600"> <i class="fa-solid fa-triangle-exclamation"></i>Un problème est survenu veuillez reessayer ultérieument.</div>
                 @endif
                 </div>
             </div>

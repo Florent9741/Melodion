@@ -15,7 +15,7 @@
             {{-- Le player la barre et le currentime --}}
             <div class="flex flex-col ">
                 @if(empty($singleVideo->items[0]))
-                <div class=" mb-10  text-xl font-bold text-left text-red-600"> <i class="fa-solid fa-triangle-exclamation"></i> La clé API doit être changée dans le fichier .env</div>
+                <div class=" mb-10  text-xl font-bold text-left text-red-600"> <i class="fa-solid fa-triangle-exclamation"></i> Un problème est survenu veuillez reessayer ultérieument.</div>
                 @endif
                 <div id="player" class="w-auto h-full md:w-full md:h-80 md:rounded">
                 </div>
