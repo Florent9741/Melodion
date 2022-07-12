@@ -10,8 +10,8 @@
             <h2 class="md:text-4xl">Votre application de relevé de note en ligne</h2>
 
             <form class="d-flex mt-2 " method="GET" action="{{ route('results') }}">
-                <input class="form-control me-2" type="search" name="search_query" placeholder="Recherchez/entrez une URL" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Recherchez</button>
+                <input class="shadow form-control me-2" type="search" name="search_query" placeholder="Recherchez/entrez une URL" aria-label="Search">
+                <button class="shadow btn btn-outline-success" type="submit">Recherchez</button>
             </form>
 
         </div>
@@ -23,9 +23,9 @@
         @foreach ($videos as $video)
 
 
-        <div >
+        <div>
             <a href="{{route('watch', $video->videoId)}}" class="href">
-                <div class="card mb-4">
+                <div class="card mb-4  shadow transition ease-in-out delay-100  hover:-translate-y-1 hover:scale-110 duration-110">
                     <img src="{{$video->url}}" class="img-fluid text-xs" alt="...">
                     <div class="card-body">
                         <h5 class="card-title ">{{\Illuminate\Support\Str::limit($video->title,$limit=20,$end=' ...')}}</h5>

@@ -18,7 +18,7 @@
 
     @else
     <form class=" d-flex w-3/5 pl-2 md:w-2/5 md:justify-center items-center sm:order-2" method="GET" action="{{ route('results') }}">
-        <input class="  w-full h-7 rounded-full form-control me-2" type="search" name="search_query" placeholder="Recherchez une video ou une URL.." aria-label="Search">
+        <input class=" border-none  w-full h-7 rounded-full form-control me-2" type="search" name="search_query" placeholder="Recherchez une video ou une URL.." aria-label="Search">
         <button class="btn  md:hidden items-center justify-center" type="submit">  <i class="fa-solid fa-magnifying-glass text-green-600 "></i> </button>
     </form>
     @endif

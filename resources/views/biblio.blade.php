@@ -28,7 +28,7 @@
                 @foreach ($medias as $media)
 
                         <div>
-                            <div class="mb-4 card">
+                            <div class="mb-4 card shadow transition ease-in-out delay-100  hover:-translate-y-1 hover:scale-110 duration-110">
                                 <a href="{{ route('watch', $media->pivot->videoId) }}">
                                      {{-- //{{dd($media)}} --}}
                                         @if ($media->pivot->statut )
@@ -52,7 +52,7 @@
                                     </div>
                                 </a>
                                     <div class="card-footer text-muted">
-                                        Published at {{ date('d M Y', strtotime($media->pivot->created_at)) }}
+                                        Publiée le {{ date('d M Y', strtotime($media->pivot->created_at)) }}
                                         <form class="block text-right" action="{{ route('likes') }}" method="POST">
                                             @csrf
 
