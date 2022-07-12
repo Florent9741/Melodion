@@ -18,20 +18,20 @@
 
 
 
- <div class="container mt-4">
-    <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-4">
+        <div class="container  mt-4 ">
+        <div class=" grid sm:grid-cols-1 md:grid-cols-4 md:gap-4">
         @foreach ($videos as $video)
 
 
-        <div >
-            <a href="{{route('watch', $video->videoId)}}" class="href">
+    <div  >
+        <a href="{{route('watch', $video->videoId)}}" class="href">
                 <div class="card mb-4">
-                    <img src="{{$video->url}}" class="img-fluid text-xs" alt="...">
+                    <img src="{{$video->url}}" class="img-fluid" alt="..." >
                     <div class="card-body">
-                        <h5 class="card-title ">{{\Illuminate\Support\Str::limit($video->title,$limit=20,$end=' ...')}}</h5>
+                        <h5 class="card-titled text-xs">{{\Illuminate\Support\Str::limit($video->title,$limit=50,$end=' ...')}}</h5>
                     </div>
-                    <div class="card-footer text-muted ">
-                       Publiée le {{date('d M Y',strtotime($video->publishedAt)) }}
+                    <div class="card-footer text-muted text-xs ">
+                       Published at {{date('d M Y',strtotime($video->publishedAt)) }}
                        <form class="block text-right" action="{{route('likes')}}" method="POST">
                            @csrf
                            @if (!null==(Auth::user()))
@@ -43,9 +43,10 @@
                        </form>
                     </div>
                 </div>
-            </a>
-
-    </div>
+            </a> 
+  
+           
+    </div> 
         @endforeach
 
 </div>

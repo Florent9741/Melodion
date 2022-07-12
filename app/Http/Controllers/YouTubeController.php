@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 
 
+
 class YouTubeController extends Controller
 {
     public function index()
@@ -46,14 +47,14 @@ class YouTubeController extends Controller
     }
     public function watch($id)
     {
-        $memos = Memos::all();
+        $memos = Memos::all(); // TODO :recuperé le memo de la video
         $singleVideo= $this->_singleVideo($id);
         if (session('search_query')){
             $videoLists= $this->_videoLists(session('search_query'));
         }else {
             $videoLists= $this->_videoLists('cours de musique');
         }
-        return view('watch', compact('singleVideo','videoLists','memos','id'));
+        return view('watch', compact('singleVideo','videoLists','id','memos'));
     }
 
   

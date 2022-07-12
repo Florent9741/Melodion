@@ -9,7 +9,8 @@
     {{-- La partie du haut player et memo --}}
     <div class="flex flex-col  md:flex-row ">
 
-        <div id="monplayer" class=" mb-5 flex flex-col w-full gap-4  md:w-3/5 md:mt-4 md:ml-4">
+
+        <div id="monplayer" class="flex flex-col w-full gap-4 md:w-3/5 md:mt-4 md:ml-4">
             <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
 
             {{-- Le player la barre et le currentime --}}
@@ -407,6 +408,23 @@
 
 
 
+
+                        <form action="/watch" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="statut" value="1">
+                            @if (!null == Auth::user())
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            @endif
+                            <input type="hidden" name="videoId" value="{{ $singleVideo->items[0]->id }}">
+
+                            <button type="submit"
+                                class="flex flex-row-reverse px-6 py-2 text-lg text-white bg-black border-0 rounded focus:outline-none"
+                                aria-required="true" name="submit" id="save">
+                                Terminer
+
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 {{-- NOS MEMOS  --}}
                 <h1 class=" text-center mb-4 text-3xl font-medium text-gray-900 title-font sm:text-4xl">
@@ -442,6 +460,11 @@
 
 
             </div>
+
+
+
+
+
 
             {{-- Mes memos --}}
 

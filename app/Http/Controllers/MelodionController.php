@@ -66,13 +66,12 @@ class MelodionController extends Controller
 
         ]);
 
-        date_default_timezone_set('Indian/Reunion');
+
 
         $memos = new Memos();
         $memos->user_id = Auth::id();
         $memos->videoId = "$id";
         $memos->contenu = $request['contenu'];
-        $memos->created_at= now();
         $memos->save();
 
     } catch (Throwable $e) {
@@ -233,5 +232,16 @@ class MelodionController extends Controller
 
             return redirect()->route('biblio', $request->user_id)->with('status', 'vidéo terminée');
         }
+    }
+
+   
+
+    public function memodelete($id)
+    {
+    
+        $memos = memos::find($id);
+        
+        $memos->delete();
+        return redirect()->route('watch', $memos->videoId);
     }
 }

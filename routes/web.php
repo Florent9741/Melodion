@@ -36,7 +36,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('library', [MelodionController::class, 'addtolibrary'])->name('library');
     Route::get('/biblio/{id}', [MelodionController::class, 'show'])->name('biblio');
     Route::delete('/biblio/{id}', [MelodionController::class, 'destroy'])->name('biblio.destroy');
-    Route::post('/index', [MelodionController::class, 'creatememo'])->name('memos');
     Route::post('/watch', [MelodionController::class, 'terminer'])->name('terminer');
     Route::post('/', [YouTubeController::class, 'likes'])->name('likes');
     Route::get('/showdelete/{id}', [UserController::class, 'showdel']);
